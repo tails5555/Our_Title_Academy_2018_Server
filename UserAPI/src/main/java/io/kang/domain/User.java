@@ -1,7 +1,9 @@
 package io.kang.domain;
 
 import io.kang.enumeration.Type;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,24 +12,29 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Data
 @Entity
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private long id;
 
     @Column(unique=true, nullable=false)
-    String loginId;
+    private String loginId;
 
     @Column(nullable=false)
-    String nickname;
+    private String nickname;
 
     @Column(nullable=false)
-    String password;
+    private String password;
 
     @Column(nullable=false)
     @Enumerated(EnumType.ORDINAL)
-    Type userType;
+    private Type userType;
 }

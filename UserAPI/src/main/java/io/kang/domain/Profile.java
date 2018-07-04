@@ -1,8 +1,9 @@
 package io.kang.domain;
 
 import io.kang.enumeration.Suffix;
-import io.kang.enumeration.Type;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,32 +17,37 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Profile {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Profile implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private long id;
 
     @OneToOne
     @JoinColumn(name="userId")
-    User user;
+    private User user;
 
     @Column(nullable=false)
-    String fileName;
+    private String fileName;
 
-    int fileSize;
+    private int fileSize;
 
     @Basic(fetch=FetchType.LAZY)
     @Lob
-    byte[] fileBytes;
+    private byte[] fileBytes;
 
     @Column(nullable=false)
     @Enumerated(EnumType.ORDINAL)
-    Suffix fileSuffix;
+    private Suffix fileSuffix;
 
     @Column(nullable=false)
-    LocalDateTime uploadDate;
+    private LocalDateTime uploadDate;
 }
