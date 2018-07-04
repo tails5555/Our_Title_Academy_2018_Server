@@ -1,56 +1,48 @@
 package io.kang.unit_test.domain_unit;
 
 import io.kang.domain.Age;
-import org.junit.Before;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.io.IOException;
-import java.text.ParseException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-@JsonTest
-@SpringBootTest(classes = io.kang.main.UserApiApplication.class)
-@RunWith(SpringJUnit4ClassRunner.class)
 public class AgeUnitTest {
 
-    private JacksonTester<Age> jacksonTester;
     private static final long ID = 1L;
     private static final String NAME = "AGE01";
-    private static final String JSON_TO_DESERIALIZE = String.format("{\"id\":%d,\"name\":\"%s\"}", ID, NAME);
-    private Age age;
 
-    @Before
-    public void setup() throws ParseException {
-        age = new Age(ID, NAME);
+    @Test
+    public void idGetterAndSetterTesting() throws IOException {
+        Age age = new Age();
+        age.setId(ID);
+        long id = age.getId();
+        Assert.assertEquals(id, ID);
     }
 
     @Test
-    public void idSerializes() throws IOException {
-        assertThat(this.jacksonTester.write(age))
-                .extractingJsonPathStringValue("@.id")
-                .isEqualTo(ID);
+    public void nameGetterAndSetterTesting() throws IOException{
+        Age age = new Age();
+        age.setName(NAME);
+        String name = age.getName();
+        Assert.assertEquals(name, NAME);
     }
 
     @Test
-    public void nameSerializes() throws IOException {
-        assertThat(this.jacksonTester.write(age))
-                .extractingJsonPathStringValue("@.name")
-                .isEqualTo(NAME);
+    public void equalsTesting() throws IOException{
+        Age age = new Age();
+        age.setId(ID);
+        age.setName(NAME);
+
+        Age sameAge = new Age(ID, NAME);
+        Assert.assertTrue(sameAge.equals(age));
     }
 
     @Test
-    public void idDeserializes() throws IOException {
-        assertThat(this.jacksonTester.parseObject(JSON_TO_DESERIALIZE).getId()).isEqualTo(ID);
-    }
+    public void toStringTesting() throws IOException{
+        Age age = new Age();
+        age.setId(ID);
+        age.setName(NAME);
 
-    @Test
-    public void nameDeserializes() throws IOException {
-        assertThat(this.jacksonTester.parseObject(JSON_TO_DESERIALIZE).getName()).isEqualTo(NAME);
+        String string = age.toString();
+        Assert.assertEquals(string, "Age(id=1, name=AGE01)");
     }
 }
