@@ -4,6 +4,7 @@ import io.kang.enumeration.Suffix;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Basic;
@@ -22,15 +23,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"user"})
+@Entity
 public class Profile implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToOne
     @JoinColumn(name="userId")
@@ -39,7 +41,8 @@ public class Profile implements Serializable {
     @Column(nullable=false)
     private String fileName;
 
-    private int fileSize;
+    @Column(nullable=false)
+    private Integer fileSize;
 
     @Basic(fetch=FetchType.LAZY)
     @Lob

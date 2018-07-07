@@ -3,6 +3,7 @@ package io.kang.domain;
 import io.kang.enumeration.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -15,15 +16,16 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"detail"})
+@Entity
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique=true, nullable=false)
     private String loginId;
