@@ -81,7 +81,7 @@ public class AgeRepositoryUnitTest {
     public void age_create_test(){
         Age age = AgeCreateSingleton.INSTANCE.getInstance();
         Age createAge = ageRepository.save(age);
-        Assert.assertTrue(createAge.getId() != 0L);
+        Assert.assertTrue(createAge.getId() != null);
     }
 
     @Test

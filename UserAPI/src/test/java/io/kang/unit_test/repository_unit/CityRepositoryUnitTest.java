@@ -1,7 +1,6 @@
 package io.kang.unit_test.repository_unit;
 
 import io.kang.domain.City;
-import io.kang.repository.AgeRepository;
 import io.kang.repository.CityRepository;
 import io.kang.test_config.JpaTestConfig;
 import io.kang.unit_test.repository_unit.singleton_object.CityCreateSingleton;
@@ -82,7 +81,7 @@ public class CityRepositoryUnitTest {
     public void city_create_test(){
         City city = CityCreateSingleton.INSTANCE.getInstance();
         City createCity = cityRepository.save(city);
-        Assert.assertTrue(createCity.getId() != 0L);
+        Assert.assertTrue(createCity.getId() != null);
     }
 
     @Test
