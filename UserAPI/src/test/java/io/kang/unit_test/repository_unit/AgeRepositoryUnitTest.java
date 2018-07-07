@@ -81,7 +81,7 @@ public class AgeRepositoryUnitTest {
     public void age_create_test(){
         Age age = AgeCreateSingleton.INSTANCE.getInstance();
         Age createAge = ageRepository.save(age);
-        Assert.assertTrue(createAge.getId() != 0);
+        Assert.assertTrue(createAge.getId() != 0L);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class AgeRepositoryUnitTest {
         Age age = ageRepository.getOne(1L);
         ageRepository.delete(age);
         Optional<Age> afterAge = ageRepository.findById(1L);
-        Assert.assertTrue(!afterAge.isPresent());
+        Assert.assertFalse(afterAge.isPresent());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class AgeRepositoryUnitTest {
     public void age_delete_by_id_test(){
         ageRepository.deleteById(1L);
         Optional<Age> afterAge = ageRepository.findById(1L);
-        Assert.assertTrue(!afterAge.isPresent());
+        Assert.assertFalse(afterAge.isPresent());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class AgeRepositoryUnitTest {
 
     @Test
     public void age_exists_by_id_failure_test(){
-        Assert.assertTrue(!ageRepository.existsById(0L));
+        Assert.assertFalse(ageRepository.existsById(0L));
     }
 
     @Test
