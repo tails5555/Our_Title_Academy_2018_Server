@@ -1,9 +1,10 @@
-package io.kang.main;
+package io.kang;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class UserApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApiApplication.class, args);
