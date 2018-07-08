@@ -121,7 +121,7 @@ public class UserRepositoryUnitTest {
     }
 
     @Test
-    public void detail_count_test(){
+    public void user_count_test(){
         long count = userRepository.count();
         List<User> users = userRepository.findAll();
         Assert.assertEquals(count, (long) users.size());
