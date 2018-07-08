@@ -37,6 +37,6 @@ public class User implements Serializable {
     private String password;
 
     @Column(nullable=false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Type userType;
 }

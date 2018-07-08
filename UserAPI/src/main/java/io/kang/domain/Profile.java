@@ -49,7 +49,7 @@ public class Profile implements Serializable {
     private byte[] fileBytes;
 
     @Column(nullable=false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Suffix fileSuffix;
 
     @Column(nullable=false)
