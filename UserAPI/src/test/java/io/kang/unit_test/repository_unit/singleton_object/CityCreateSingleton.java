@@ -6,8 +6,8 @@ public enum CityCreateSingleton {
     INSTANCE;
     private City city = new City(null, "CITY_NAME00");
     public City getInstance(){
-        if(city == null)
+        if(this.city == null)
             return new City(null, "CITY_NAME00");
-        else return city;
+        else return this.city;
     }
 }

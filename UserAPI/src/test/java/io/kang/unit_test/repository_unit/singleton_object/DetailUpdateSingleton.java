@@ -10,11 +10,20 @@ public enum DetailUpdateSingleton {
     private Age age = AgeUpdateSingleton.INSTANCE.getInstance();
     private City city = CityUpdateSingleton.INSTANCE.getInstance();
     private User user = UserUpdateSingleton.INSTANCE.getInstance();
-    private Detail detail = new Detail(1L, user, "NAME1", "DETAIL_EMAIL01", "HOME_NUMBER01", "PHONE_NUMBER01", city, age);
+    private Detail detail = new Detail(1L, this.user, "NAME1", "DETAIL_EMAIL01", "HOME_NUMBER01", "PHONE_NUMBER01", this.city, this.age);
     public Detail getInstance(){
-        if(detail == null){
-            return new Detail(1L, user, "NAME1", "DETAIL_EMAIL01", "HOME_NUMBER01", "PHONE_NUMBER01", city, age);
+        if(this.age == null){
+            this.age = AgeUpdateSingleton.INSTANCE.getInstance();
         }
-        else return detail;
+        if(this.city == null){
+            this.city = CityUpdateSingleton.INSTANCE.getInstance();
+        }
+        if(this.user == null){
+            this.user = UserUpdateSingleton.INSTANCE.getInstance();
+        }
+        if(this.detail == null){
+            return new Detail(1L, this.user, "NAME1", "DETAIL_EMAIL01", "HOME_NUMBER01", "PHONE_NUMBER01", this.city, this.age);
+        }
+        else return this.detail;
     }
 }

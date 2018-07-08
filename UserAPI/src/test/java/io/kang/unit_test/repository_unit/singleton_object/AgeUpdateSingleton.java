@@ -8,6 +8,6 @@ public enum AgeUpdateSingleton {
     public Age getInstance(){
         if(this.age == null)
             return new Age(1L, "AGE_NAME01");
-        else return age;
+        else return this.age;
     }
 }
