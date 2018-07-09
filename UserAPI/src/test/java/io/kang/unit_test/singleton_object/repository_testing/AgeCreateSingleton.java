@@ -1,4 +1,4 @@
-package io.kang.unit_test.repository_unit.singleton_object;
+package io.kang.unit_test.singleton_object.repository_testing;
 
 import io.kang.domain.Age;
 

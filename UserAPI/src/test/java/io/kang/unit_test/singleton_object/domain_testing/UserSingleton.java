@@ -1,4 +1,4 @@
-package io.kang.unit_test.domain_unit.singleton_object;
+package io.kang.unit_test.singleton_object.domain_testing;
 
 import io.kang.domain.User;
 import io.kang.enumeration.Type;
