@@ -4,9 +4,9 @@ import io.kang.domain.Age;
 import io.kang.domain.City;
 import io.kang.domain.Detail;
 import io.kang.domain.User;
-import io.kang.unit_test.domain_unit.singleton_object.AgeSingleton;
-import io.kang.unit_test.domain_unit.singleton_object.CitySingleton;
-import io.kang.unit_test.domain_unit.singleton_object.UserSingleton;
+import io.kang.unit_test.singleton_object.domain_testing.AgeSingleton;
+import io.kang.unit_test.singleton_object.domain_testing.CitySingleton;
+import io.kang.unit_test.singleton_object.domain_testing.UserSingleton;
 import org.junit.Assert;
 import org.junit.Test;
 

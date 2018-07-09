@@ -3,7 +3,7 @@ package io.kang.unit_test.domain_unit;
 import io.kang.domain.Profile;
 import io.kang.domain.User;
 import io.kang.enumeration.Suffix;
-import io.kang.unit_test.domain_unit.singleton_object.UserSingleton;
+import io.kang.unit_test.singleton_object.domain_testing.UserSingleton;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -3,8 +3,8 @@ package io.kang.unit_test.repository_unit;
 import io.kang.domain.Profile;
 import io.kang.repository.ProfileRepository;
 import io.kang.test_config.JpaTestConfig;
-import io.kang.unit_test.repository_unit.singleton_object.ProfileCreateSingleton;
-import io.kang.unit_test.repository_unit.singleton_object.ProfileUpdateSingleton;
+import io.kang.unit_test.singleton_object.repository_testing.ProfileCreateSingleton;
+import io.kang.unit_test.singleton_object.repository_testing.ProfileUpdateSingleton;
 import org.hibernate.LazyInitializationException;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.security.core.parameters.P;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
