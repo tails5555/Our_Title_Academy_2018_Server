@@ -3,8 +3,10 @@ package io.kang.vo;
 import io.kang.domain.Age;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode
 @AllArgsConstructor
 public class AgeVO {
     private Long id;
