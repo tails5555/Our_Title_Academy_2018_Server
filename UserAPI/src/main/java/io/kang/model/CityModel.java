@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CityModel {
-    Long id;
-    String name;
+    private Long id;
+    private String name;
     public static CityModel builtToModel(CityVO cityVO){
         return new CityModel(cityVO.getId(), cityVO.getName());
     }

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AgeModel {
-    Long id;
-    String name;
+    private Long id;
+    private String name;
     public static AgeModel builtToModel(AgeVO ageVO){
         return new AgeModel(ageVO.getId(), ageVO.getName());
     }
