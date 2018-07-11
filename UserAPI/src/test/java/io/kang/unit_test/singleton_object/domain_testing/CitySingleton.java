@@ -4,10 +4,10 @@ import io.kang.domain.City;
 
 public enum CitySingleton {
     INSTANCE;
-    private City city = new City(1L, "CITY01");
+    private City city = new City(1L, "CITY_NAME01");
     public City getInstance(){
         if(city==null)
-            return new City(1L, "CITY01");
+            return new City(1L, "CITY_NAME01");
         else return city;
     }
 }
