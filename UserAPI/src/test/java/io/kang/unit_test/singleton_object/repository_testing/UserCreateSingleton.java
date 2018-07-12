@@ -5,10 +5,10 @@ import io.kang.enumeration.Type;
 
 public enum UserCreateSingleton {
     INSTANCE;
-    private User user = new User(null, "USER_LOGIN_ID00", "USER_NICKNAME00", "USER_PASSWORD00", Type.USER);
+    private User user = new User(null, "USER_LOGIN_ID01", "USER_NICKNAME01", "USER_PASSWORD01", Type.USER);
     public User getInstance(){
         if(this.user==null){
-            return new User(null, "USER_LOGIN_ID00", "USER_NICKNAME00", "USER_PASSWORD00", Type.USER);
+            return new User(null, "USER_LOGIN_ID01", "USER_NICKNAME01", "USER_PASSWORD01", Type.USER);
         }
         else return this.user;
     }

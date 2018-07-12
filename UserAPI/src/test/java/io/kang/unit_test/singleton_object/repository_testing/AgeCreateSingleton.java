@@ -4,10 +4,10 @@ import io.kang.domain.Age;
 
 public enum AgeCreateSingleton {
     INSTANCE;
-    private Age age = new Age(null, "AGE_NAME00");
+    private Age age = new Age(null, "AGE_NAME01");
     public Age getInstance(){
         if(this.age == null)
-            return new Age(null, "AGE_NAME00");
+            return new Age(null, "AGE_NAME01");
         else return this.age;
     }
 }
