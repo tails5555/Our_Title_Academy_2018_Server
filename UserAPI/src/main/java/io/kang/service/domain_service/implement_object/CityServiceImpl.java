@@ -71,7 +71,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public void deleteById(final Long id){
-        cityRepository.existsById(id);
+        cityRepository.deleteById(id);
     }
 
     @Override

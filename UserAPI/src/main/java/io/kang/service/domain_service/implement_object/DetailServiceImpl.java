@@ -54,7 +54,7 @@ public class DetailServiceImpl implements DetailService {
 
     @Override
     public void deleteById(final Long id) {
-        detailRepository.existsById(id);
+        detailRepository.deleteById(id);
     }
 
     @Override
