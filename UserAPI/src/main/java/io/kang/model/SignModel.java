@@ -1,7 +1,10 @@
 package io.kang.model;
 
-import io.kang.vo.PrincipalVO;
-import io.kang.vo.SignVO;
+import io.kang.enumeration.Type;
+import io.kang.vo.AgeVO;
+import io.kang.vo.CityVO;
+import io.kang.vo.DetailVO;
+import io.kang.vo.UserVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,15 +17,26 @@ public class SignModel {
     private String mainPassword;
     private String subPassword;
     private String name;
+    private String nickname;
     private String email;
     private String homeNumber;
     private String phoneNumber;
     private Long ageId;
     private Long cityId;
-    public static SignModel builtToModel(SignVO signVO){
-        return new SignModel(signVO.getLoginId(), signVO.getMainPassword(), signVO.getSubPassword(), signVO.getName(), signVO.getEmail(), signVO.getHomeNumber(), signVO.getPhoneNumber(), signVO.getAgeId(), signVO.getCityId());
+    private Type type;
+    public boolean isPasswordEquals(){
+        return this.mainPassword.equals(this.subPassword);
     }
-    public static SignVO builtToVO(SignModel signModel){
-        return new SignVO(signModel.getLoginId(), signModel.getMainPassword(), signModel.getSubPassword(), signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), signModel.getAgeId(), signModel.getCityId());
+    public static UserVO builtToUserVO(SignModel signModel){
+        return new UserVO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), signModel.getType());
+    }
+    public static DetailVO builtToDetailVO(SignModel signModel, UserVO userVO, AgeVO ageVO, CityVO cityVO){
+        return new DetailVO(null, userVO, signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), cityVO, ageVO);
+    }
+    public static SignModel builtToSignModel(DetailVO detailVO, AgeVO ageVO, CityVO cityVO){
+        UserVO userVO = detailVO.getUser();
+        if(userVO != null){
+            return new SignModel(userVO.getLoginId(), "", "", detailVO.getName(), userVO.getNickname(), detailVO.getEmail(), detailVO.getHomeNumber(), detailVO.getPhoneNumber(), ageVO.getId(), cityVO.getId(), userVO.getUserType());
+        } else return null;
     }
 }
