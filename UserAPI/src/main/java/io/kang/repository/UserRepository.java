@@ -13,4 +13,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public Optional<User> findByLoginId(String loginId);
     public List<User> findByUserType(Type type);
     public List<User> findByNicknameContains(String nickname);
+    public void deleteByLoginId(String loginId);
 }

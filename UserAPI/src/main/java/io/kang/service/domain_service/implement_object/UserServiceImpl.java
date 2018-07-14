@@ -82,6 +82,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteByLoginId(final String loginId) {
+        userRepository.deleteByLoginId(loginId);
+    }
+
+    @Override
     public boolean existsById(final Long id) {
         return userRepository.existsById(id);
     }

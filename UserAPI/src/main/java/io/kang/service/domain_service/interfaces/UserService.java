@@ -15,6 +15,7 @@ public interface UserService {
     public UserVO create(final UserVO userVO);
     public UserVO update(final UserVO userVO);
     public void deleteById(final Long id);
+    public void deleteByLoginId(final String loginId);
     public boolean existsById(final Long id);
     public long count();
 }
