@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 
 public enum ProfileVOUpdateSingleton {
     INSTANCE;
-    private ProfileVO profileVO = new ProfileVO(1L, UserVOSingleton.INSTANCE.getInstance(), "PROFILE_FILE_NAME_01", 0, new byte[0], Suffix.PNG, LocalDateTime.now());
+    private ProfileVO profileVO = new ProfileVO(1L, UserVOSingleton.INSTANCE.getInstance(), "PROFILE_FILE_NAME_01", 0, new byte[0], Suffix.PNG, LocalDateTime.MIN);
     public ProfileVO getInstance(){
         if(this.profileVO == null)
-            return new ProfileVO(1L, UserVOSingleton.INSTANCE.getInstance(), "PROFILE_FILE_NAME_01", 0, new byte[0], Suffix.PNG, LocalDateTime.now());
+            return new ProfileVO(1L, UserVOSingleton.INSTANCE.getInstance(), "PROFILE_FILE_NAME_01", 0, new byte[0], Suffix.PNG, LocalDateTime.MIN);
         else return this.profileVO;
     }
 }

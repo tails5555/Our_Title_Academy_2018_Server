@@ -86,7 +86,25 @@ public class ProfileServiceUnitTest {
         Assert.assertEquals(profileVO, null);
     }
 
-    // update, create 테스트는 논리적인 오류가 있어서 잠깐 수정 뒤 이어 하겠습니다.
+    @Test
+    public void profile_create_test(){
+        Profile createBefore = ProfileCreateSingleton.INSTANCE.getInstance();
+        Profile createAfter = ProfileUpdateSingleton.INSTANCE.getInstance();
+        when(profileRepository.save(createBefore)).thenReturn(createAfter);
+
+        ProfileVO createProfileVO = profileService.create(ProfileVOCreateSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(createProfileVO, ProfileVOSingleton.INSTANCE.getInstance());
+    }
+
+    @Test
+    public void profile_update_test(){
+        Profile updateBefore = ProfileUpdateSingleton.INSTANCE.getInstance();
+        Profile updateAfter = ProfileUpdateSingleton.INSTANCE.getInstance();
+        when(profileRepository.save(updateBefore)).thenReturn(updateAfter);
+
+        ProfileVO updateProfileVO = profileService.update(ProfileVOUpdateSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(updateProfileVO, ProfileVOSingleton.INSTANCE.getInstance());
+    }
 
     @Test
     public void profile_delete_by_id_test(){
