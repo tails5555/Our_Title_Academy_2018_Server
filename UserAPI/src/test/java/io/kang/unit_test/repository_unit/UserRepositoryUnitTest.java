@@ -1,6 +1,7 @@
 package io.kang.unit_test.repository_unit;
 
 import io.kang.domain.User;
+import io.kang.enumeration.Type;
 import io.kang.repository.UserRepository;
 import io.kang.test_config.JpaTestConfig;
 import io.kang.unit_test.singleton_object.repository_testing.UserCreateSingleton;
@@ -77,6 +78,24 @@ public class UserRepositoryUnitTest {
     }
 
     @Test
+    public void user_find_by_user_type_test(){
+        List<User> users = userRepository.findByUserType(Type.USER);
+        Assert.assertTrue(users.size() > 0);
+    }
+
+    @Test
+    public void user_find_by_nickname_contains_test(){
+        List<User> users = userRepository.findByNicknameContains("관리자");
+        Assert.assertTrue(users.size() > 0);
+    }
+
+    @Test
+    public void user_find_by_login_id_test(){
+        Optional<User> user = userRepository.findByLoginId("kang123");
+        Assert.assertTrue(user.isPresent());
+    }
+
+    @Test
     @Transactional
     public void user_create_test(){
         User user = UserCreateSingleton.INSTANCE.getInstance();
@@ -106,6 +125,13 @@ public class UserRepositoryUnitTest {
     public void user_delete_by_id_test(){
         userRepository.deleteById(1L);
         Optional<User> tmpUser = userRepository.findById(1L);
+        Assert.assertFalse(tmpUser.isPresent());
+    }
+
+    @Test
+    public void user_delete_by_login_id_test(){
+        userRepository.deleteByLoginId("login_id");
+        Optional<User> tmpUser = userRepository.findByLoginId("login_id");
         Assert.assertFalse(tmpUser.isPresent());
     }
 
