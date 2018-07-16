@@ -23,12 +23,11 @@ public class SignModel {
     private String phoneNumber;
     private Long ageId;
     private Long cityId;
-    private Type type;
     public boolean isPasswordEquals(){
         return this.mainPassword.equals(this.subPassword);
     }
     public static UserVO builtToUserVO(SignModel signModel){
-        return new UserVO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), signModel.getType());
+        return new UserVO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), Type.USER);
     }
     public static DetailVO builtToDetailVO(SignModel signModel, UserVO userVO, AgeVO ageVO, CityVO cityVO){
         return new DetailVO(null, userVO, signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), cityVO, ageVO);
@@ -36,7 +35,7 @@ public class SignModel {
     public static SignModel builtToSignModel(DetailVO detailVO, AgeVO ageVO, CityVO cityVO){
         UserVO userVO = detailVO.getUser();
         if(userVO != null){
-            return new SignModel(userVO.getLoginId(), "", "", detailVO.getName(), userVO.getNickname(), detailVO.getEmail(), detailVO.getHomeNumber(), detailVO.getPhoneNumber(), ageVO.getId(), cityVO.getId(), userVO.getUserType());
+            return new SignModel(userVO.getLoginId(), "", "", detailVO.getName(), userVO.getNickname(), detailVO.getEmail(), detailVO.getHomeNumber(), detailVO.getPhoneNumber(), ageVO.getId(), cityVO.getId());
         } else return null;
     }
 }
