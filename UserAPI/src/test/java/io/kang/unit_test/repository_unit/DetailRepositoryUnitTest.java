@@ -77,6 +77,18 @@ public class DetailRepositoryUnitTest {
     }
 
     @Test
+    public void detail_find_by_user_login_id_success_test(){
+        Optional<Detail> tmpDetail = detailRepository.findByUserLoginId("kang123");
+        Assert.assertTrue(tmpDetail.isPresent());
+    }
+
+    @Test
+    public void detail_find_by_user_login_id_failure_test(){
+        Optional<Detail> tmpDetail = detailRepository.findByUserLoginId("");
+        Assert.assertFalse(tmpDetail.isPresent());
+    }
+
+    @Test
     @Transactional
     public void detail_create_test(){
         Detail detail = DetailCreateSingleton.INSTANCE.getInstance();

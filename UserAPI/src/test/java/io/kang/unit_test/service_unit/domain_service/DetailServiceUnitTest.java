@@ -87,6 +87,19 @@ public class DetailServiceUnitTest {
     }
 
     @Test
+    public void detail_find_by_user_login_id_success_test(){
+        when(detailRepository.findByUserLoginId("USER_LOGIN_ID01")).thenReturn(Optional.of(DetailUpdateSingleton.INSTANCE.getInstance()));
+        DetailVO detailVO = detailService.findByLoginIdVO("USER_LOGIN_ID01");
+        Assert.assertEquals(detailVO, DetailVOUpdateSingleton.INSTANCE.getInstance());
+    }
+
+    @Test
+    public void detail_find_by_user_login_id_failure_test(){
+        when(detailRepository.findByUserLoginId("LOGIN_ID")).thenReturn(Optional.empty());
+        DetailVO detailVO = detailService.findByLoginIdVO("LOGIN_ID");
+        Assert.assertEquals(detailVO, null);
+    }
+    @Test
     public void detail_create_test(){
         Detail createBefore = DetailCreateSingleton.INSTANCE.getInstance();
         Detail createAfter = DetailUpdateSingleton.INSTANCE.getInstance();
