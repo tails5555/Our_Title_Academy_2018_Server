@@ -4,6 +4,7 @@ import io.kang.domain.User;
 import io.kang.enumeration.Type;
 import io.kang.repository.UserRepository;
 import io.kang.service.domain_service.interfaces.UserService;
+import io.kang.util.Encryption;
 import io.kang.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVO create(final UserVO userVO) {
+        String password = userVO.getPassword();
+        userVO.setPassword(Encryption.encrypt(password, Encryption.MD5));
         User tmpUser = UserVO.builtToDomain(userVO);
         UserVO createUser = UserVO.builtToVO(userRepository.save(tmpUser));
         if(createUser.getId() != null) return createUser;
@@ -71,6 +74,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVO update(final UserVO userVO) {
+        String password = userVO.getPassword();
+        userVO.setPassword(Encryption.encrypt(password, Encryption.MD5));
         User tmpUser = UserVO.builtToDomain(userVO);
         UserVO updateUser = UserVO.builtToVO(userRepository.save(tmpUser));
         return updateUser;
