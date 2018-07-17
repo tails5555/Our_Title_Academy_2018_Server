@@ -24,13 +24,13 @@ public class TokenLoginServiceImpl implements TokenLoginService {
     private AuthenticationManager authenticationManager;
 
     @Override
-    public String tokenLogin(final String loginId, final String password){
+    public String tokenLogin(final String loginId, final String password) throws CustomException {
         try {
             UserVO userVO = userService.findByLoginId(loginId);
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginId, password));
             return jwtTokenProvider.createToken(loginId, userVO.getNickname(), userVO.getUserType());
         } catch (AuthenticationException e) {
-            throw new CustomException("사용자의 정보가 존재하지 않습니다.", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new CustomException(e.getMessage(), HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
     }
 }
