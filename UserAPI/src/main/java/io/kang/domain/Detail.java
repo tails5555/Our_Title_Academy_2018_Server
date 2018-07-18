@@ -38,7 +38,7 @@ public class Detail implements Serializable {
     @Column(nullable=false)
     private String email;
 
-    @Column(nullable=false)
+    @Column
     private String homeNumber;
 
     @Column(nullable=false)

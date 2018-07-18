@@ -1,6 +1,7 @@
 package io.kang.security_config;
 
 import io.kang.component.JwtTokenProvider;
+import io.kang.exception.CustomException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -12,9 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-
 public class JwtTokenFilter extends GenericFilterBean {
-
     private JwtTokenProvider jwtTokenProvider;
 
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
@@ -22,9 +21,7 @@ public class JwtTokenFilter extends GenericFilterBean {
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
-            throws IOException, ServletException {
-
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, CustomException, ServletException {
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) req);
         if (token != null && jwtTokenProvider.validateToken(token)) {
             Authentication auth = token != null ? jwtTokenProvider.getAuthentication(token) : null;
