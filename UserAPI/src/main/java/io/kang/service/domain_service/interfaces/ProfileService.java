@@ -10,6 +10,7 @@ public interface ProfileService {
     public List<ProfileVO> findAll();
     public ProfileVO getOneVO(final Long id);
     public ProfileVO findByIdVO(final Long id);
+    public ProfileVO findByUserLoginId(final String loginId);
     public ProfileVO create(final ProfileVO profileVO);
     public ProfileVO update(final ProfileVO profileVO);
     public void deleteById(final Long id);

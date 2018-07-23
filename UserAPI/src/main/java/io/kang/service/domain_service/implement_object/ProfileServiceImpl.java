@@ -39,6 +39,15 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    public ProfileVO findByUserLoginId(String loginId) {
+        Optional<Profile> tmpProfile = profileRepository.findByUserLoginId(loginId);
+        if(tmpProfile.isPresent()){
+            return ProfileVO.builtToVO(tmpProfile.get());
+        }
+        else return null;
+    }
+
+    @Override
     public ProfileVO create(final ProfileVO profileVO) {
         Profile tmpProfile = ProfileVO.builtToDomain(profileVO);
         Profile createProfile = profileRepository.save(tmpProfile);
