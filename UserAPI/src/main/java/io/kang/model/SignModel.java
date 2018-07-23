@@ -26,11 +26,17 @@ public class SignModel {
     public boolean isPasswordEquals(){
         return this.mainPassword.equals(this.subPassword);
     }
+    public static UserVO builtToUserVOExisted(Long id, SignModel signModel, Type type){
+        return new UserVO(id, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), type);
+    }
     public static UserVO builtToUserVO(SignModel signModel){
         return new UserVO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), Type.USER);
     }
     public static DetailVO builtToDetailVO(SignModel signModel, UserVO userVO, AgeVO ageVO, CityVO cityVO){
         return new DetailVO(null, userVO, signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), cityVO, ageVO);
+    }
+    public static DetailVO builtToDetailVOExisted(Long id, SignModel signModel, UserVO userVO, AgeVO ageVO, CityVO cityVO){
+        return new DetailVO(id, userVO, signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), cityVO, ageVO);
     }
     public static SignModel builtToSignModel(DetailVO detailVO, AgeVO ageVO, CityVO cityVO){
         UserVO userVO = detailVO.getUser();

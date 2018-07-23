@@ -92,9 +92,16 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccessVO fetchCurrentAccess(final Principal principal, final HttpServletRequest request) throws CustomException {
-        String jwtToken = jwtTokenProvider.resolveToken(request);
-        String currentLoginId = principal.getName();
-        String tokenLoginId = jwtTokenProvider.getUsername(jwtToken);
+        String jwtToken;
+        String currentLoginId;
+        String tokenLoginId;
+        if (principal != null) {
+            jwtToken = jwtTokenProvider.resolveToken(request);
+            currentLoginId = principal.getName();
+            tokenLoginId = jwtTokenProvider.getUsername(jwtToken);
+        } else {
+            return null;
+        }
         if (!tokenLoginId.equals(currentLoginId))
             return null;
         else {

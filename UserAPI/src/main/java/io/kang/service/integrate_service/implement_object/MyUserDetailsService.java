@@ -1,6 +1,5 @@
 package io.kang.service.integrate_service.implement_object;
 
-import io.kang.repository.UserRepository;
 import io.kang.service.domain_service.interfaces.UserService;
 import io.kang.util.UserType;
 import io.kang.vo.UserVO;
