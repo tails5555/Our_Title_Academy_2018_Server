@@ -1,12 +1,12 @@
-package io.kang.composition.main;
+package io.kang.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CompositionApiApplication {
+public class ContextApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CompositionApiApplication.class, args);
+        SpringApplication.run(ContextApiApplication.class, args);
     }
 }

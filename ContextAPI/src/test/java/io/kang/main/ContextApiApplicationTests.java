@@ -1,4 +1,4 @@
-package io.kang.composition.main;
+package io.kang.main;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CompositionApiApplicationTests {
+public class ContextApiApplicationTests {
 
     @Test
     public void contextLoads() {
