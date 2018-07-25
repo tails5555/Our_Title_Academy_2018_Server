@@ -1,5 +1,6 @@
 package io.kang.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.kang.domain.Profile;
 import io.kang.enumeration.Suffix;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class ProfileVO {
     private UserVO user;
     private String fileName;
     private Integer fileSize;
+    @JsonIgnore
     private byte[] fileBytes;
     private Suffix fileSuffix;
     private LocalDateTime uploadDate;

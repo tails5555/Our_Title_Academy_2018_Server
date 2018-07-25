@@ -25,6 +25,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.GET, "/UserAPI/auth/resource/**");
+        web.ignoring().antMatchers(HttpMethod.GET, "/UserAPI/auth/guest/**");
+        web.ignoring().antMatchers(HttpMethod.POST, "/UserAPI/auth/guest/**");
         web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
@@ -35,11 +38,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/UserAPI/auth/admin").hasRole("ADMIN")
-                .antMatchers("/UserAPI/auth/manager").hasRole("MANAGER")
-                .antMatchers("/UserAPI/auth/user").hasRole("USER")
-                .antMatchers("/UserAPI/auth/common").hasAnyRole("ADMIN", "MANAGER", "USER")
-                .antMatchers("/UserAPI/auth/guest").permitAll();
+                .antMatchers("/UserAPI/auth/admin/**").hasRole("ADMIN")
+                .antMatchers("/UserAPI/auth/manager/**").hasRole("MANAGER")
+                .antMatchers("/UserAPI/auth/user/**").hasRole("USER")
+                .antMatchers("/UserAPI/auth/common/**").hasAnyRole("ADMIN", "MANAGER", "USER");
 
         http.exceptionHandling().accessDeniedPage("/UserAPI/auth/common/denied");
 

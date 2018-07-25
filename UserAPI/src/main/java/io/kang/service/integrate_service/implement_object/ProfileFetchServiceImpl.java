@@ -59,15 +59,16 @@ public class ProfileFetchServiceImpl implements ProfileFetchService {
             String fileName = file.getOriginalFilename();
             int infix = fileName.lastIndexOf('.');
             String fileSuffix = fileName.substring(infix + 1, fileName.length());
-            profileVO.setFileName(this.fileNameEncryption(fileName));
-            profileVO.setFileSuffix(Suffix.valueOf(fileSuffix.toUpperCase()));
-            profileVO.setFileBytes(fileBytes);
-            profileVO.setFileSize(fileBytes.length);
-            profileVO.setUser(userVO);
-            profileVO.setUploadDate(LocalDateTime.now());
-            if(profileVO.getId() != null){
+            if(profileVO != null){
+                profileVO.setUser(userVO);
+                profileVO.setFileName(this.fileNameEncryption(fileName));
+                profileVO.setFileSize(fileBytes.length);
+                profileVO.setFileBytes(fileBytes);
+                profileVO.setFileSuffix(Suffix.valueOf(fileSuffix.toUpperCase()));
+                profileVO.setUploadDate(LocalDateTime.now());
                 profileService.update(profileVO);
             }else{
+                profileVO = new ProfileVO(0L, userVO, this.fileNameEncryption(fileName), fileBytes.length, fileBytes, Suffix.valueOf(fileSuffix.toUpperCase()), LocalDateTime.now());
                 profileVO.setId(0L);
                 profileService.create(profileVO);
             }

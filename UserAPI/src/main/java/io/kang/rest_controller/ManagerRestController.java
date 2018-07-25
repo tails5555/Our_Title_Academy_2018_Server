@@ -40,9 +40,9 @@ public class ManagerRestController {
             if(userVO.getUserType() == Type.USER || userVO.getUserType() == Type.MANAGER)
                 return ResponseEntity.ok(detailVO);
             else
-                return new ResponseEntity<Void>(HttpStatus.FORBIDDEN);
+                return new ResponseEntity<Void>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }
-        return null;
+        return new ResponseEntity<Void>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
     }
 
     @PutMapping("manager_up/{loginId}")
