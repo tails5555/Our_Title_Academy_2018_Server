@@ -45,6 +45,13 @@ public class DetailServiceImpl implements DetailService {
     }
 
     @Override
+    public DetailVO findByNameAndEmailVO(final String name, final String email) {
+        Optional<Detail> tmpDetail = detailRepository.findByNameAndEmail(name, email);
+        if(tmpDetail.isPresent()) return DetailVO.builtToVO(tmpDetail.get());
+        else return null;
+    }
+
+    @Override
     public DetailVO create(final DetailVO detailVO) {
         Detail tmpDetail = DetailVO.builtToDomain(detailVO);
         Detail createDetail = detailRepository.save(tmpDetail);

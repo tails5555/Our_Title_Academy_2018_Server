@@ -1,6 +1,7 @@
 package io.kang.rest_controller;
 
 import io.kang.exception.CustomException;
+import io.kang.model.FindModel;
 import io.kang.model.LoginModel;
 import io.kang.model.SignModel;
 import io.kang.service.domain_service.interfaces.AgeService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,7 +60,7 @@ public class GuestRestController {
         DetailVO detailVO = accountService.executeSignUp(signModel);
         if(detailVO != null)
             return ResponseEntity.ok(detailVO);
-        else return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("id_confirm/{loginId}")
@@ -77,7 +79,9 @@ public class GuestRestController {
         return ResponseEntity.ok(cityService.findAll());
     }
 
-    // 아이디 찾기(find_loginId)
-
-    // 비밀번호 교체(change_password)
+    @PostMapping("find_loginId")
+    public ResponseEntity<?> findLoginId(@RequestBody FindModel findModel){
+        String loginId = accountService.fetchLoginId(findModel);
+        return (loginId != null) ? ResponseEntity.ok(loginId) : new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
 }

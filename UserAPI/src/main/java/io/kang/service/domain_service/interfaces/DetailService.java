@@ -9,6 +9,7 @@ public interface DetailService {
     public DetailVO getOneVO(final Long id);
     public DetailVO findByIdVO(final Long id);
     public DetailVO findByLoginIdVO(final String loginId);
+    public DetailVO findByNameAndEmailVO(final String name, final String email);
     public DetailVO create(final DetailVO detailVO);
     public DetailVO update(final DetailVO detailVO);
     public void deleteById(final Long id);

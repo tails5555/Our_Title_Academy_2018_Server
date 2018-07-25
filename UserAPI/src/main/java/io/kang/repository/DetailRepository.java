@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface DetailRepository extends JpaRepository<Detail, Long> {
     public Optional<Detail> findByUserLoginId(String loginId);
+    public Optional<Detail> findByNameAndEmail(String name, String email);
 }

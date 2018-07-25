@@ -3,6 +3,7 @@ package io.kang.service.integrate_service.implement_object;
 import io.kang.component.JwtTokenProvider;
 import io.kang.enumeration.Type;
 import io.kang.exception.CustomException;
+import io.kang.model.FindModel;
 import io.kang.model.SignModel;
 import io.kang.service.domain_service.interfaces.AgeService;
 import io.kang.service.domain_service.interfaces.CityService;
@@ -57,6 +58,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean hasAccount(final String loginId) {
         return this.userService.findByLoginId(loginId) != null;
+    }
+
+    @Override
+    public String fetchLoginId(final FindModel findModel) {
+        DetailVO detailVO = detailService.findByNameAndEmailVO(findModel.getName(), findModel.getEmail());
+        if(detailVO != null){
+            UserVO userVO = detailVO.getUser();
+            return userVO.getLoginId();
+        } else return null;
     }
 
     @Override

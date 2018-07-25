@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 
 @Data
@@ -21,6 +23,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"user", "city", "age"})
 @Entity
+@Table(
+        name="detail",
+        uniqueConstraints = @UniqueConstraint(columnNames={"name", "email"})
+)
 public class Detail implements Serializable {
     private static final long serialVersionUID = 1L;
 
