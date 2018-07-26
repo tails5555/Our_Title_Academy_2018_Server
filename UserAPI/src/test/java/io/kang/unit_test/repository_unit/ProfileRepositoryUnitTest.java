@@ -77,6 +77,18 @@ public class ProfileRepositoryUnitTest {
     }
 
     @Test
+    public void profile_find_by_user_login_id_success_test(){
+        Optional<Profile> tmpProfile = profileRepository.findByUserLoginId("kang123");
+        Assert.assertTrue(tmpProfile.isPresent());
+    }
+
+    @Test
+    public void profile_find_by_user_login_id_failure_test(){
+        Optional<Profile> tmpProfile = profileRepository.findByUserLoginId("login_id");
+        Assert.assertFalse(tmpProfile.isPresent());
+    }
+
+    @Test
     @Transactional
     public void profile_create_test(){
         Profile profile = ProfileCreateSingleton.INSTANCE.getInstance();

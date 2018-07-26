@@ -77,7 +77,7 @@
 
 ## Relational Database Structure
 
-![pj_composition_user](/image/pj_composition_user.png)
+![pj_composition_user](/UserAPI/image/pj_composition_user.png)
 
 ## Schedule
 

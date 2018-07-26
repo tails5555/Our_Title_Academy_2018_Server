@@ -87,6 +87,21 @@ public class ProfileServiceUnitTest {
     }
 
     @Test
+    public void profile_find_by_user_login_id_vo_success_test(){
+        Profile profile = ProfileUpdateSingleton.INSTANCE.getInstance();
+        when(profileRepository.findByUserLoginId("USER_LOGIN_ID01")).thenReturn(Optional.of(profile));
+        ProfileVO profileVO = profileService.findByUserLoginId("USER_LOGIN_ID01");
+        Assert.assertEquals(profileVO, ProfileVO.builtToVO(profile));
+    }
+
+    @Test
+    public void profile_find_by_user_login_id_vo_failure_test(){
+        when(profileRepository.findByUserLoginId("USER_LOGIN_ID01")).thenReturn(Optional.empty());
+        ProfileVO profileVO = profileService.findByUserLoginId("USER_LOGIN_ID01");
+        Assert.assertEquals(profileVO, null);
+    }
+
+    @Test
     public void profile_create_test(){
         Profile createBefore = ProfileCreateSingleton.INSTANCE.getInstance();
         Profile createAfter = ProfileUpdateSingleton.INSTANCE.getInstance();

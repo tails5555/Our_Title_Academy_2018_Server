@@ -89,6 +89,18 @@ public class DetailRepositoryUnitTest {
     }
 
     @Test
+    public void detail_find_by_name_and_email_success_test(){
+        Optional<Detail> tmpDetail = detailRepository.findByNameAndEmail("강인성", "tails5555@naver.com");
+        Assert.assertTrue(tmpDetail.isPresent());
+    }
+
+    @Test
+    public void detail_find_by_name_and_email_failure_test(){
+        Optional<Detail> tmpDetail = detailRepository.findByNameAndEmail("name", "email");
+        Assert.assertFalse(tmpDetail.isPresent());
+    }
+
+    @Test
     @Transactional
     public void detail_create_test(){
         Detail detail = DetailCreateSingleton.INSTANCE.getInstance();

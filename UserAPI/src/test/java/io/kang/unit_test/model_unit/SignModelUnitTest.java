@@ -1,5 +1,6 @@
 package io.kang.unit_test.model_unit;
 
+import io.kang.enumeration.Type;
 import io.kang.model.SignModel;
 import io.kang.unit_test.singleton_object.model_testing.SignModelSingleton;
 import io.kang.unit_test.singleton_object.value_object_testing.AgeVOSingleton;
@@ -21,7 +22,7 @@ public class SignModelUnitTest {
 
     @Test
     public void built_to_user_vo_test(){
-        UserVO userVO = new UserVO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), signModel.getType());
+        UserVO userVO = new UserVO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), Type.USER);
         Assert.assertEquals(userVO, SignModel.builtToUserVO(signModel));
     }
 
@@ -29,6 +30,12 @@ public class SignModelUnitTest {
     public void built_to_detail_vo_test(){
         DetailVO detailVO = new DetailVO(null, UserVOSingleton.INSTANCE.getInstance(), signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), CityVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance());
         Assert.assertEquals(detailVO, SignModel.builtToDetailVO(signModel, UserVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance(), CityVOSingleton.INSTANCE.getInstance()));
+    }
+
+    @Test
+    public void built_to_detail_vo_existed_test(){
+        DetailVO detailVO = new DetailVO(1L, UserVOSingleton.INSTANCE.getInstance(), signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), CityVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(detailVO, SignModel.builtToDetailVOExisted(1L, signModel, UserVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance(), CityVOSingleton.INSTANCE.getInstance()));
     }
 
     @Test
