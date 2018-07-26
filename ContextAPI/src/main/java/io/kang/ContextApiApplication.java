@@ -1,4 +1,4 @@
-package io.kang.main;
+package io.kang;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
