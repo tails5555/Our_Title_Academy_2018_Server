@@ -1,42 +1,45 @@
 package io.kang.domain.empathy;
 
-import io.kang.domain.Comment;
 import io.kang.domain.Title;
-import lombok.AllArgsConstructor;
+import io.kang.enumeration.Status;
+import io.kang.enumeration.Type;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(
-        uniqueConstraints = @UniqueConstraint(columnNames={"userId", "titleId"})
+    name = "titleempathy",
+    uniqueConstraints = @UniqueConstraint(columnNames={"userId", "titleId"})
 )
+@DiscriminatorValue(Type.TITLE)
 public class TitleEmpathy extends Empathy implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
     private String userId;
 
     @ManyToOne
-    @JoinColumn(name="titleId")
+    @JoinColumn(name = "titleId")
     private Title title;
+
+    public TitleEmpathy(){
+        super();
+    }
+
+    public TitleEmpathy(Long id, Status status, LocalDateTime checkedDate, String userId, Title title){
+        super(id, status, checkedDate);
+        this.userId = userId;
+        this.title = title;
+    }
 }

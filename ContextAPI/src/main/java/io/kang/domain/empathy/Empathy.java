@@ -1,12 +1,14 @@
 package io.kang.domain.empathy;
 
-import io.kang.enumeration.EmpathyType;
+import io.kang.enumeration.Status;
+import io.kang.enumeration.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
@@ -23,19 +24,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Inheritance(
-    strategy = InheritanceType.JOINED
-)
-public class Empathy implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type")
+public abstract class Empathy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private EmpathyType type;
+    private Status status;
 
     @Column(nullable = false)
     private LocalDateTime checkedDate;
