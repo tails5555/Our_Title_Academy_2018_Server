@@ -1,7 +1,6 @@
 package io.kang.domain.empathy;
 
 import io.kang.enumeration.Status;
-import io.kang.enumeration.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
