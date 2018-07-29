@@ -1,10 +1,9 @@
 package io.kang.service.domain_service.implement_object;
 
 import io.kang.domain.Age;
-import io.kang.model.AgeModel;
+import io.kang.dto.AgeDTO;
 import io.kang.repository.AgeRepository;
 import io.kang.service.domain_service.interfaces.AgeService;
-import io.kang.vo.AgeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,55 +17,38 @@ public class AgeServiceImpl implements AgeService {
     private AgeRepository ageRepository;
 
     @Override
-    public List<AgeVO> findAll(){
+    public List<AgeDTO> findAll(){
         return ageRepository.findAll()
-                .stream().map(age -> AgeVO.builtToVO(age))
+                .stream().map(age -> AgeDTO.builtToDTO(age))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public AgeVO getOneVO(final Long id){
+    public AgeDTO getOne(final Long id){
         if(ageRepository.existsById(id))
-            return AgeVO.builtToVO(ageRepository.getOne(id));
+            return AgeDTO.builtToDTO(ageRepository.getOne(id));
         else return null;
     }
 
     @Override
-    public AgeVO findByIdVO(final Long id){
+    public AgeDTO findById(final Long id){
         Optional<Age> tmpAge = ageRepository.findById(id);
         if(tmpAge.isPresent())
-            return AgeVO.builtToVO(tmpAge.get());
+            return AgeDTO.builtToDTO(tmpAge.get());
         return null;
     }
 
     @Override
-    public AgeModel getOneModel(final Long id){
-        if(ageRepository.existsById(id))
-            return AgeModel.builtToModel(AgeVO.builtToVO(ageRepository.getOne(id)));
+    public AgeDTO create(final AgeDTO ageDTO){
+        Age createAge = ageRepository.save(AgeDTO.builtToDomain(ageDTO));
+        if(createAge.getId() != null) return AgeDTO.builtToDTO(createAge);
         else return null;
     }
 
     @Override
-    public AgeModel findByIdModel(final Long id){
-        Optional<Age> tmpAge = ageRepository.findById(id);
-        if(tmpAge.isPresent())
-            return AgeModel.builtToModel(AgeVO.builtToVO(tmpAge.get()));
-        return null;
-    }
-
-    @Override
-    public AgeVO create(final AgeModel ageModel){
-        AgeVO ageVO = AgeModel.builtToVO(ageModel);
-        Age createAge = ageRepository.save(AgeVO.builtToDomain(ageVO));
-        if(createAge.getId() != null) return AgeVO.builtToVO(createAge);
-        else return null;
-    }
-
-    @Override
-    public AgeVO update(final AgeModel ageModel){
-        AgeVO ageVO = AgeModel.builtToVO(ageModel);
-        Age updateAge = ageRepository.save(AgeVO.builtToDomain(ageVO));
-        return AgeVO.builtToVO(updateAge);
+    public AgeDTO update(final AgeDTO ageDTO){
+        Age updateAge = ageRepository.save(AgeDTO.builtToDomain(ageDTO));
+        return AgeDTO.builtToDTO(updateAge);
     }
 
     @Override

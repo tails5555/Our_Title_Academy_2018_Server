@@ -1,18 +1,15 @@
 package io.kang.unit_test.service_unit.domain_service;
 
 import io.kang.domain.Age;
-import io.kang.model.AgeModel;
+import io.kang.dto.AgeDTO;
 import io.kang.repository.AgeRepository;
 import io.kang.service.domain_service.implement_object.AgeServiceImpl;
 import io.kang.service.domain_service.interfaces.AgeService;
 import io.kang.test_config.JpaTestConfig;
-import io.kang.unit_test.singleton_object.model_testing.AgeModelSingleton;
-import io.kang.unit_test.singleton_object.repository_testing.AgeCreateSingleton;
-import io.kang.unit_test.singleton_object.repository_testing.AgeUpdateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.AgeModelCreateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.AgeModelUpdateSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.AgeVOSingleton;
-import io.kang.vo.AgeVO;
+import io.kang.unit_test.singleton_object.domain_unit.AgeCreateSingleton;
+import io.kang.unit_test.singleton_object.domain_unit.AgeUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.AgeDTOCreateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.AgeDTOUpdateSingleton;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,66 +49,37 @@ public class AgeServiceUnitTest {
     @Test
     public void age_find_all_test(){
         when(ageRepository.findAll()).thenReturn(Arrays.asList(AgeUpdateSingleton.INSTANCE.getInstance()));
-        List<AgeVO> ageVOs = ageService.findAll();
-        Assert.assertEquals(ageVOs, Arrays.asList(AgeVOSingleton.INSTANCE.getInstance()));
+        List<AgeDTO> ageDTOs = ageService.findAll();
+        Assert.assertEquals(ageDTOs, Arrays.asList(AgeDTOUpdateSingleton.INSTANCE.getInstance()));
     }
 
     @Test
-    public void age_get_one_vo_success_test(){
+    public void age_get_one_success_test(){
         when(ageRepository.existsById(1L)).thenReturn(true);
         when(ageRepository.getOne(1L)).thenReturn(AgeUpdateSingleton.INSTANCE.getInstance());
-        AgeVO ageVO = ageService.getOneVO(1L);
-        Assert.assertEquals(ageVO, AgeVOSingleton.INSTANCE.getInstance());
+        AgeDTO ageDTO = ageService.getOne(1L);
+        Assert.assertEquals(ageDTO, AgeDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test
-    public void age_get_one_vo_failure_test() {
+    public void age_get_one_failure_test() {
         when(ageRepository.existsById(1L)).thenReturn(false);
-        AgeVO ageVO = ageService.getOneVO(1L);
-        Assert.assertEquals(ageVO, null);
+        AgeDTO ageDTO = ageService.getOne(1L);
+        Assert.assertEquals(ageDTO, null);
     }
 
     @Test
-    public void age_get_one_model_success_test(){
-        when(ageRepository.existsById(1L)).thenReturn(true);
-        when(ageRepository.getOne(1L)).thenReturn(AgeUpdateSingleton.INSTANCE.getInstance());
-        AgeModel ageModel = ageService.getOneModel(1L);
-        Assert.assertEquals(ageModel, AgeModelSingleton.INSTANCE.getInstance());
-    }
-
-    @Test
-    public void age_get_one_model_failure_test(){
-        when(ageRepository.existsById(1L)).thenReturn(false);
-        AgeModel ageModel = ageService.getOneModel(1L);
-        Assert.assertEquals(ageModel, null);
-    }
-
-    @Test
-    public void age_find_by_id_vo_success_test(){
+    public void age_find_by_id_success_test(){
         when(ageRepository.findById(1L)).thenReturn(Optional.of(AgeUpdateSingleton.INSTANCE.getInstance()));
-        AgeVO ageVO = ageService.findByIdVO(1L);
-        Assert.assertEquals(ageVO, AgeVOSingleton.INSTANCE.getInstance());
+        AgeDTO ageDTO = ageService.findById(1L);
+        Assert.assertEquals(ageDTO, AgeDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test
-    public void age_find_by_id_vo_failure_test(){
+    public void age_find_by_id_failure_test(){
         when(ageRepository.findById(1L)).thenReturn(Optional.empty());
-        AgeVO ageVO = ageService.findByIdVO(1L);
-        Assert.assertEquals(ageVO, null);
-    }
-
-    @Test
-    public void age_find_by_id_model_success_test(){
-        when(ageRepository.findById(1L)).thenReturn(Optional.of(AgeUpdateSingleton.INSTANCE.getInstance()));
-        AgeModel ageModel = ageService.findByIdModel(1L);
-        Assert.assertEquals(ageModel, AgeModelSingleton.INSTANCE.getInstance());
-    }
-
-    @Test
-    public void age_find_by_id_model_failure_test(){
-        when(ageRepository.findById(1L)).thenReturn(Optional.empty());
-        AgeModel ageModel = ageService.findByIdModel(1L);
-        Assert.assertEquals(ageModel, null);
+        AgeDTO ageDTO = ageService.findById(1L);
+        Assert.assertEquals(ageDTO, null);
     }
 
     @Test
@@ -120,10 +88,10 @@ public class AgeServiceUnitTest {
         Age afterAge = AgeUpdateSingleton.INSTANCE.getInstance();
         when(ageRepository.save(createAge)).thenReturn(afterAge);
 
-        AgeModel ageModel = AgeModelCreateSingleton.INSTANCE.getInstance();
-        AgeVO ageVO = ageService.create(ageModel);
+        AgeDTO createDTO = AgeDTOCreateSingleton.INSTANCE.getInstance();
+        AgeDTO ageDTO = ageService.create(createDTO);
 
-        Assert.assertEquals(ageVO, AgeVOSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(ageDTO, AgeDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test
@@ -132,10 +100,10 @@ public class AgeServiceUnitTest {
         Age afterAge = AgeUpdateSingleton.INSTANCE.getInstance();
         when(ageRepository.save(updateAge)).thenReturn(afterAge);
 
-        AgeModel ageModel = AgeModelUpdateSingleton.INSTANCE.getInstance();
-        AgeVO ageVO = ageService.update(ageModel);
+        AgeDTO updateDTO = AgeDTOUpdateSingleton.INSTANCE.getInstance();
+        AgeDTO ageDTO = ageService.update(updateDTO);
 
-        Assert.assertEquals(ageVO, AgeVOSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(ageDTO, AgeDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test

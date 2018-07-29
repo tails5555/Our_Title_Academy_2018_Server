@@ -1,7 +1,6 @@
 package io.kang.domain;
 
 import io.kang.enumeration.Suffix;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

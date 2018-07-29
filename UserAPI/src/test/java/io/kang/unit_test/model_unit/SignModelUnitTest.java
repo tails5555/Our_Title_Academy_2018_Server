@@ -1,14 +1,14 @@
 package io.kang.unit_test.model_unit;
 
+import io.kang.dto.DetailDTO;
+import io.kang.dto.UserDTO;
 import io.kang.enumeration.Type;
 import io.kang.model.SignModel;
-import io.kang.unit_test.singleton_object.model_testing.SignModelSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.AgeVOSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.CityVOSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.DetailVOSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.UserVOSingleton;
-import io.kang.vo.DetailVO;
-import io.kang.vo.UserVO;
+import io.kang.unit_test.singleton_object.dto_unit.AgeDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.CityDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.DetailDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.UserDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.model_unit.SignModelSingleton;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,26 +21,32 @@ public class SignModelUnitTest {
     }
 
     @Test
-    public void built_to_user_vo_test(){
-        UserVO userVO = new UserVO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), Type.USER);
-        Assert.assertEquals(userVO, SignModel.builtToUserVO(signModel));
+    public void built_to_user_dto_test(){
+        UserDTO userDTO = new UserDTO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), Type.USER);
+        Assert.assertEquals(userDTO, SignModel.builtToUserDTO(signModel));
     }
 
     @Test
-    public void built_to_detail_vo_test(){
-        DetailVO detailVO = new DetailVO(null, UserVOSingleton.INSTANCE.getInstance(), signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), CityVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance());
-        Assert.assertEquals(detailVO, SignModel.builtToDetailVO(signModel, UserVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance(), CityVOSingleton.INSTANCE.getInstance()));
+    public void built_to_user_dto_is_existed_test(){
+        UserDTO userDTO = new UserDTO(1L, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), Type.USER);
+        Assert.assertEquals(userDTO, SignModel.builtToUserDTOIsExisted(1L, signModel, Type.USER));
     }
 
     @Test
-    public void built_to_detail_vo_existed_test(){
-        DetailVO detailVO = new DetailVO(1L, UserVOSingleton.INSTANCE.getInstance(), signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), CityVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance());
-        Assert.assertEquals(detailVO, SignModel.builtToDetailVOExisted(1L, signModel, UserVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance(), CityVOSingleton.INSTANCE.getInstance()));
+    public void built_to_detail_dto_test(){
+        DetailDTO detailDTO = new DetailDTO(null, UserDTOUpdateSingleton.INSTANCE.getInstance(), signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), CityDTOUpdateSingleton.INSTANCE.getInstance(), AgeDTOUpdateSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(detailDTO, SignModel.builtToDetailDTO(signModel, UserDTOUpdateSingleton.INSTANCE.getInstance(), AgeDTOUpdateSingleton.INSTANCE.getInstance(), CityDTOUpdateSingleton.INSTANCE.getInstance()));
+    }
+
+    @Test
+    public void built_to_detail_dto_is_existed_test(){
+        DetailDTO detailDTO = new DetailDTO(1L, UserDTOUpdateSingleton.INSTANCE.getInstance(), signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), CityDTOUpdateSingleton.INSTANCE.getInstance(), AgeDTOUpdateSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(detailDTO, SignModel.builtToDetailDTOExisted(1L, signModel, UserDTOUpdateSingleton.INSTANCE.getInstance(), AgeDTOUpdateSingleton.INSTANCE.getInstance(), CityDTOUpdateSingleton.INSTANCE.getInstance()));
     }
 
     @Test
     public void built_to_sign_model_test(){
-        SignModel tmpSignModel = SignModel.builtToSignModel(DetailVOSingleton.INSTANCE.getInstance(), AgeVOSingleton.INSTANCE.getInstance(), CityVOSingleton.INSTANCE.getInstance());
+        SignModel tmpSignModel = SignModel.builtToSignModel(DetailDTOUpdateSingleton.INSTANCE.getInstance(), AgeDTOUpdateSingleton.INSTANCE.getInstance(), CityDTOUpdateSingleton.INSTANCE.getInstance());
         Assert.assertTrue(tmpSignModel != null);
     }
 }

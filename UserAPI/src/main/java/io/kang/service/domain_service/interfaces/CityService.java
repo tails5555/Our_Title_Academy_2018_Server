@@ -1,18 +1,15 @@
 package io.kang.service.domain_service.interfaces;
 
-import io.kang.model.CityModel;
-import io.kang.vo.CityVO;
+import io.kang.dto.CityDTO;
 
 import java.util.List;
 
 public interface CityService {
-    public List<CityVO> findAll();
-    public CityVO getOneVO(final Long id);
-    public CityVO findByIdVO(final Long id);
-    public CityModel getOneModel(final Long id);
-    public CityModel findByIdModel(final Long id);
-    public CityVO create(final CityModel cityModel);
-    public CityVO update(final CityModel cityModel);
+    public List<CityDTO> findAll();
+    public CityDTO getOne(final Long id);
+    public CityDTO findById(final Long id);
+    public CityDTO create(final CityDTO cityDTO);
+    public CityDTO update(final CityDTO cityDTO);
     public void deleteById(final Long id);
     public boolean existsById(final Long id);
     public long count();

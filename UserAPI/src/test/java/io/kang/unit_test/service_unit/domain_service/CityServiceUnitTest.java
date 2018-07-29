@@ -1,18 +1,15 @@
 package io.kang.unit_test.service_unit.domain_service;
 
 import io.kang.domain.City;
-import io.kang.model.CityModel;
+import io.kang.dto.CityDTO;
 import io.kang.repository.CityRepository;
 import io.kang.service.domain_service.implement_object.CityServiceImpl;
 import io.kang.service.domain_service.interfaces.CityService;
 import io.kang.test_config.JpaTestConfig;
-import io.kang.unit_test.singleton_object.model_testing.CityModelSingleton;
-import io.kang.unit_test.singleton_object.repository_testing.CityCreateSingleton;
-import io.kang.unit_test.singleton_object.repository_testing.CityUpdateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.CityModelCreateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.CityModelUpdateSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.CityVOSingleton;
-import io.kang.vo.CityVO;
+import io.kang.unit_test.singleton_object.domain_unit.CityCreateSingleton;
+import io.kang.unit_test.singleton_object.domain_unit.CityUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.CityDTOCreateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.CityDTOUpdateSingleton;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,66 +49,37 @@ public class CityServiceUnitTest {
     @Test
     public void city_find_all_test(){
         when(cityRepository.findAll()).thenReturn(Arrays.asList(CityUpdateSingleton.INSTANCE.getInstance()));
-        List<CityVO> cityVOs = cityService.findAll();
-        Assert.assertEquals(cityVOs, Arrays.asList(CityVOSingleton.INSTANCE.getInstance()));
+        List<CityDTO> cityDTOs = cityService.findAll();
+        Assert.assertEquals(cityDTOs, Arrays.asList(CityDTOUpdateSingleton.INSTANCE.getInstance()));
     }
 
     @Test
-    public void city_get_one_vo_success_test(){
+    public void city_get_one_success_test(){
         when(cityRepository.existsById(1L)).thenReturn(true);
         when(cityRepository.getOne(1L)).thenReturn(CityUpdateSingleton.INSTANCE.getInstance());
-        CityVO cityVO = cityService.getOneVO(1L);
-        Assert.assertEquals(cityVO, CityVOSingleton.INSTANCE.getInstance());
+        CityDTO cityDTO = cityService.getOne(1L);
+        Assert.assertEquals(cityDTO, CityDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test
-    public void city_get_one_vo_failure_test() {
+    public void city_get_one_failure_test() {
         when(cityRepository.existsById(1L)).thenReturn(false);
-        CityVO cityVO = cityService.getOneVO(1L);
-        Assert.assertEquals(cityVO, null);
+        CityDTO cityDTO = cityService.getOne(1L);
+        Assert.assertEquals(cityDTO, null);
     }
 
     @Test
-    public void city_get_one_model_success_test(){
-        when(cityRepository.existsById(1L)).thenReturn(true);
-        when(cityRepository.getOne(1L)).thenReturn(CityUpdateSingleton.INSTANCE.getInstance());
-        CityModel cityModel = cityService.getOneModel(1L);
-        Assert.assertEquals(cityModel, CityModelSingleton.INSTANCE.getInstance());
-    }
-
-    @Test
-    public void city_get_one_model_failure_test(){
-        when(cityRepository.existsById(1L)).thenReturn(false);
-        CityModel cityModel = cityService.getOneModel(1L);
-        Assert.assertEquals(cityModel, null);
-    }
-
-    @Test
-    public void city_find_by_id_vo_success_test(){
+    public void city_find_by_id_success_test(){
         when(cityRepository.findById(1L)).thenReturn(Optional.of(CityUpdateSingleton.INSTANCE.getInstance()));
-        CityVO cityVO = cityService.findByIdVO(1L);
-        Assert.assertEquals(cityVO, CityVOSingleton.INSTANCE.getInstance());
+        CityDTO cityDTO = cityService.findById(1L);
+        Assert.assertEquals(cityDTO, CityDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test
-    public void city_find_by_id_vo_failure_test(){
+    public void city_find_by_id_failure_test(){
         when(cityRepository.findById(1L)).thenReturn(Optional.empty());
-        CityVO cityVO = cityService.findByIdVO(1L);
-        Assert.assertEquals(cityVO, null);
-    }
-
-    @Test
-    public void city_find_by_id_model_success_test(){
-        when(cityRepository.findById(1L)).thenReturn(Optional.of(CityUpdateSingleton.INSTANCE.getInstance()));
-        CityModel cityModel = cityService.findByIdModel(1L);
-        Assert.assertEquals(cityModel, CityModelSingleton.INSTANCE.getInstance());
-    }
-
-    @Test
-    public void city_find_by_id_model_failure_test(){
-        when(cityRepository.findById(1L)).thenReturn(Optional.empty());
-        CityModel cityModel = cityService.findByIdModel(1L);
-        Assert.assertEquals(cityModel, null);
+        CityDTO cityDTO = cityService.findById(1L);
+        Assert.assertEquals(cityDTO, null);
     }
 
     @Test
@@ -120,10 +88,10 @@ public class CityServiceUnitTest {
         City afterCity = CityUpdateSingleton.INSTANCE.getInstance();
         when(cityRepository.save(createCity)).thenReturn(afterCity);
 
-        CityModel cityModel = CityModelCreateSingleton.INSTANCE.getInstance();
-        CityVO cityVO = cityService.create(cityModel);
+        CityDTO createDTO = CityDTOCreateSingleton.INSTANCE.getInstance();
+        CityDTO cityDTO = cityService.create(createDTO);
 
-        Assert.assertEquals(cityVO, CityVOSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(cityDTO, CityDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test
@@ -132,10 +100,10 @@ public class CityServiceUnitTest {
         City afterCity = CityUpdateSingleton.INSTANCE.getInstance();
         when(cityRepository.save(updateCity)).thenReturn(afterCity);
 
-        CityModel cityModel = CityModelUpdateSingleton.INSTANCE.getInstance();
-        CityVO cityVO = cityService.update(cityModel);
+        CityDTO updateDTO = CityDTOUpdateSingleton.INSTANCE.getInstance();
+        CityDTO cityDTO = cityService.update(updateDTO);
 
-        Assert.assertEquals(cityVO, CityVOSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(cityDTO, CityDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test

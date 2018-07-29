@@ -1,7 +1,7 @@
 package io.kang.unit_test.model_unit;
 
 import io.kang.model.LoginModel;
-import io.kang.unit_test.singleton_object.model_testing.LoginModelSingleton;
+import io.kang.unit_test.singleton_object.model_unit.LoginModelSingleton;
 import org.junit.Assert;
 import org.junit.Test;
 

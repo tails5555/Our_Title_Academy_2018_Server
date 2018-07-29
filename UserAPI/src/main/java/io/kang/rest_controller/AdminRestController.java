@@ -1,10 +1,10 @@
 package io.kang.rest_controller;
 
+import io.kang.dto.DetailDTO;
+import io.kang.dto.UserDTO;
 import io.kang.enumeration.Type;
 import io.kang.service.integrate_service.interfaces.AccountService;
-import io.kang.vo.DetailVO;
 import io.kang.vo.PrincipalVO;
-import io.kang.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +32,9 @@ public class AdminRestController {
 
     @GetMapping("user_info/{loginId}")
     public ResponseEntity<?> fetchAnyUserInfo(@PathVariable String loginId){
-        DetailVO detailVO = accountService.fetchDetailInfo(loginId);
-        if(detailVO == null) return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        else return ResponseEntity.ok(detailVO);
+        DetailDTO detailDTO = accountService.fetchDetailInfo(loginId);
+        if(detailDTO == null) return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        else return ResponseEntity.ok(detailDTO);
     }
 
     @PutMapping("type_change/{loginId}/{typeSequence}")
@@ -51,9 +51,9 @@ public class AdminRestController {
                 type = Type.USER;
                 break;
         }
-        UserVO userVO = accountService.executeAdminLevelChange(loginId, type);
-        if(userVO == null) return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        else return ResponseEntity.ok(userVO);
+        UserDTO userDTO = accountService.executeAdminLevelChange(loginId, type);
+        if(userDTO == null) return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+        else return ResponseEntity.ok(userDTO);
     }
 
     @DeleteMapping("force_fired/{loginId}")

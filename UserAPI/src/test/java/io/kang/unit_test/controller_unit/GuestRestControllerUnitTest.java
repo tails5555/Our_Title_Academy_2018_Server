@@ -17,13 +17,13 @@ import io.kang.service.integrate_service.implement_object.AccountServiceImpl;
 import io.kang.service.integrate_service.implement_object.TokenLoginServiceImpl;
 import io.kang.service.integrate_service.interfaces.AccountService;
 import io.kang.service.integrate_service.interfaces.TokenLoginService;
-import io.kang.unit_test.singleton_object.model_testing.FindModelSingleton;
-import io.kang.unit_test.singleton_object.model_testing.LoginModelSingleton;
-import io.kang.unit_test.singleton_object.model_testing.SignModelSingleton;
-import io.kang.unit_test.singleton_object.service_testing.DetailVOUpdateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.UserVOUpdateSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.AgeVOSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.CityVOSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.AgeDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.CityDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.DetailDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.UserDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.model_unit.FindModelSingleton;
+import io.kang.unit_test.singleton_object.model_unit.LoginModelSingleton;
+import io.kang.unit_test.singleton_object.model_unit.SignModelSingleton;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +43,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.servlet.Filter;
-
 import java.util.Arrays;
 
 import static org.mockito.Mockito.when;
@@ -125,7 +124,7 @@ public class GuestRestControllerUnitTest {
 
     @Test
     public void guest_sign_up_success_test() throws Exception {
-        when(accountService.executeSignUp(SignModelSingleton.INSTANCE.getInstance())).thenReturn(DetailVOUpdateSingleton.INSTANCE.getInstance());
+        when(accountService.executeSignUp(SignModelSingleton.INSTANCE.getInstance())).thenReturn(DetailDTOUpdateSingleton.INSTANCE.getInstance());
         mockMvc
                 .perform(post("/UserAPI/auth/guest/sign_up")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -147,7 +146,7 @@ public class GuestRestControllerUnitTest {
 
     @Test
     public void guest_id_confirm_success_test() throws Exception {
-        when(userService.findByLoginId("USER_LOGIN_01")).thenReturn(UserVOUpdateSingleton.INSTANCE.getInstance());
+        when(userService.findByLoginId("USER_LOGIN_01")).thenReturn(UserDTOUpdateSingleton.INSTANCE.getInstance());
         mockMvc.
                 perform(get("/UserAPI/auth/guest/id_confirm/{loginId}", "USER_LOGIN_01"))
                 .andExpect(status().isOk());
@@ -163,7 +162,7 @@ public class GuestRestControllerUnitTest {
 
     @Test
     public void guest_age_list_test() throws Exception {
-        when(ageService.findAll()).thenReturn(Arrays.asList(AgeVOSingleton.INSTANCE.getInstance()));
+        when(ageService.findAll()).thenReturn(Arrays.asList(AgeDTOUpdateSingleton.INSTANCE.getInstance()));
         mockMvc.
                 perform(get("/UserAPI/auth/guest/ageList"))
                 .andExpect(status().isOk());
@@ -171,7 +170,7 @@ public class GuestRestControllerUnitTest {
 
     @Test
     public void guest_city_list_test() throws Exception {
-        when(cityService.findAll()).thenReturn(Arrays.asList(CityVOSingleton.INSTANCE.getInstance()));
+        when(cityService.findAll()).thenReturn(Arrays.asList(CityDTOUpdateSingleton.INSTANCE.getInstance()));
         mockMvc.
                 perform(get("/UserAPI/auth/guest/cityList"))
                 .andExpect(status().isOk());

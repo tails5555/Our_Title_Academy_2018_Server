@@ -3,7 +3,7 @@ package io.kang.unit_test.domain_unit;
 import io.kang.domain.Profile;
 import io.kang.domain.User;
 import io.kang.enumeration.Suffix;
-import io.kang.unit_test.singleton_object.domain_testing.UserSingleton;
+import io.kang.unit_test.singleton_object.domain_unit.UserUpdateSingleton;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public class ProfileUnitTest {
     private static final long ID = 1L;
-    private static final User USER = UserSingleton.INSTANCE.getInstance();
+    private static final User USER = UserUpdateSingleton.INSTANCE.getInstance();
     private static final String FILE_NAME = "PROFILE_FILE_NAME01";
     private static final int FILE_SIZE = 0;
     private static final byte[] FILE_BYTES = new byte[0];

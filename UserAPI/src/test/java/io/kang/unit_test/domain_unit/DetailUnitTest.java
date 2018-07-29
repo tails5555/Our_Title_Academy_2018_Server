@@ -4,9 +4,9 @@ import io.kang.domain.Age;
 import io.kang.domain.City;
 import io.kang.domain.Detail;
 import io.kang.domain.User;
-import io.kang.unit_test.singleton_object.domain_testing.AgeSingleton;
-import io.kang.unit_test.singleton_object.domain_testing.CitySingleton;
-import io.kang.unit_test.singleton_object.domain_testing.UserSingleton;
+import io.kang.unit_test.singleton_object.domain_unit.AgeUpdateSingleton;
+import io.kang.unit_test.singleton_object.domain_unit.CityUpdateSingleton;
+import io.kang.unit_test.singleton_object.domain_unit.UserUpdateSingleton;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,13 +14,13 @@ import java.io.IOException;
 
 public class DetailUnitTest {
     private static final long ID = 1L;
-    private static final User USER = UserSingleton.INSTANCE.getInstance();
+    private static final User USER = UserUpdateSingleton.INSTANCE.getInstance();
     private static final String NAME = "DETAIL_NAME01";
     private static final String EMAIL = "DETAIL_EMAIL01";
     private static final String HOME_NUMBER = "DETAIL_HOME_NUMBER01";
     private static final String PHONE_NUMBER = "DETAIL_PHONE_NUMBER01";
-    private static final City CITY = CitySingleton.INSTANCE.getInstance();
-    private static final Age AGE = AgeSingleton.INSTANCE.getInstance();
+    private static final City CITY = CityUpdateSingleton.INSTANCE.getInstance();
+    private static final Age AGE = AgeUpdateSingleton.INSTANCE.getInstance();
 
     @Test
     public void idGetterAndSetterTesting() throws IOException {

@@ -1,17 +1,15 @@
 package io.kang.rest_controller;
 
+import io.kang.dto.DetailDTO;
+import io.kang.dto.UserDTO;
 import io.kang.enumeration.Type;
 import io.kang.service.integrate_service.interfaces.AccountService;
-import io.kang.vo.DetailVO;
 import io.kang.vo.PrincipalVO;
-import io.kang.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +31,12 @@ public class ManagerRestController {
 
     @GetMapping("user_info/{loginId}")
     public ResponseEntity<?> fetchAnyUserInfo(@PathVariable String loginId){
-        DetailVO detailVO = accountService.fetchDetailInfo(loginId);
-        if(detailVO == null) return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        else if(detailVO.getUser() != null){
-            UserVO userVO = detailVO.getUser();
-            if(userVO.getUserType() == Type.USER || userVO.getUserType() == Type.MANAGER)
-                return ResponseEntity.ok(detailVO);
+        DetailDTO detailDTO = accountService.fetchDetailInfo(loginId);
+        if(detailDTO == null) return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        else if(detailDTO.getUser() != null){
+            UserDTO userDTO = detailDTO.getUser();
+            if(userDTO.getUserType() == Type.USER || userDTO.getUserType() == Type.MANAGER)
+                return ResponseEntity.ok(detailDTO);
             else
                 return new ResponseEntity<Void>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
         }

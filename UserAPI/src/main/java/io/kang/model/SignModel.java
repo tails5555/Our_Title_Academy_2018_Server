@@ -1,10 +1,10 @@
 package io.kang.model;
 
+import io.kang.dto.AgeDTO;
+import io.kang.dto.CityDTO;
+import io.kang.dto.DetailDTO;
+import io.kang.dto.UserDTO;
 import io.kang.enumeration.Type;
-import io.kang.vo.AgeVO;
-import io.kang.vo.CityVO;
-import io.kang.vo.DetailVO;
-import io.kang.vo.UserVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,22 +26,27 @@ public class SignModel {
     public boolean isPasswordEquals(){
         return this.mainPassword.equals(this.subPassword);
     }
-    public static UserVO builtToUserVOExisted(Long id, SignModel signModel, Type type){
-        return new UserVO(id, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), type);
+
+    public static UserDTO builtToUserDTO(SignModel signModel){
+        return new UserDTO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), Type.USER);
     }
-    public static UserVO builtToUserVO(SignModel signModel){
-        return new UserVO(null, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), Type.USER);
+
+    public static UserDTO builtToUserDTOIsExisted(Long id, SignModel signModel, Type type){
+        return new UserDTO(id, signModel.getLoginId(), signModel.getNickname(), signModel.getMainPassword(), type);
     }
-    public static DetailVO builtToDetailVO(SignModel signModel, UserVO userVO, AgeVO ageVO, CityVO cityVO){
-        return new DetailVO(null, userVO, signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), cityVO, ageVO);
+
+    public static DetailDTO builtToDetailDTO(SignModel signModel, UserDTO userDTO, AgeDTO ageDTO, CityDTO cityDTO){
+        return new DetailDTO(null, userDTO, signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), cityDTO, ageDTO);
     }
-    public static DetailVO builtToDetailVOExisted(Long id, SignModel signModel, UserVO userVO, AgeVO ageVO, CityVO cityVO){
-        return new DetailVO(id, userVO, signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), cityVO, ageVO);
+
+    public static DetailDTO builtToDetailDTOExisted(Long id, SignModel signModel, UserDTO userDTO, AgeDTO ageDTO, CityDTO cityDTO){
+        return new DetailDTO(id, userDTO, signModel.getName(), signModel.getEmail(), signModel.getHomeNumber(), signModel.getPhoneNumber(), cityDTO, ageDTO);
     }
-    public static SignModel builtToSignModel(DetailVO detailVO, AgeVO ageVO, CityVO cityVO){
-        UserVO userVO = detailVO.getUser();
-        if(userVO != null){
-            return new SignModel(userVO.getLoginId(), "", "", detailVO.getName(), userVO.getNickname(), detailVO.getEmail(), detailVO.getHomeNumber(), detailVO.getPhoneNumber(), ageVO.getId(), cityVO.getId());
+
+    public static SignModel builtToSignModel(DetailDTO detailDTO, AgeDTO ageDTO, CityDTO cityDTO){
+        UserDTO userDTO = detailDTO.getUser();
+        if(userDTO != null){
+            return new SignModel(userDTO.getLoginId(), "", "", detailDTO.getName(), userDTO.getNickname(), detailDTO.getEmail(), detailDTO.getHomeNumber(), detailDTO.getPhoneNumber(), ageDTO.getId(), cityDTO.getId());
         } else return null;
     }
 }

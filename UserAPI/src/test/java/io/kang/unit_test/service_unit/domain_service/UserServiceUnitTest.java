@@ -1,17 +1,16 @@
 package io.kang.unit_test.service_unit.domain_service;
 
 import io.kang.domain.User;
+import io.kang.dto.UserDTO;
 import io.kang.enumeration.Type;
 import io.kang.repository.UserRepository;
 import io.kang.service.domain_service.implement_object.UserServiceImpl;
 import io.kang.service.domain_service.interfaces.UserService;
 import io.kang.test_config.JpaTestConfig;
-import io.kang.unit_test.singleton_object.repository_testing.UserCreateSingleton;
-import io.kang.unit_test.singleton_object.repository_testing.UserUpdateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.UserVOCreateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.UserVOUpdateSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.UserVOSingleton;
-import io.kang.vo.UserVO;
+import io.kang.unit_test.singleton_object.domain_unit.UserCreateSingleton;
+import io.kang.unit_test.singleton_object.domain_unit.UserUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.UserDTOCreateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.UserDTOUpdateSingleton;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,69 +51,69 @@ public class UserServiceUnitTest {
     public void user_find_all_test(){
         User user = UserUpdateSingleton.INSTANCE.getInstance();
         when(userRepository.findAll()).thenReturn(Arrays.asList(user));
-        List<UserVO> userVOs = userService.findAll();
-        Assert.assertEquals(userVOs, Arrays.asList(UserVO.builtToVO(user)));
+        List<UserDTO> userDTOs = userService.findAll();
+        Assert.assertEquals(userDTOs, Arrays.asList(UserDTO.builtToDTO(user)));
     }
 
     @Test
     public void user_find_by_user_type_test(){
         User user = UserUpdateSingleton.INSTANCE.getInstance();
         when(userRepository.findByUserType(Type.USER)).thenReturn(Arrays.asList(user));
-        List<UserVO> userVOs = userService.findByUserType(Type.USER);
-        Assert.assertEquals(userVOs, Arrays.asList(UserVO.builtToVO(user)));
+        List<UserDTO> userDTOs = userService.findByUserType(Type.USER);
+        Assert.assertEquals(userDTOs, Arrays.asList(UserDTO.builtToDTO(user)));
     }
 
     @Test
     public void user_find_by_nickname_contains_test(){
         User user = UserUpdateSingleton.INSTANCE.getInstance();
         when(userRepository.findByNicknameContains("NICKNAME")).thenReturn(Arrays.asList(user));
-        List<UserVO> userVOs = userService.findByNicknameContains("NICKNAME");
-        Assert.assertEquals(userVOs, Arrays.asList(UserVO.builtToVO(user)));
+        List<UserDTO> userDTOs = userService.findByNicknameContains("NICKNAME");
+        Assert.assertEquals(userDTOs, Arrays.asList(UserDTO.builtToDTO(user)));
     }
 
     @Test
-    public void user_get_one_vo_success_test(){
+    public void user_get_one_success_test(){
         User user = UserUpdateSingleton.INSTANCE.getInstance();
         when(userRepository.existsById(1L)).thenReturn(true);
         when(userRepository.getOne(1L)).thenReturn(user);
-        UserVO userVO = userService.getOneVO(1L);
-        Assert.assertEquals(userVO, UserVO.builtToVO(user));
+        UserDTO userDTO = userService.getOne(1L);
+        Assert.assertEquals(userDTO, UserDTO.builtToDTO(user));
     }
 
     @Test
-    public void user_get_one_vo_failure_test() {
+    public void user_get_one_failure_test() {
         when(userRepository.existsById(1L)).thenReturn(false);
-        UserVO userVO = userService.getOneVO(1L);
-        Assert.assertEquals(userVO, null);
+        UserDTO userDTO = userService.getOne(1L);
+        Assert.assertEquals(userDTO, null);
     }
 
     @Test
-    public void user_find_by_id_vo_success_test(){
+    public void user_find_by_id_success_test(){
         User user = UserUpdateSingleton.INSTANCE.getInstance();
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        UserVO userVO = userService.findByIdVO(1L);
-        Assert.assertEquals(userVO, UserVO.builtToVO(user));
+        UserDTO userDTO = userService.findById(1L);
+        Assert.assertEquals(userDTO, UserDTO.builtToDTO(user));
     }
 
     @Test
     public void user_find_by_id_vo_failure_test(){
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
-        UserVO userVO = userService.findByIdVO(1L);
-        Assert.assertEquals(userVO, null);
+        UserDTO userDTO = userService.findById(1L);
+        Assert.assertEquals(userDTO, null);
     }
 
     @Test
     public void user_find_by_login_id_success_test(){
         when(userRepository.findByLoginId("USER_LOGIN_ID01")).thenReturn(Optional.of(UserUpdateSingleton.INSTANCE.getInstance()));
-        UserVO userVO = userService.findByLoginId("USER_LOGIN_ID01");
-        Assert.assertEquals(userVO, UserVO.builtToVO(UserUpdateSingleton.INSTANCE.getInstance()));
+        UserDTO userDTO = userService.findByLoginId("USER_LOGIN_ID01");
+        Assert.assertEquals(userDTO, UserDTO.builtToDTO(UserUpdateSingleton.INSTANCE.getInstance()));
     }
 
     @Test
     public void user_find_by_login_id_failure_test(){
         when(userRepository.findByLoginId("LOGIN_ID")).thenReturn(Optional.empty());
-        UserVO userVO = userService.findByLoginId("LOGIN_ID");
-        Assert.assertEquals(userVO, null);
+        UserDTO userDTO = userService.findByLoginId("LOGIN_ID");
+        Assert.assertEquals(userDTO, null);
     }
 
     @Test
@@ -123,8 +122,8 @@ public class UserServiceUnitTest {
         User createAfter = UserUpdateSingleton.INSTANCE.getInstance();
         when(userRepository.save(createBefore)).thenReturn(createAfter);
 
-        UserVO createUserVO = userService.create(UserVOCreateSingleton.INSTANCE.getInstance());
-        Assert.assertEquals(createUserVO, UserVOSingleton.INSTANCE.getInstance());
+        UserDTO createUserDTO = userService.create(UserDTOCreateSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(createUserDTO, UserDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test
@@ -133,8 +132,8 @@ public class UserServiceUnitTest {
         User updateAfter = UserUpdateSingleton.INSTANCE.getInstance();
         when(userRepository.save(updateBefore)).thenReturn(updateAfter);
 
-        UserVO updateUserVO = userService.update(UserVOUpdateSingleton.INSTANCE.getInstance());
-        Assert.assertEquals(updateUserVO, UserVOSingleton.INSTANCE.getInstance());
+        UserDTO updateUserDTO = userService.update(UserDTOUpdateSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(updateUserDTO, UserDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test

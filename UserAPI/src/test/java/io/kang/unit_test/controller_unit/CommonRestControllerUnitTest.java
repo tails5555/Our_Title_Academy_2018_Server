@@ -13,10 +13,10 @@ import io.kang.service.domain_service.interfaces.AgeService;
 import io.kang.service.domain_service.interfaces.CityService;
 import io.kang.service.integrate_service.implement_object.AccountServiceImpl;
 import io.kang.service.integrate_service.interfaces.AccountService;
-import io.kang.unit_test.singleton_object.model_testing.SignModelSingleton;
-import io.kang.unit_test.singleton_object.service_testing.DetailVOUpdateSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.AgeVOSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.CityVOSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.AgeDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.CityDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.DetailDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.model_unit.SignModelSingleton;
 import io.kang.vo.AccessVO;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +40,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.servlet.Filter;
-
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -169,7 +168,7 @@ public class CommonRestControllerUnitTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", String.format("Bearer %s", adminToken));
 
-        when(accountService.executeSignInfoUpdate(SignModelSingleton.INSTANCE.getInstance())).thenReturn(DetailVOUpdateSingleton.INSTANCE.getInstance());
+        when(accountService.executeSignInfoUpdate(SignModelSingleton.INSTANCE.getInstance())).thenReturn(DetailDTOUpdateSingleton.INSTANCE.getInstance());
 
         mockMvc
                 .perform(
@@ -217,7 +216,7 @@ public class CommonRestControllerUnitTest {
     @Test
     @WithMockUser(username="kang123", password="test123", authorities = {"ROLE_ADMIN"})
     public void any_user_age_list_test() throws Exception{
-        when(ageService.findAll()).thenReturn(Arrays.asList(AgeVOSingleton.INSTANCE.getInstance()));
+        when(ageService.findAll()).thenReturn(Arrays.asList(AgeDTOUpdateSingleton.INSTANCE.getInstance()));
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", String.format("Bearer %s", adminToken));
@@ -234,7 +233,7 @@ public class CommonRestControllerUnitTest {
     @Test
     @WithMockUser(username="kang123", password="test123", authorities = {"ROLE_ADMIN"})
     public void any_user_city_list_test() throws Exception{
-        when(cityService.findAll()).thenReturn(Arrays.asList(CityVOSingleton.INSTANCE.getInstance()));
+        when(cityService.findAll()).thenReturn(Arrays.asList(CityDTOUpdateSingleton.INSTANCE.getInstance()));
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", String.format("Bearer %s", adminToken));

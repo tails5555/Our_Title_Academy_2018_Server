@@ -1,10 +1,9 @@
 package io.kang.service.domain_service.implement_object;
 
 import io.kang.domain.City;
-import io.kang.model.CityModel;
+import io.kang.dto.CityDTO;
 import io.kang.repository.CityRepository;
 import io.kang.service.domain_service.interfaces.CityService;
-import io.kang.vo.CityVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,55 +17,38 @@ public class CityServiceImpl implements CityService {
     private CityRepository cityRepository;
 
     @Override
-    public List<CityVO> findAll(){
+    public List<CityDTO> findAll(){
         return cityRepository.findAll()
-                .stream().map(city -> CityVO.builtToVO(city))
+                .stream().map(city -> CityDTO.builtToDTO(city))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CityVO getOneVO(final Long id){
+    public CityDTO getOne(final Long id){
         if(cityRepository.existsById(id))
-            return CityVO.builtToVO(cityRepository.getOne(id));
+            return CityDTO.builtToDTO(cityRepository.getOne(id));
         else return null;
     }
 
     @Override
-    public CityVO findByIdVO(final Long id){
+    public CityDTO findById(final Long id){
         Optional<City> tmpCity = cityRepository.findById(id);
         if(tmpCity.isPresent())
-            return CityVO.builtToVO(tmpCity.get());
+            return CityDTO.builtToDTO(tmpCity.get());
         return null;
     }
 
     @Override
-    public CityModel getOneModel(final Long id){
-        if(cityRepository.existsById(id))
-            return CityModel.builtToModel(CityVO.builtToVO(cityRepository.getOne(id)));
+    public CityDTO create(final CityDTO cityDTO){
+        City createCity = cityRepository.save(CityDTO.builtToDomain(cityDTO));
+        if(createCity.getId() != null) return CityDTO.builtToDTO(createCity);
         else return null;
     }
 
     @Override
-    public CityModel findByIdModel(final Long id){
-        Optional<City> tmpCity = cityRepository.findById(id);
-        if(tmpCity.isPresent())
-            return CityModel.builtToModel(CityVO.builtToVO(tmpCity.get()));
-        return null;
-    }
-
-    @Override
-    public CityVO create(final CityModel cityModel){
-        CityVO cityVO = CityModel.builtToVO(cityModel);
-        City createCity = cityRepository.save(CityVO.builtToDomain(cityVO));
-        if(createCity.getId() != null) return CityVO.builtToVO(createCity);
-        else return null;
-    }
-
-    @Override
-    public CityVO update(final CityModel cityModel){
-        CityVO cityVO = CityModel.builtToVO(cityModel);
-        City updateCity = cityRepository.save(CityVO.builtToDomain(cityVO));
-        return CityVO.builtToVO(updateCity);
+    public CityDTO update(final CityDTO cityDTO){
+        City updateCity = cityRepository.save(CityDTO.builtToDomain(cityDTO));
+        return CityDTO.builtToDTO(updateCity);
     }
 
     @Override

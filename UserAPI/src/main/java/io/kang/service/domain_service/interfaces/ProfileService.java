@@ -1,18 +1,16 @@
 package io.kang.service.domain_service.interfaces;
 
-import io.kang.model.CityModel;
-import io.kang.vo.CityVO;
-import io.kang.vo.ProfileVO;
+import io.kang.dto.ProfileDTO;
 
 import java.util.List;
 
 public interface ProfileService {
-    public List<ProfileVO> findAll();
-    public ProfileVO getOneVO(final Long id);
-    public ProfileVO findByIdVO(final Long id);
-    public ProfileVO findByUserLoginId(final String loginId);
-    public ProfileVO create(final ProfileVO profileVO);
-    public ProfileVO update(final ProfileVO profileVO);
+    public List<ProfileDTO> findAll();
+    public ProfileDTO getOne(final Long id);
+    public ProfileDTO findById(final Long id);
+    public ProfileDTO findByUserLoginId(final String loginId);
+    public ProfileDTO create(final ProfileDTO profileDTO);
+    public ProfileDTO update(final ProfileDTO profileDTO);
     public void deleteById(final Long id);
     public boolean existsById(final Long id);
     public long count();

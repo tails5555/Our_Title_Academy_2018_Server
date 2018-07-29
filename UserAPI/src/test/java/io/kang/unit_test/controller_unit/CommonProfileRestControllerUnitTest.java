@@ -1,11 +1,9 @@
 package io.kang.unit_test.controller_unit;
 
-import io.kang.enumeration.Type;
 import io.kang.rest_controller.CommonProfileRestController;
 import io.kang.service.integrate_service.implement_object.ProfileFetchServiceImpl;
 import io.kang.service.integrate_service.interfaces.ProfileFetchService;
-import io.kang.unit_test.singleton_object.service_testing.ProfileVOUpdateSingleton;
-import io.kang.vo.PrincipalVO;
+import io.kang.unit_test.singleton_object.dto_unit.ProfileDTOUpdateSingleton;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +21,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.servlet.Filter;
@@ -34,7 +31,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -133,7 +129,7 @@ public class CommonProfileRestControllerUnitTest {
 
     @Test
     public void resource_profile_another_fetch() throws Exception {
-        when(profileFetchService.fetchByUserLoginId("USER_LOGIN_ID01")).thenReturn(ProfileVOUpdateSingleton.INSTANCE.getInstance());
+        when(profileFetchService.fetchByUserLoginId("USER_LOGIN_ID01")).thenReturn(ProfileDTOUpdateSingleton.INSTANCE.getInstance());
 
         mockMvc
                 .perform(
@@ -148,7 +144,7 @@ public class CommonProfileRestControllerUnitTest {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", String.format("Bearer %s", adminToken));
 
-        when(profileFetchService.fetchByUserLoginId("USER_LOGIN_ID01")).thenReturn(ProfileVOUpdateSingleton.INSTANCE.getInstance());
+        when(profileFetchService.fetchByUserLoginId("USER_LOGIN_ID01")).thenReturn(ProfileDTOUpdateSingleton.INSTANCE.getInstance());
 
         mockMvc
                 .perform(

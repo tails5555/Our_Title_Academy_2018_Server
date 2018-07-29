@@ -1,9 +1,9 @@
 package io.kang.service.domain_service.implement_object;
 
 import io.kang.domain.Detail;
+import io.kang.dto.DetailDTO;
 import io.kang.repository.DetailRepository;
 import io.kang.service.domain_service.interfaces.DetailService;
-import io.kang.vo.DetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,52 +17,52 @@ public class DetailServiceImpl implements DetailService {
     private DetailRepository detailRepository;
 
     @Override
-    public List<DetailVO> findAll() {
+    public List<DetailDTO> findAll() {
         return detailRepository.findAll()
-                .stream().map(detail -> DetailVO.builtToVO(detail))
+                .stream().map(detail -> DetailDTO.builtToDTO(detail))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public DetailVO getOneVO(final Long id) {
+    public DetailDTO getOne(final Long id) {
         if(detailRepository.existsById(id))
-            return DetailVO.builtToVO(detailRepository.getOne(id));
+            return DetailDTO.builtToDTO(detailRepository.getOne(id));
         else return null;
     }
 
     @Override
-    public DetailVO findByIdVO(final Long id) {
+    public DetailDTO findById(final Long id) {
         Optional<Detail> tmpDetail = detailRepository.findById(id);
-        if(tmpDetail.isPresent()) return DetailVO.builtToVO(tmpDetail.get());
+        if(tmpDetail.isPresent()) return DetailDTO.builtToDTO(tmpDetail.get());
         else return null;
     }
 
     @Override
-    public DetailVO findByLoginIdVO(final String loginId) {
+    public DetailDTO findByLoginId(final String loginId) {
         Optional<Detail> tmpDetail = detailRepository.findByUserLoginId(loginId);
-        if(tmpDetail.isPresent()) return DetailVO.builtToVO(tmpDetail.get());
+        if(tmpDetail.isPresent()) return DetailDTO.builtToDTO(tmpDetail.get());
         else return null;
     }
 
     @Override
-    public DetailVO findByNameAndEmailVO(final String name, final String email) {
+    public DetailDTO findByNameAndEmail(final String name, final String email) {
         Optional<Detail> tmpDetail = detailRepository.findByNameAndEmail(name, email);
-        if(tmpDetail.isPresent()) return DetailVO.builtToVO(tmpDetail.get());
+        if(tmpDetail.isPresent()) return DetailDTO.builtToDTO(tmpDetail.get());
         else return null;
     }
 
     @Override
-    public DetailVO create(final DetailVO detailVO) {
-        Detail tmpDetail = DetailVO.builtToDomain(detailVO);
+    public DetailDTO create(final DetailDTO detailVO) {
+        Detail tmpDetail = DetailDTO.builtToDomain(detailVO);
         Detail createDetail = detailRepository.save(tmpDetail);
-        if(createDetail.getId() != null) return DetailVO.builtToVO(createDetail);
+        if(createDetail.getId() != null) return DetailDTO.builtToDTO(createDetail);
         else return null;
     }
 
     @Override
-    public DetailVO update(final DetailVO detailVO) {
-        Detail tmpDetail = DetailVO.builtToDomain(detailVO);
-        DetailVO updateDetail = DetailVO.builtToVO(detailRepository.save(tmpDetail));
+    public DetailDTO update(final DetailDTO detailVO) {
+        Detail tmpDetail = DetailDTO.builtToDomain(detailVO);
+        DetailDTO updateDetail = DetailDTO.builtToDTO(detailRepository.save(tmpDetail));
         return updateDetail;
     }
 

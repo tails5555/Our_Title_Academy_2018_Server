@@ -1,5 +1,9 @@
 package io.kang.rest_controller;
 
+import io.kang.dto.AgeDTO;
+import io.kang.dto.CityDTO;
+import io.kang.dto.DetailDTO;
+import io.kang.dto.UserDTO;
 import io.kang.exception.CustomException;
 import io.kang.model.FindModel;
 import io.kang.model.LoginModel;
@@ -9,10 +13,6 @@ import io.kang.service.domain_service.interfaces.CityService;
 import io.kang.service.domain_service.interfaces.UserService;
 import io.kang.service.integrate_service.interfaces.AccountService;
 import io.kang.service.integrate_service.interfaces.TokenLoginService;
-import io.kang.vo.AgeVO;
-import io.kang.vo.CityVO;
-import io.kang.vo.DetailVO;
-import io.kang.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,25 +56,25 @@ public class GuestRestController {
 
     @PostMapping("sign_up")
     public ResponseEntity<?> signUp(@RequestBody SignModel signModel){
-        DetailVO detailVO = accountService.executeSignUp(signModel);
-        if(detailVO != null)
-            return ResponseEntity.ok(detailVO);
+        DetailDTO detailDTO = accountService.executeSignUp(signModel);
+        if(detailDTO != null)
+            return ResponseEntity.ok(detailDTO);
         else return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("id_confirm/{loginId}")
     public ResponseEntity<Boolean> idConfirm(@PathVariable String loginId){
-        UserVO userVO = userService.findByLoginId(loginId);
-        return (userVO == null) ? ResponseEntity.ok(true) : ResponseEntity.ok(false);
+        UserDTO userDTO = userService.findByLoginId(loginId);
+        return (userDTO == null) ? ResponseEntity.ok(true) : ResponseEntity.ok(false);
     }
 
     @GetMapping("ageList")
-    public ResponseEntity<List<AgeVO>> ageList(){
+    public ResponseEntity<List<AgeDTO>> ageList(){
         return ResponseEntity.ok(ageService.findAll());
     }
 
     @GetMapping("cityList")
-    public ResponseEntity<List<CityVO>> cityList(){
+    public ResponseEntity<List<CityDTO>> cityList(){
         return ResponseEntity.ok(cityService.findAll());
     }
 

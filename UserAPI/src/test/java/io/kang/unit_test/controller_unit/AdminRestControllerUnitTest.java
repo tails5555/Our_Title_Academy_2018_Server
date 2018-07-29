@@ -4,8 +4,8 @@ import io.kang.enumeration.Type;
 import io.kang.rest_controller.AdminRestController;
 import io.kang.service.integrate_service.implement_object.AccountServiceImpl;
 import io.kang.service.integrate_service.interfaces.AccountService;
-import io.kang.unit_test.singleton_object.service_testing.DetailVOUpdateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.UserVOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.DetailDTOUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.UserDTOUpdateSingleton;
 import io.kang.vo.PrincipalVO;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.servlet.Filter;
-
 import java.util.Arrays;
 
 import static org.mockito.Mockito.doNothing;
@@ -88,7 +87,7 @@ public class AdminRestControllerUnitTest {
     @Test
     @WithMockUser(username = "kang123", password = "test123", authorities = {"ROLE_ADMIN"})
     public void admin_fetch_any_user_info_test() throws Exception {
-        when(accountService.fetchDetailInfo("USER_LOGIN_ID01")).thenReturn(DetailVOUpdateSingleton.INSTANCE.getInstance());
+        when(accountService.fetchDetailInfo("USER_LOGIN_ID01")).thenReturn(DetailDTOUpdateSingleton.INSTANCE.getInstance());
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", String.format("Bearer %s", adminToken));
@@ -105,7 +104,7 @@ public class AdminRestControllerUnitTest {
     @Test
     @WithMockUser(username = "kang123", password = "test123", authorities = {"ROLE_ADMIN"})
     public void admin_execute_type_change_test() throws Exception {
-        when(accountService.executeAdminLevelChange("USER_LOGIN_ID01", Type.USER)).thenReturn(UserVOUpdateSingleton.INSTANCE.getInstance());
+        when(accountService.executeAdminLevelChange("USER_LOGIN_ID01", Type.USER)).thenReturn(UserDTOUpdateSingleton.INSTANCE.getInstance());
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", String.format("Bearer %s", adminToken));

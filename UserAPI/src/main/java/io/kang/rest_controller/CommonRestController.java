@@ -1,14 +1,14 @@
 package io.kang.rest_controller;
 
+import io.kang.dto.AgeDTO;
+import io.kang.dto.CityDTO;
+import io.kang.dto.DetailDTO;
 import io.kang.exception.CustomException;
 import io.kang.model.SignModel;
 import io.kang.service.domain_service.interfaces.AgeService;
 import io.kang.service.domain_service.interfaces.CityService;
 import io.kang.service.integrate_service.interfaces.AccountService;
 import io.kang.vo.AccessVO;
-import io.kang.vo.AgeVO;
-import io.kang.vo.CityVO;
-import io.kang.vo.DetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,9 +66,9 @@ public class CommonRestController {
 
     @PutMapping("sign_update")
     public ResponseEntity<?> signUpdate(@RequestBody SignModel signModel){
-        DetailVO detailVO = accountService.executeSignInfoUpdate(signModel);
-        if(detailVO != null)
-            return ResponseEntity.ok(detailVO);
+        DetailDTO detailDTO = accountService.executeSignInfoUpdate(signModel);
+        if(detailDTO != null)
+            return ResponseEntity.ok(detailDTO);
         else return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
@@ -89,12 +89,12 @@ public class CommonRestController {
     }
 
     @GetMapping("ageList")
-    public ResponseEntity<List<AgeVO>> ageList(){
+    public ResponseEntity<List<AgeDTO>> ageList(){
         return ResponseEntity.ok(ageService.findAll());
     }
 
     @GetMapping("cityList")
-    public ResponseEntity<List<CityVO>> cityList(){
+    public ResponseEntity<List<CityDTO>> cityList(){
         return ResponseEntity.ok(cityService.findAll());
     }
 

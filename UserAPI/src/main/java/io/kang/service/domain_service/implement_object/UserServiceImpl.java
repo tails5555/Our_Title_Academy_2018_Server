@@ -1,11 +1,11 @@
 package io.kang.service.domain_service.implement_object;
 
 import io.kang.domain.User;
+import io.kang.dto.UserDTO;
 import io.kang.enumeration.Type;
 import io.kang.repository.UserRepository;
 import io.kang.service.domain_service.interfaces.UserService;
 import io.kang.util.Encryption;
-import io.kang.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,65 +19,65 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public List<UserVO> findAll() {
+    public List<UserDTO> findAll() {
         return userRepository.findAll()
-                .stream().map(user -> UserVO.builtToVO(user))
+                .stream().map(user -> UserDTO.builtToDTO(user))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<UserVO> findByUserType(final Type type) {
+    public List<UserDTO> findByUserType(final Type type) {
         return userRepository.findByUserType(type)
-                .stream().map(user -> UserVO.builtToVO(user))
+                .stream().map(user -> UserDTO.builtToDTO(user))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<UserVO> findByNicknameContains(final String nickname) {
+    public List<UserDTO> findByNicknameContains(final String nickname) {
         return userRepository.findByNicknameContains(nickname)
-                .stream().map(user -> UserVO.builtToVO(user))
+                .stream().map(user -> UserDTO.builtToDTO(user))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public UserVO getOneVO(final Long id) {
+    public UserDTO getOne(final Long id) {
         if(userRepository.existsById(id))
-            return UserVO.builtToVO(userRepository.getOne(id));
+            return UserDTO.builtToDTO(userRepository.getOne(id));
         else return null;
     }
 
     @Override
-    public UserVO findByIdVO(final Long id) {
+    public UserDTO findById(final Long id) {
         Optional<User> tmpUser = userRepository.findById(id);
         if(tmpUser.isPresent())
-            return UserVO.builtToVO(tmpUser.get());
+            return UserDTO.builtToDTO(tmpUser.get());
         else return null;
     }
 
     @Override
-    public UserVO findByLoginId(final String loginId) {
+    public UserDTO findByLoginId(final String loginId) {
         Optional<User> tmpUser = userRepository.findByLoginId(loginId);
         if(tmpUser.isPresent())
-            return UserVO.builtToVO(tmpUser.get());
+            return UserDTO.builtToDTO(tmpUser.get());
         else return null;
     }
 
     @Override
-    public UserVO create(final UserVO userVO) {
-        String password = userVO.getPassword();
-        userVO.setPassword(Encryption.encrypt(password, Encryption.MD5));
-        User tmpUser = UserVO.builtToDomain(userVO);
-        UserVO createUser = UserVO.builtToVO(userRepository.save(tmpUser));
+    public UserDTO create(final UserDTO userDTO) {
+        String password = userDTO.getPassword();
+        userDTO.setPassword(Encryption.encrypt(password, Encryption.MD5));
+        User tmpUser = UserDTO.builtToDomain(userDTO);
+        UserDTO createUser = UserDTO.builtToDTO(userRepository.save(tmpUser));
         if(createUser.getId() != null) return createUser;
         else return null;
     }
 
     @Override
-    public UserVO update(final UserVO userVO) {
-        String password = userVO.getPassword();
-        userVO.setPassword(Encryption.encrypt(password, Encryption.MD5));
-        User tmpUser = UserVO.builtToDomain(userVO);
-        UserVO updateUser = UserVO.builtToVO(userRepository.save(tmpUser));
+    public UserDTO update(final UserDTO userDTO) {
+        String password = userDTO.getPassword();
+        userDTO.setPassword(Encryption.encrypt(password, Encryption.MD5));
+        User tmpUser = UserDTO.builtToDomain(userDTO);
+        UserDTO updateUser = UserDTO.builtToDTO(userRepository.save(tmpUser));
         return updateUser;
     }
 

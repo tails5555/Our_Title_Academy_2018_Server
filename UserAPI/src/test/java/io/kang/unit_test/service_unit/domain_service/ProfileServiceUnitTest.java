@@ -1,16 +1,15 @@
 package io.kang.unit_test.service_unit.domain_service;
 
 import io.kang.domain.Profile;
+import io.kang.dto.ProfileDTO;
 import io.kang.repository.ProfileRepository;
 import io.kang.service.domain_service.implement_object.ProfileServiceImpl;
 import io.kang.service.domain_service.interfaces.ProfileService;
 import io.kang.test_config.JpaTestConfig;
-import io.kang.unit_test.singleton_object.repository_testing.ProfileCreateSingleton;
-import io.kang.unit_test.singleton_object.repository_testing.ProfileUpdateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.ProfileVOCreateSingleton;
-import io.kang.unit_test.singleton_object.service_testing.ProfileVOUpdateSingleton;
-import io.kang.unit_test.singleton_object.value_object_testing.ProfileVOSingleton;
-import io.kang.vo.ProfileVO;
+import io.kang.unit_test.singleton_object.domain_unit.ProfileCreateSingleton;
+import io.kang.unit_test.singleton_object.domain_unit.ProfileUpdateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.ProfileDTOCreateSingleton;
+import io.kang.unit_test.singleton_object.dto_unit.ProfileDTOUpdateSingleton;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,54 +50,54 @@ public class ProfileServiceUnitTest {
     public void profile_find_all_test(){
         Profile profile = ProfileUpdateSingleton.INSTANCE.getInstance();
         when(profileRepository.findAll()).thenReturn(Arrays.asList(profile));
-        List<ProfileVO> profileVOs = profileService.findAll();
-        Assert.assertEquals(profileVOs, Arrays.asList(ProfileVO.builtToVO(profile)));
+        List<ProfileDTO> profileDTOs = profileService.findAll();
+        Assert.assertEquals(profileDTOs, Arrays.asList(ProfileDTO.builtToDTO(profile)));
     }
 
     @Test
-    public void profile_get_one_vo_success_test(){
+    public void profile_get_one_success_test(){
         Profile profile = ProfileUpdateSingleton.INSTANCE.getInstance();
         when(profileRepository.existsById(1L)).thenReturn(true);
         when(profileRepository.getOne(1L)).thenReturn(profile);
-        ProfileVO profileVO = profileService.getOneVO(1L);
-        Assert.assertEquals(profileVO, ProfileVO.builtToVO(profile));
+        ProfileDTO profileDTO = profileService.getOne(1L);
+        Assert.assertEquals(profileDTO, ProfileDTO.builtToDTO(profile));
     }
 
     @Test
-    public void profile_get_one_vo_failure_test() {
+    public void profile_get_one_failure_test() {
         when(profileRepository.existsById(1L)).thenReturn(false);
-        ProfileVO profileVO = profileService.getOneVO(1L);
-        Assert.assertEquals(profileVO, null);
+        ProfileDTO profileDTO = profileService.getOne(1L);
+        Assert.assertEquals(profileDTO, null);
     }
 
     @Test
-    public void profile_find_by_id_vo_success_test(){
+    public void profile_find_by_id_success_test(){
         Profile profile = ProfileUpdateSingleton.INSTANCE.getInstance();
         when(profileRepository.findById(1L)).thenReturn(Optional.of(profile));
-        ProfileVO profileVO = profileService.findByIdVO(1L);
-        Assert.assertEquals(profileVO, ProfileVO.builtToVO(profile));
+        ProfileDTO profileDTO = profileService.findById(1L);
+        Assert.assertEquals(profileDTO, ProfileDTO.builtToDTO(profile));
     }
 
     @Test
-    public void profile_find_by_id_vo_failure_test(){
+    public void profile_find_by_id_failure_test(){
         when(profileRepository.findById(1L)).thenReturn(Optional.empty());
-        ProfileVO profileVO = profileService.findByIdVO(1L);
-        Assert.assertEquals(profileVO, null);
+        ProfileDTO profileDTO = profileService.findById(1L);
+        Assert.assertEquals(profileDTO, null);
     }
 
     @Test
-    public void profile_find_by_user_login_id_vo_success_test(){
+    public void profile_find_by_user_login_id_success_test(){
         Profile profile = ProfileUpdateSingleton.INSTANCE.getInstance();
         when(profileRepository.findByUserLoginId("USER_LOGIN_ID01")).thenReturn(Optional.of(profile));
-        ProfileVO profileVO = profileService.findByUserLoginId("USER_LOGIN_ID01");
-        Assert.assertEquals(profileVO, ProfileVO.builtToVO(profile));
+        ProfileDTO profileDTO = profileService.findByUserLoginId("USER_LOGIN_ID01");
+        Assert.assertEquals(profileDTO, ProfileDTO.builtToDTO(profile));
     }
 
     @Test
-    public void profile_find_by_user_login_id_vo_failure_test(){
+    public void profile_find_by_user_login_id_failure_test(){
         when(profileRepository.findByUserLoginId("USER_LOGIN_ID01")).thenReturn(Optional.empty());
-        ProfileVO profileVO = profileService.findByUserLoginId("USER_LOGIN_ID01");
-        Assert.assertEquals(profileVO, null);
+        ProfileDTO profileDTO = profileService.findByUserLoginId("USER_LOGIN_ID01");
+        Assert.assertEquals(profileDTO, null);
     }
 
     @Test
@@ -107,8 +106,8 @@ public class ProfileServiceUnitTest {
         Profile createAfter = ProfileUpdateSingleton.INSTANCE.getInstance();
         when(profileRepository.save(createBefore)).thenReturn(createAfter);
 
-        ProfileVO createProfileVO = profileService.create(ProfileVOCreateSingleton.INSTANCE.getInstance());
-        Assert.assertEquals(createProfileVO, ProfileVOSingleton.INSTANCE.getInstance());
+        ProfileDTO createProfileDTO = profileService.create(ProfileDTOCreateSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(createProfileDTO, ProfileDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test
@@ -117,8 +116,8 @@ public class ProfileServiceUnitTest {
         Profile updateAfter = ProfileUpdateSingleton.INSTANCE.getInstance();
         when(profileRepository.save(updateBefore)).thenReturn(updateAfter);
 
-        ProfileVO updateProfileVO = profileService.update(ProfileVOUpdateSingleton.INSTANCE.getInstance());
-        Assert.assertEquals(updateProfileVO, ProfileVOSingleton.INSTANCE.getInstance());
+        ProfileDTO updateProfileDTO = profileService.update(ProfileDTOUpdateSingleton.INSTANCE.getInstance());
+        Assert.assertEquals(updateProfileDTO, ProfileDTOUpdateSingleton.INSTANCE.getInstance());
     }
 
     @Test

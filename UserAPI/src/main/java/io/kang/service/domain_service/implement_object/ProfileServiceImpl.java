@@ -1,9 +1,9 @@
 package io.kang.service.domain_service.implement_object;
 
 import io.kang.domain.Profile;
+import io.kang.dto.ProfileDTO;
 import io.kang.repository.ProfileRepository;
 import io.kang.service.domain_service.interfaces.ProfileService;
-import io.kang.vo.ProfileVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,48 +17,48 @@ public class ProfileServiceImpl implements ProfileService {
     private ProfileRepository profileRepository;
 
     @Override
-    public List<ProfileVO> findAll() {
+    public List<ProfileDTO> findAll() {
         return profileRepository.findAll()
-                .stream().map((profile) -> ProfileVO.builtToVO(profile))
+                .stream().map((profile) -> ProfileDTO.builtToDTO(profile))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ProfileVO getOneVO(final Long id) {
+    public ProfileDTO getOne(final Long id) {
         if(profileRepository.existsById(id))
-            return ProfileVO.builtToVO(profileRepository.getOne(id));
+            return ProfileDTO.builtToDTO(profileRepository.getOne(id));
         else return null;
     }
 
     @Override
-    public ProfileVO findByIdVO(final Long id) {
+    public ProfileDTO findById(final Long id) {
         Optional<Profile> tmpProfile = profileRepository.findById(id);
         if(tmpProfile.isPresent())
-            return ProfileVO.builtToVO(tmpProfile.get());
+            return ProfileDTO.builtToDTO(tmpProfile.get());
         else return null;
     }
 
     @Override
-    public ProfileVO findByUserLoginId(String loginId) {
+    public ProfileDTO findByUserLoginId(String loginId) {
         Optional<Profile> tmpProfile = profileRepository.findByUserLoginId(loginId);
         if(tmpProfile.isPresent()){
-            return ProfileVO.builtToVO(tmpProfile.get());
+            return ProfileDTO.builtToDTO(tmpProfile.get());
         }
         else return null;
     }
 
     @Override
-    public ProfileVO create(final ProfileVO profileVO) {
-        Profile tmpProfile = ProfileVO.builtToDomain(profileVO);
+    public ProfileDTO create(final ProfileDTO profileDTO) {
+        Profile tmpProfile = ProfileDTO.builtToDomain(profileDTO);
         Profile createProfile = profileRepository.save(tmpProfile);
-        if(createProfile.getId() != null) return ProfileVO.builtToVO(createProfile);
+        if(createProfile.getId() != null) return ProfileDTO.builtToDTO(createProfile);
         else return null;
     }
 
     @Override
-    public ProfileVO update(final ProfileVO profileVO) {
-        Profile tmpProfile = ProfileVO.builtToDomain(profileVO);
-        ProfileVO updateProfile = ProfileVO.builtToVO(profileRepository.save(tmpProfile));
+    public ProfileDTO update(final ProfileDTO profileDTO) {
+        Profile tmpProfile = ProfileDTO.builtToDomain(profileDTO);
+        ProfileDTO updateProfile = ProfileDTO.builtToDTO(profileRepository.save(tmpProfile));
         return updateProfile;
     }
 

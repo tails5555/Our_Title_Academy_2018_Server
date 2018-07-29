@@ -1,6 +1,10 @@
 package io.kang.service.integrate_service.implement_object;
 
 import io.kang.component.JwtTokenProvider;
+import io.kang.dto.AgeDTO;
+import io.kang.dto.CityDTO;
+import io.kang.dto.DetailDTO;
+import io.kang.dto.UserDTO;
 import io.kang.enumeration.Type;
 import io.kang.exception.CustomException;
 import io.kang.model.FindModel;
@@ -12,11 +16,7 @@ import io.kang.service.domain_service.interfaces.UserService;
 import io.kang.service.integrate_service.interfaces.AccountService;
 import io.kang.util.Encryption;
 import io.kang.vo.AccessVO;
-import io.kang.vo.AgeVO;
-import io.kang.vo.CityVO;
-import io.kang.vo.DetailVO;
 import io.kang.vo.PrincipalVO;
-import io.kang.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -62,35 +62,35 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String fetchLoginId(final FindModel findModel) {
-        DetailVO detailVO = detailService.findByNameAndEmailVO(findModel.getName(), findModel.getEmail());
-        if(detailVO != null){
-            UserVO userVO = detailVO.getUser();
-            return userVO.getLoginId();
+        DetailDTO detailDTO = detailService.findByNameAndEmail(findModel.getName(), findModel.getEmail());
+        if(detailDTO != null){
+            UserDTO userDTO = detailDTO.getUser();
+            return userDTO.getLoginId();
         } else return null;
     }
 
     @Override
     @Transactional
-    public DetailVO executeSignUp(final SignModel signModel) {
+    public DetailDTO executeSignUp(final SignModel signModel) {
         if (!this.validateSignUp(signModel))
             return null;
 
-        UserVO signUserVO = SignModel.builtToUserVO(signModel);
-        UserVO signAfterUserVO = userService.create(signUserVO);
+        UserDTO signUserDTO = SignModel.builtToUserDTO(signModel);
+        UserDTO signAfterUserDTO = userService.create(signUserDTO);
 
-        AgeVO ageVO = ageService.findByIdVO(signModel.getAgeId());
-        CityVO cityVO = cityService.findByIdVO(signModel.getCityId());
+        AgeDTO ageDTO = ageService.findById(signModel.getAgeId());
+        CityDTO cityDTO = cityService.findById(signModel.getCityId());
 
-        DetailVO signDetailVO = SignModel.builtToDetailVO(signModel, signAfterUserVO, ageVO, cityVO);
-        return detailService.create(signDetailVO);
+        DetailDTO signDetailDTO = SignModel.builtToDetailDTO(signModel, signAfterUserDTO, ageDTO, cityDTO);
+        return detailService.create(signDetailDTO);
     }
 
     @Override
     public SignModel fetchSignInfo(final Principal principal) {
         String currentLoginId = principal.getName();
         if(this.hasAccount(currentLoginId)){
-            DetailVO detailVO = detailService.findByLoginIdVO(currentLoginId);
-            return SignModel.builtToSignModel(detailVO, detailVO.getAge(), detailVO.getCity());
+            DetailDTO detailDTO = detailService.findByLoginId(currentLoginId);
+            return SignModel.builtToSignModel(detailDTO, detailDTO.getAge(), detailDTO.getCity());
         } else return null;
     }
 
@@ -115,55 +115,55 @@ public class AccountServiceImpl implements AccountService {
         if (!tokenLoginId.equals(currentLoginId))
             return null;
         else {
-            UserVO userVO = userService.findByLoginId(currentLoginId);
+            UserDTO userDTO = userService.findByLoginId(currentLoginId);
             Date loginTime = jwtTokenProvider.getIssuedAt(jwtToken);
-            return AccessVO.currentAccessVO(userVO, LocalDateTime.ofInstant(loginTime.toInstant(), ZoneId.systemDefault()));
+            return AccessVO.currentAccessVO(userDTO, LocalDateTime.ofInstant(loginTime.toInstant(), ZoneId.systemDefault()));
         }
     }
 
     @Override
     @Transactional
-    public DetailVO executeSignInfoUpdate(final SignModel signModel) {
+    public DetailDTO executeSignInfoUpdate(final SignModel signModel) {
         if (!signModel.isPasswordEquals())
             return null;
 
-        UserVO beforeUserVO = userService.findByLoginId(signModel.getLoginId());
-        if(beforeUserVO == null) return null;
-        UserVO afterUserVO = SignModel.builtToUserVOExisted(beforeUserVO.getId(), signModel, beforeUserVO.getUserType());
-        UserVO signAfterUserVO = userService.update(afterUserVO);
+        UserDTO beforeUserDTO = userService.findByLoginId(signModel.getLoginId());
+        if(beforeUserDTO == null) return null;
+        UserDTO afterUserDTO = SignModel.builtToUserDTOIsExisted(beforeUserDTO.getId(), signModel, beforeUserDTO.getUserType());
+        UserDTO signAfterUserDTO = userService.update(afterUserDTO);
 
-        DetailVO beforeDetailVO = detailService.findByLoginIdVO(signModel.getLoginId());
-        if(beforeDetailVO == null) return null;
-        AgeVO ageVO = ageService.findByIdVO(signModel.getAgeId());
-        CityVO cityVO = cityService.findByIdVO(signModel.getCityId());
-        DetailVO signDetailVO = SignModel.builtToDetailVOExisted(beforeDetailVO.getId(), signModel, signAfterUserVO, ageVO, cityVO);
-        return detailService.update(signDetailVO);
+        DetailDTO beforeDetailDTO = detailService.findByLoginId(signModel.getLoginId());
+        if(beforeDetailDTO == null) return null;
+        AgeDTO ageDTO = ageService.findById(signModel.getAgeId());
+        CityDTO cityDTO = cityService.findById(signModel.getCityId());
+        DetailDTO signDetailDTO = SignModel.builtToDetailDTOExisted(beforeDetailDTO.getId(), signModel, signAfterUserDTO, ageDTO, cityDTO);
+        return detailService.update(signDetailDTO);
     }
 
     @Override
     public boolean confirmCurrentPassword(Principal principal, String password) {
-        UserVO userVO = userService.findByLoginId(principal.getName());
-        if(userVO == null) return false;
-        else return userVO.getPassword().equals(Encryption.encrypt(password, Encryption.MD5));
+        UserDTO userDTO = userService.findByLoginId(principal.getName());
+        if(userDTO == null) return false;
+        else return userDTO.getPassword().equals(Encryption.encrypt(password, Encryption.MD5));
     }
 
     @Override
     @Secured("ROLE_MANAGER")
     @Transactional
-    public UserVO executeManagerLevelUp(final String loginId) {
-        UserVO userVO = userService.findByLoginId(loginId);
-        userVO.setUserType(Type.MANAGER);
-        return userService.update(userVO);
+    public UserDTO executeManagerLevelUp(final String loginId) {
+        UserDTO userDTO = userService.findByLoginId(loginId);
+        userDTO.setUserType(Type.MANAGER);
+        return userService.update(userDTO);
     }
 
     @Override
     @Secured("ROLE_ADMIN")
     @Transactional
-    public UserVO executeAdminLevelChange(final String loginId, final Type type) {
-        UserVO userVO = userService.findByLoginId(loginId);
-        if(userVO != null) {
-            userVO.setUserType(type);
-            return userService.update(userVO);
+    public UserDTO executeAdminLevelChange(final String loginId, final Type type) {
+        UserDTO userDTO = userService.findByLoginId(loginId);
+        if(userDTO != null) {
+            userDTO.setUserType(type);
+            return userService.update(userDTO);
         } else return null;
     }
 
@@ -171,17 +171,17 @@ public class AccountServiceImpl implements AccountService {
     @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
     public List<PrincipalVO> fetchUserList() {
         return detailService.findAll()
-                .stream().map(detailVO -> PrincipalVO.builtToVO(detailVO))
+                .stream().map(detailDTO -> PrincipalVO.builtToVO(detailDTO))
                 .collect(Collectors.toList());
     }
 
     @Override
     @Secured({"ROLE_ADMIN", "ROLE_MANAGER"})
-    public DetailVO fetchDetailInfo(final String loginId) {
-        DetailVO detailVO = detailService.findByLoginIdVO(loginId);
-        if(detailVO != null) {
-            detailVO.getUser().setPassword(null);
-            return detailVO;
+    public DetailDTO fetchDetailInfo(final String loginId) {
+        DetailDTO detailDTO = detailService.findByLoginId(loginId);
+        if(detailDTO != null) {
+            detailDTO.getUser().setPassword(null);
+            return detailDTO;
         } else return null;
     }
 

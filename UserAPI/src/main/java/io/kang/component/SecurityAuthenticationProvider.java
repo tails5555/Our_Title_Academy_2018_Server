@@ -1,8 +1,8 @@
 package io.kang.component;
 
+import io.kang.dto.UserDTO;
 import io.kang.service.integrate_service.interfaces.ProviderLoginService;
 import io.kang.util.UserType;
-import io.kang.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,14 +28,14 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
     }
 
     private Authentication authenticate(String loginId, String passwd) throws AuthenticationException {
-        UserVO userVO = providerLoginService.provideLogin(loginId, passwd);
-        if (userVO == null) return null;
+        UserDTO userDTO = providerLoginService.provideLogin(loginId, passwd);
+        if (userDTO == null) return null;
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        String role = UserType.builtToUserType(userVO.getUserType());
+        String role = UserType.builtToUserType(userDTO.getUserType());
         grantedAuthorities.add(new SimpleGrantedAuthority(role));
 
-        return new CheckedAuthentication(loginId, passwd, grantedAuthorities, userVO);
+        return new CheckedAuthentication(loginId, passwd, grantedAuthorities, userDTO);
     }
 
     @Override
@@ -45,19 +45,19 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
 
     public class CheckedAuthentication extends UsernamePasswordAuthenticationToken {
         private static final long serialVersionUID = 1L;
-        private UserVO userVO;
+        private UserDTO userDTO;
 
-        public CheckedAuthentication(String loginId, String password, List<GrantedAuthority> grantedAuthorities, UserVO userVO){
+        public CheckedAuthentication(String loginId, String password, List<GrantedAuthority> grantedAuthorities, UserDTO userDTO){
             super(loginId, password, grantedAuthorities);
-            this.userVO = userVO;
+            this.userDTO = userDTO;
         }
 
-        public UserVO getUserVO(){
-            return this.userVO;
+        public UserDTO getUserDTO(){
+            return this.userDTO;
         }
 
-        public void setUserVO(UserVO userVO){
-            this.userVO = userVO;
+        public void setUserDTO(UserDTO userDTO){
+            this.userDTO = userDTO;
         }
     }
 }
