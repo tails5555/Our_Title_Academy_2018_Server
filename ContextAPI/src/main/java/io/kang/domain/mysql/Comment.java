@@ -1,21 +1,18 @@
-package io.kang.domain.empathy;
+package io.kang.domain.mysql;
 
-import io.kang.enumeration.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
@@ -23,17 +20,23 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "type")
-public abstract class Empathy {
+public class Comment implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private Status status;
+    private String userId;
+
+    @ManyToOne
+    @JoinColumn(name = "requestId")
+    private Request request;
 
     @Column(nullable = false)
-    private LocalDateTime checkedDate;
+    private String context;
+
+    @Column(nullable = false)
+    private LocalDateTime writtenDate;
 }

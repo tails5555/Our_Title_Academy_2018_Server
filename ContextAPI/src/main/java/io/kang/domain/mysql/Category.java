@@ -1,4 +1,4 @@
-package io.kang.domain;
+package io.kang.domain.mysql;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

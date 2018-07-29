@@ -1,4 +1,4 @@
-package io.kang.domain;
+package io.kang.domain.mysql;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,19 +22,23 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-public class Comment implements Serializable {
+@Table(
+    name = "request",
+    uniqueConstraints = @UniqueConstraint(columnNames={"requestId", "userId"})
+)
+public class Title implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String userId;
-
     @ManyToOne
     @JoinColumn(name = "requestId")
     private Request request;
+
+    @Column(nullable = false)
+    private String userId;
 
     @Column(nullable = false)
     private String context;

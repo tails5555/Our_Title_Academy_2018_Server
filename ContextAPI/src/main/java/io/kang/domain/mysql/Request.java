@@ -1,4 +1,4 @@
-package io.kang.domain;
+package io.kang.domain.mysql;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-public class Title implements Serializable {
+public class Request implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,15 +28,24 @@ public class Title implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "requestId")
-    private Request request;
+    @JoinColumn(name = "categoryId", nullable = true)
+    private Category category;
 
     @Column(nullable = false)
     private String userId;
 
     @Column(nullable = false)
+    private String intro;
+
+    @Column(nullable = false)
     private String context;
 
     @Column(nullable = false)
+    private Boolean available;
+
+    @Column(nullable = false)
     private LocalDateTime writtenDate;
+
+    @Column(nullable = false)
+    private Integer view;
 }

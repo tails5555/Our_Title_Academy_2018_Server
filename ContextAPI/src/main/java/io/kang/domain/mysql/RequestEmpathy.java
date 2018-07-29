@@ -1,6 +1,5 @@
-package io.kang.domain.empathy;
+package io.kang.domain.mysql;
 
-import io.kang.domain.Title;
 import io.kang.enumeration.Status;
 import io.kang.enumeration.Type;
 import lombok.Data;
@@ -19,26 +18,26 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(
-    name = "titleempathy",
-    uniqueConstraints = @UniqueConstraint(columnNames={"userId", "titleId"})
+    name = "requestempathy",
+    uniqueConstraints = @UniqueConstraint(columnNames={"userId", "requestId"})
 )
-@DiscriminatorValue(Type.TITLE)
-public class TitleEmpathy extends Empathy implements Serializable {
+@DiscriminatorValue(Type.REQUEST)
+public class RequestEmpathy extends Empathy implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String userId;
 
     @ManyToOne
-    @JoinColumn(name = "titleId")
-    private Title title;
+    @JoinColumn(name = "requestId")
+    private Request request;
 
-    public TitleEmpathy(){
+    public RequestEmpathy(){
         super();
     }
 
-    public TitleEmpathy(Long id, Status status, LocalDateTime checkedDate, String userId, Title title){
+    public RequestEmpathy(Long id, Status status, LocalDateTime checkedDate, String userId, Request request){
         super(id, status, checkedDate);
         this.userId = userId;
-        this.title = title;
+        this.request = request;
     }
 }

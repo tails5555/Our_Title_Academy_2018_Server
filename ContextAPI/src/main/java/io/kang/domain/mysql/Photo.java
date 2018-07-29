@@ -1,4 +1,4 @@
-package io.kang.domain;
+package io.kang.domain.mysql;
 
 import io.kang.enumeration.Suffix;
 import lombok.AllArgsConstructor;
