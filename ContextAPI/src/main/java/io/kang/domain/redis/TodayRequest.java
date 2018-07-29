@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,6 +21,8 @@ public class TodayRequest implements Serializable {
 
     @Id
     private Long id;
+
+    @Indexed
     private Long requestId;
     private LocalDateTime selectDate;
 }

@@ -1,7 +1,7 @@
 package io.kang.unit_test.domain_unit;
 
-import io.kang.domain.Comment;
-import io.kang.domain.empathy.CommentEmpathy;
+import io.kang.domain.mysql.Comment;
+import io.kang.domain.mysql.CommentEmpathy;
 import io.kang.enumeration.Status;
 import io.kang.unit_test.testing_singleton.domain_unit.CommentUpdateSingleton;
 

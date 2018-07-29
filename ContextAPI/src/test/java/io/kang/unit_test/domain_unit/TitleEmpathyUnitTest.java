@@ -1,7 +1,7 @@
 package io.kang.unit_test.domain_unit;
 
-import io.kang.domain.Title;
-import io.kang.domain.empathy.TitleEmpathy;
+import io.kang.domain.mysql.Title;
+import io.kang.domain.mysql.TitleEmpathy;
 import io.kang.enumeration.Status;
 import io.kang.unit_test.testing_singleton.domain_unit.TitleUpdateSingleton;
 import org.junit.Assert;

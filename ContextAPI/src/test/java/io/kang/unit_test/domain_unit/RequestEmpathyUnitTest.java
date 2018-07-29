@@ -1,11 +1,8 @@
 package io.kang.unit_test.domain_unit;
 
-import io.kang.domain.Request;
-import io.kang.domain.Request;
-import io.kang.domain.empathy.CommentEmpathy;
-import io.kang.domain.empathy.RequestEmpathy;
+import io.kang.domain.mysql.Request;
+import io.kang.domain.mysql.RequestEmpathy;
 import io.kang.enumeration.Status;
-import io.kang.unit_test.testing_singleton.domain_unit.CommentUpdateSingleton;
 import io.kang.unit_test.testing_singleton.domain_unit.RequestUpdateSingleton;
 import org.junit.Assert;
 import org.junit.Test;

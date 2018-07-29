@@ -1,6 +1,6 @@
 package io.kang.unit_test.domain_unit;
 
-import io.kang.domain.Category;
+import io.kang.domain.mysql.Category;
 import org.junit.Assert;
 import org.junit.Test;
 

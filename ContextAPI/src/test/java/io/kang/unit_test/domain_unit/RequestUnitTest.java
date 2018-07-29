@@ -1,7 +1,7 @@
 package io.kang.unit_test.domain_unit;
 
-import io.kang.domain.Category;
-import io.kang.domain.Request;
+import io.kang.domain.mysql.Category;
+import io.kang.domain.mysql.Request;
 import io.kang.unit_test.testing_singleton.domain_unit.CategoryUpdateSingleton;
 import org.junit.Assert;
 import org.junit.Test;

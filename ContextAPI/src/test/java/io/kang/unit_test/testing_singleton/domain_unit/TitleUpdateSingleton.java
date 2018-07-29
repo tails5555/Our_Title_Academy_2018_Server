@@ -1,6 +1,6 @@
 package io.kang.unit_test.testing_singleton.domain_unit;
 
-import io.kang.domain.Title;
+import io.kang.domain.mysql.Title;
 
 import java.time.LocalDateTime;
 
