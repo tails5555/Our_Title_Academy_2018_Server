@@ -177,6 +177,14 @@ public class GuestRestControllerUnitTest {
     }
 
     @Test
+    public void guest_fetch_nickname_test() throws Exception {
+        when(userService.findByLoginId("USER_LOGIN_ID01")).thenReturn(UserDTOUpdateSingleton.INSTANCE.getInstance());
+        mockMvc.
+                perform(get("/UserAPI/auth/guest/fetch_nickname/{loginId}", "USER_LOGIN_ID01"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void guest_find_login_id_success_test() throws Exception {
         when(accountService.fetchLoginId(FindModelSingleton.INSTANCE.getInstance())).thenReturn("USER_LOGIN_ID01");
         mockMvc.

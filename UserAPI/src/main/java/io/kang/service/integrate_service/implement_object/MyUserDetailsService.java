@@ -21,7 +21,7 @@ public class MyUserDetailsService implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String loginId) throws UsernameNotFoundException {
         final UserDTO userDTO = userService.findByLoginId(loginId);
 
         if (userDTO == null) {

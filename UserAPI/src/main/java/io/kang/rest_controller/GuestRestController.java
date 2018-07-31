@@ -78,6 +78,14 @@ public class GuestRestController {
         return ResponseEntity.ok(cityService.findAll());
     }
 
+    @GetMapping("fetch_nickname/{loginId}")
+    public ResponseEntity<String> fetchNickname(@PathVariable String loginId){
+        UserDTO userDTO = userService.findByLoginId(loginId);
+        if(userDTO != null){
+            return ResponseEntity.ok(userDTO.getNickname());
+        } else return ResponseEntity.ok("ANONYMOUS");
+    }
+    
     @PostMapping("find_loginId")
     public ResponseEntity<?> findLoginId(@RequestBody FindModel findModel){
         String loginId = accountService.fetchLoginId(findModel);

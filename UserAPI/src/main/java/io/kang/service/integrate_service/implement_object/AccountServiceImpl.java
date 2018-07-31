@@ -141,7 +141,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean confirmCurrentPassword(Principal principal, String password) {
+    public boolean confirmCurrentPassword(final Principal principal, final String password) {
         UserDTO userDTO = userService.findByLoginId(principal.getName());
         if(userDTO == null) return false;
         else return userDTO.getPassword().equals(Encryption.encrypt(password, Encryption.MD5));

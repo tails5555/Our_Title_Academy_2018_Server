@@ -27,7 +27,7 @@ public class ProfileFetchServiceImpl implements ProfileFetchService {
     @Autowired
     private ProfileService profileService;
 
-    private String fileNameEncryption(String fileName) {
+    private String fileNameEncryption(final String fileName) {
         int infix=fileName.lastIndexOf('.');
         String fileSuffix = fileName.substring(infix, fileName.length());
         String filePrefix = Encryption.encrypt(fileName.substring(0, infix-1), Encryption.SHA256);
