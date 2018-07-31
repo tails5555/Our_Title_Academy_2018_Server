@@ -9,6 +9,9 @@ import java.util.List;
 
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
-    public List<Request> findByCategory(Category category);
-    public List<Request> findByCategoryIsNull();
+    public List<Request> findAllByOrderByWrittenDateDesc();
+    public List<Request> findByUserIdAndCategoryIsNullOrderByWrittenDateDesc(String userId);
+    public List<Request> findByUserIdAndCategoryIsNotNullOrderByWrittenDateDesc(String userId);
+    public List<Request> findByCategoryOrderByWrittenDateDesc(Category category);
+    public List<Request> findByCategoryIsNullOrderByWrittenDateDesc();
 }

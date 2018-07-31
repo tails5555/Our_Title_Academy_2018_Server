@@ -1,11 +1,15 @@
 package io.kang.service.domain_service.interfaces;
 
+import io.kang.dto.mysql.RequestDTO;
 import io.kang.dto.mysql.TitleDTO;
 
 import java.util.List;
 
 public interface TitleService {
     public List<TitleDTO> findAll();
+    public List<TitleDTO> findAllByOrderByWrittenDateDesc();
+    public List<TitleDTO> findByUserIdOrderByWrittenDateDesc(final String userId);
+    public List<TitleDTO> findByRequestOrderByWrittenDateDesc(final RequestDTO requestDTO);
     public TitleDTO getOne(final Long id);
     public TitleDTO findById(final Long id);
     public TitleDTO create(final TitleDTO titleDTO);

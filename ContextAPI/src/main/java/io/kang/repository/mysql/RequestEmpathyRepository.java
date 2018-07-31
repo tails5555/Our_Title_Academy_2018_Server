@@ -14,5 +14,4 @@ public interface RequestEmpathyRepository extends EmpathyBaseRepository<RequestE
     public boolean existsByUserIdAndRequest(String userId, Request request);
     public void deleteByUserIdAndRequest(String userId, Request request);
     public long countByRequestAndStatus(Request request, Status status);
-
 }

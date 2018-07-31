@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface TitleRepository extends JpaRepository<Title, Long> {
-    public List<Title> findByUserId(String userId);
-    public List<Title> findByRequest(Request request);
+    public List<Title> findAllByOrderByWrittenDateDesc();
+    public List<Title> findByUserIdOrderByWrittenDateDesc(String userId);
+    public List<Title> findByRequestOrderByWrittenDateDesc(Request request);
 }
