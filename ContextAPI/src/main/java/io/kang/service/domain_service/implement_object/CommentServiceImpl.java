@@ -80,4 +80,9 @@ public class CommentServiceImpl implements CommentService {
     public long count() {
         return commentRepository.count();
     }
+
+    @Override
+    public long countByRequest(RequestDTO requestDTO) {
+        return commentRepository.countByRequest(RequestDTO.builtToDomain(requestDTO));
+    }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
     public List<Request> findAllByOrderByWrittenDateDesc();
+    public List<Request> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(Boolean available);
     public List<Request> findByUserIdAndCategoryIsNullOrderByWrittenDateDesc(String userId);
     public List<Request> findByUserIdAndCategoryIsNotNullOrderByWrittenDateDesc(String userId);
     public List<Request> findByCategoryOrderByWrittenDateDesc(Category category);

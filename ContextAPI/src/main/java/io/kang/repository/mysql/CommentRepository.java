@@ -11,4 +11,5 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     public List<Comment> findByUserIdOrderByWrittenDateDesc(String userId);
     public List<Comment> findByRequestOrderByWrittenDateDesc(Request request);
+    public long countByRequest(Request request);
 }

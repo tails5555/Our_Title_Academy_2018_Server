@@ -12,9 +12,11 @@ public interface TitleService {
     public List<TitleDTO> findByRequestOrderByWrittenDateDesc(final RequestDTO requestDTO);
     public TitleDTO getOne(final Long id);
     public TitleDTO findById(final Long id);
+    public TitleDTO findTopByRequestIdOrderByLikeCountDesc(final Long requestId);
     public TitleDTO create(final TitleDTO titleDTO);
     public TitleDTO update(final TitleDTO titleDTO);
     public void deleteById(final Long id);
     public boolean existsById(final Long id);
     public long count();
+    public long countByRequest(RequestDTO requestDTO);
 }

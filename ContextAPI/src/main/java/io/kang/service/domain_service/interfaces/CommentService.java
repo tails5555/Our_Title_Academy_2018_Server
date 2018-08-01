@@ -16,4 +16,5 @@ public interface CommentService {
     public void deleteById(final Long id);
     public boolean existsById(final Long id);
     public long count();
+    public long countByRequest(RequestDTO requestDTO);
 }

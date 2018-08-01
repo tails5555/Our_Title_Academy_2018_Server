@@ -60,6 +60,13 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
+    public TitleDTO findTopByRequestIdOrderByLikeCountDesc(final Long id) {
+        Optional<Title> tmpTitle = titleRepository.findTopByRequestIdOrderByLikeCountDesc(id);
+        if(tmpTitle.isPresent()) return TitleDTO.builtToDTO(tmpTitle.get());
+        else return null;
+    }
+
+    @Override
     public TitleDTO create(final TitleDTO titleDTO) {
         Title createTitle = titleRepository.save(TitleDTO.builtToDomain(titleDTO));
         if(createTitle.getId() != null) return TitleDTO.builtToDTO(createTitle);
@@ -85,5 +92,10 @@ public class TitleServiceImpl implements TitleService {
     @Override
     public long count() {
         return titleRepository.count();
+    }
+
+    @Override
+    public long countByRequest(RequestDTO requestDTO) {
+        return titleRepository.countByRequest(RequestDTO.builtToDomain(requestDTO));
     }
 }
