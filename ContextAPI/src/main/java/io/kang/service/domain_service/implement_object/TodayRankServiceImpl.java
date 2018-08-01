@@ -25,8 +25,22 @@ public class TodayRankServiceImpl implements TodayRankService {
     }
 
     @Override
+    public List<TodayRankDTO> findAllByOrderBySequenceAsc() {
+        return StreamSupport.stream(todayRankRepository.findAllByOrderBySequenceAsc().spliterator(), false)
+                .map(todayRank -> TodayRankDTO.builtToDTO(todayRank))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public TodayRankDTO findById(final Long id) {
         Optional<TodayRank> tmpTodayRank = todayRankRepository.findById(id);
+        if(tmpTodayRank.isPresent()) return TodayRankDTO.builtToDTO(tmpTodayRank.get());
+        else return null;
+    }
+
+    @Override
+    public TodayRankDTO findByRequestId(Long requestId) {
+        Optional<TodayRank> tmpTodayRank = todayRankRepository.findByRequestId(requestId);
         if(tmpTodayRank.isPresent()) return TodayRankDTO.builtToDTO(tmpTodayRank.get());
         else return null;
     }

@@ -13,12 +13,13 @@ public class TodayRankDTO {
     private Long sequence;
     private Long requestId;
     private Double score;
+    private Double difference;
 
     public static TodayRankDTO builtToDTO(TodayRank todayRank){
-        return new TodayRankDTO(todayRank.getId(), todayRank.getSequence(), todayRank.getRequestId(), todayRank.getScore());
+        return new TodayRankDTO(todayRank.getId(), todayRank.getSequence(), todayRank.getRequestId(), todayRank.getScore(), todayRank.getDifference());
     }
 
     public static TodayRank builtToDomain(TodayRankDTO todayRankDTO){
-        return new TodayRank(todayRankDTO.getId(), todayRankDTO.getSequence(), todayRankDTO.getRequestId(), todayRankDTO.getScore());
+        return new TodayRank(todayRankDTO.getId(), todayRankDTO.getSequence(), todayRankDTO.getRequestId(), todayRankDTO.getScore(), todayRankDTO.getDifference());
     }
 }

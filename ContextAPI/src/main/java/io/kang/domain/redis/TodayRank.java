@@ -25,4 +25,5 @@ public class TodayRank implements Serializable {
     @Indexed
     private Long requestId;
     private Double score;
+    private Double difference;
 }
