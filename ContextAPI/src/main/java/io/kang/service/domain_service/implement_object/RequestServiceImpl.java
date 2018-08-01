@@ -32,7 +32,14 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(final Boolean available) {
+    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(final Boolean available) {
+        return requestRepository.findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(available).stream()
+                .map(request -> RequestDTO.builtToDTO(request))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(Boolean available) {
         return requestRepository.findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(available).stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());

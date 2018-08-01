@@ -8,6 +8,7 @@ import java.util.List;
 public interface RequestService {
     public List<RequestDTO> findAll();
     public List<RequestDTO> findAllByOrderByWrittenDateDesc();
+    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(final Boolean available);
     public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(final Boolean available);
     public List<RequestDTO> findByUserIdAndCategoryIsNullOrderByWrittenDateDesc(final String userId);
     public List<RequestDTO> findByUserIdAndCategoryIsNotNullOrderByWrittenDateDesc(final String userId);
