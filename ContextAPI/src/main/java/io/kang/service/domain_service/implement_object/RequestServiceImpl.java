@@ -3,6 +3,8 @@ package io.kang.service.domain_service.implement_object;
 import io.kang.domain.mysql.Request;
 import io.kang.dto.mysql.CategoryDTO;
 import io.kang.dto.mysql.RequestDTO;
+import io.kang.model.OptionModel;
+import io.kang.model.PaginationModel;
 import io.kang.repository.mysql.RequestRepository;
 import io.kang.service.domain_service.interfaces.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,23 @@ public class RequestServiceImpl implements RequestService {
     private RequestRepository requestRepository;
 
     @Override
-    public List<RequestDTO> findAll() {
-        return requestRepository.findAll().stream()
-                .map(request -> RequestDTO.builtToDTO(request))
-                .collect(Collectors.toList());
+    public List<OptionModel> getSearchByModel() {
+        return requestRepository.searchBy;
     }
 
     @Override
-    public List<RequestDTO> findAllByOrderByWrittenDateDesc() {
-        return requestRepository.findAllByOrderByWrittenDateDesc().stream()
+    public List<OptionModel> getOrderByModel() {
+        return requestRepository.orderBy;
+    }
+
+    @Override
+    public List<Integer> getSizeByModel() {
+        return requestRepository.sizeBy;
+    }
+
+    @Override
+    public List<RequestDTO> findAll(PaginationModel paginationModel) {
+        return requestRepository.findAll(paginationModel).stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }

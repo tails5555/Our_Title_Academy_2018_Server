@@ -2,12 +2,16 @@ package io.kang.service.domain_service.interfaces;
 
 import io.kang.dto.mysql.CategoryDTO;
 import io.kang.dto.mysql.RequestDTO;
+import io.kang.model.OptionModel;
+import io.kang.model.PaginationModel;
 
 import java.util.List;
 
 public interface RequestService {
-    public List<RequestDTO> findAll();
-    public List<RequestDTO> findAllByOrderByWrittenDateDesc();
+    public List<OptionModel> getSearchByModel();
+    public List<OptionModel> getOrderByModel();
+    public List<Integer> getSizeByModel();
+    public List<RequestDTO> findAll(final PaginationModel paginationModel);
     public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(final Boolean available);
     public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(final Boolean available);
     public List<RequestDTO> findByUserIdAndCategoryIsNullOrderByWrittenDateDesc(final String userId);
