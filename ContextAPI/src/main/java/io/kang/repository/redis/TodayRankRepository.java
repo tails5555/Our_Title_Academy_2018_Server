@@ -9,6 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface TodayRankRepository extends CrudRepository<TodayRank, Long>{
-    public List<TodayRank> findAllByOrderBySequenceAsc();
     public Optional<TodayRank> findByRequestId(Long requestId);
 }

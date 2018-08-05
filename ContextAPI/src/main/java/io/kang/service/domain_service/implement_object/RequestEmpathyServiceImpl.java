@@ -40,6 +40,13 @@ public class RequestEmpathyServiceImpl implements EmpathyService<RequestEmpathyD
     }
 
     @Override
+    public RequestEmpathyDTO findByUserIdAndContext(final String userId, final RequestDTO context) {
+        Optional<RequestEmpathy> tmpRequestEmpathy = requestEmpathyRepository.findByUserIdAndRequest(userId, RequestDTO.builtToDomain(context));
+        if(tmpRequestEmpathy.isPresent()) return RequestEmpathyDTO.builtToDTO(tmpRequestEmpathy.get());
+        else return null;
+    }
+
+    @Override
     public RequestEmpathyDTO create(final RequestEmpathyDTO baseDTO) {
         RequestEmpathy createRequestEmpathy = requestEmpathyRepository.save(RequestEmpathyDTO.builtToDomain(baseDTO));
         if(createRequestEmpathy.getId() != null) return RequestEmpathyDTO.builtToDTO(createRequestEmpathy);
@@ -70,6 +77,11 @@ public class RequestEmpathyServiceImpl implements EmpathyService<RequestEmpathyD
     @Override
     public boolean existsByUserIdAndContext(final String userId, final RequestDTO context) {
         return requestEmpathyRepository.existsByUserIdAndRequest(userId, RequestDTO.builtToDomain(context));
+    }
+
+    @Override
+    public boolean existsByUserIdAndContextAndStatus(String userId, RequestDTO context, Status status) {
+        return requestEmpathyRepository.existsByUserIdAndRequestAndStatus(userId, RequestDTO.builtToDomain(context), status);
     }
 
     @Override

@@ -40,6 +40,13 @@ public class CommentEmpathyServiceImpl implements EmpathyService<CommentEmpathyD
     }
 
     @Override
+    public CommentEmpathyDTO findByUserIdAndContext(final String userId, final CommentDTO context) {
+        Optional<CommentEmpathy> tmpCommentEmpathy = commentEmpathyRepository.findByUserIdAndComment(userId, CommentDTO.builtToDomain(context));
+        if(tmpCommentEmpathy.isPresent()) return CommentEmpathyDTO.builtToDTO(tmpCommentEmpathy.get());
+        else return null;
+    }
+
+    @Override
     public CommentEmpathyDTO create(final CommentEmpathyDTO baseDTO) {
         CommentEmpathy createCommentEmpathy = commentEmpathyRepository.save(CommentEmpathyDTO.builtToDomain(baseDTO));
         if(createCommentEmpathy.getId() != null) return CommentEmpathyDTO.builtToDTO(createCommentEmpathy);
@@ -70,6 +77,11 @@ public class CommentEmpathyServiceImpl implements EmpathyService<CommentEmpathyD
     @Override
     public boolean existsByUserIdAndContext(final String userId, final CommentDTO context) {
         return commentEmpathyRepository.existsByUserIdAndComment(userId, CommentDTO.builtToDomain(context));
+    }
+
+    @Override
+    public boolean existsByUserIdAndContextAndStatus(String userId, CommentDTO context, Status status) {
+        return commentEmpathyRepository.existsByUserIdAndCommentAndStatus(userId, CommentDTO.builtToDomain(context), status);
     }
 
     @Override

@@ -41,6 +41,13 @@ public class TitleEmpathyServiceImpl implements EmpathyService<TitleEmpathyDTO, 
     }
 
     @Override
+    public TitleEmpathyDTO findByUserIdAndContext(final String userId, final TitleDTO context) {
+        Optional<TitleEmpathy> tmpTitleEmpathy = titleEmpathyRepository.findByUserIdAndTitle(userId, TitleDTO.builtToDomain(context));
+        if(tmpTitleEmpathy.isPresent()) return TitleEmpathyDTO.builtToDTO(tmpTitleEmpathy.get());
+        else return null;
+    }
+
+    @Override
     public TitleEmpathyDTO create(final TitleEmpathyDTO baseDTO) {
         TitleEmpathy createTitleEmpathy = titleEmpathyRepository.save(TitleEmpathyDTO.builtToDomain(baseDTO));
         if (createTitleEmpathy.getId() != null) return TitleEmpathyDTO.builtToDTO(createTitleEmpathy);
@@ -71,6 +78,11 @@ public class TitleEmpathyServiceImpl implements EmpathyService<TitleEmpathyDTO, 
     @Override
     public boolean existsByUserIdAndContext(final String userId, final TitleDTO context) {
         return titleEmpathyRepository.existsByUserIdAndTitle(userId, TitleDTO.builtToDomain(context));
+    }
+
+    @Override
+    public boolean existsByUserIdAndContextAndStatus(String userId, TitleDTO context, Status status) {
+        return titleEmpathyRepository.existsByUserIdAndTitleAndStatus(userId, TitleDTO.builtToDomain(context), status);
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -67,6 +68,31 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
+    public List<TitleDTO> findTop5ByRequestIdOrderByLikeCountDesc(final Long requestId) {
+        return titleRepository.findTop5ByRequestIdOrderByLikeCountDesc(requestId).stream()
+                .map(title -> TitleDTO.builtToDTO(title))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public TitleDTO findByUserIdAndRequest(String userId, RequestDTO requestDTO) {
+        Optional<Title> tmpTitle = titleRepository.findByUserIdAndRequest(userId, RequestDTO.builtToDomain(requestDTO));
+        if(tmpTitle.isPresent()) return TitleDTO.builtToDTO(tmpTitle.get());
+        else return null;
+    }
+
+    @Override
+    public TitleDTO getRandomTitle(final RequestDTO requestDTO){
+        Random random = new Random();
+        TitleDTO randomTitleDTO = null;
+        List<Title> titleList = titleRepository.findByRequestOrderByWrittenDateDesc(RequestDTO.builtToDomain(requestDTO));
+        if(titleList.size() > 0) {
+            randomTitleDTO = TitleDTO.builtToDTO(titleList.get(random.nextInt(titleList.size())));
+        }
+        return randomTitleDTO;
+    }
+
+    @Override
     public TitleDTO create(final TitleDTO titleDTO) {
         Title createTitle = titleRepository.save(TitleDTO.builtToDomain(titleDTO));
         if(createTitle.getId() != null) return TitleDTO.builtToDTO(createTitle);
@@ -87,6 +113,11 @@ public class TitleServiceImpl implements TitleService {
     @Override
     public boolean existsById(final Long id) {
         return titleRepository.existsById(id);
+    }
+
+    @Override
+    public boolean existsByUserIdAndRequest(String userId, RequestDTO requestDTO) {
+        return titleRepository.existsByUserIdAndRequest(userId, RequestDTO.builtToDomain(requestDTO));
     }
 
     @Override

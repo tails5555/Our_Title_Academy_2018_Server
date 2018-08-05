@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface TodayRankService {
     public List<TodayRankDTO> findAll();
-    public List<TodayRankDTO> findAllByOrderBySequenceAsc();
     public TodayRankDTO findById(final Long id);
     public TodayRankDTO findByRequestId(final Long requestId);
     public TodayRankDTO create(final TodayRankDTO todayRankDTO);

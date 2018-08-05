@@ -7,11 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 @Transactional
 public interface CommentEmpathyRepository extends EmpathyBaseRepository<CommentEmpathy>, JpaRepository<CommentEmpathy, Long> {
+    public Optional<CommentEmpathy> findByUserIdAndComment(String userId, Comment comment);
     public boolean existsByUserIdAndComment(String userId, Comment comment);
+    public boolean existsByUserIdAndCommentAndStatus(String userId, Comment comment, Status status);
     public void deleteByUserIdAndComment(String userId, Comment comment);
     public long countByCommentAndStatus(Comment comment, Status status);
 }
