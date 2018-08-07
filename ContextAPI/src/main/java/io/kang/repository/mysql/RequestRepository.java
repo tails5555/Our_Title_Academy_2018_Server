@@ -61,5 +61,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     public List<Request> findByUserIdAndCategoryIsNullOrderByWrittenDateDesc(String userId);
     public List<Request> findByUserIdAndCategoryIsNotNullOrderByWrittenDateDesc(String userId);
     public List<Request> findByCategoryOrderByWrittenDateDesc(Category category);
+    public List<Request> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc();
     public List<Request> findByCategoryIsNullOrderByWrittenDateDesc();
 }

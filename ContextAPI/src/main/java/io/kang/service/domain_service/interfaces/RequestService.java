@@ -18,6 +18,7 @@ public interface RequestService {
     public List<RequestDTO> findByUserIdAndCategoryIsNotNullOrderByWrittenDateDesc(final String userId);
     public List<RequestDTO> findByCategoryOrderByWrittenDateDesc(final CategoryDTO categoryDTO);
     public List<RequestDTO> findByCategoryIsNullOrderByWrittenDateDesc();
+    public List<RequestDTO> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc();
     public RequestDTO getOne(final Long id);
     public RequestDTO findById(final Long id);
     public RequestDTO create(final RequestDTO requestDTO);
