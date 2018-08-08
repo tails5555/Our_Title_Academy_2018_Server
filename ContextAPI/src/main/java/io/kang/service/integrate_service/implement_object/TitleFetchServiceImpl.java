@@ -70,6 +70,7 @@ public class TitleFetchServiceImpl implements TitleFetchService {
     }
 
     @Override
+    @Transactional
     public boolean executeTitleDeleting(final Long titleId) {
         if(titleService.existsById(titleId)){
             titleService.deleteById(titleId);
