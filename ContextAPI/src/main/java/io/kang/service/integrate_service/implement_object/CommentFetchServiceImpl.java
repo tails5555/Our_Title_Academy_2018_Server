@@ -48,7 +48,7 @@ public class CommentFetchServiceImpl implements CommentFetchService {
         if(requestDTO != null){
             CommentDTO commentDTO = commentService.findById(commentModel.getCommentId());
             if(commentDTO != null){
-                CommentDTO updateCommentDTO = CommentModel.builtToDTOIsExisted(commentDTO.getId(), commentModel, requestDTO);
+                CommentDTO updateCommentDTO = CommentModel.builtToDTO(commentModel, requestDTO);
                 commentService.update(updateCommentDTO);
             } else {
                 CommentDTO insertCommentDTO = CommentModel.builtToDTO(commentModel, requestDTO);
