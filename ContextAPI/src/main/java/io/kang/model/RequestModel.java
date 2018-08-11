@@ -14,18 +14,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestModel {
+    private Long requestId;
     private String intro;
     private String userId;
     private String context;
     public static RequestDTO builtToDTO(RequestModel requestModel){
-        return new RequestDTO(0L, null, requestModel.getUserId(), requestModel.getIntro(), requestModel.getContext(), false, LocalDateTime.now(), 0);
+        return new RequestDTO(requestModel.getRequestId(), null, requestModel.getUserId(), requestModel.getIntro(), requestModel.getContext(), false, LocalDateTime.now(), 0);
     }
     public static RequestDTO builtToDTOIsExisted(RequestDTO requestDTO, CategoryDTO categoryDTO, RequestModel requestModel){
         if(categoryDTO == null)
             return new RequestDTO(requestDTO.getId(), categoryDTO, requestModel.getUserId(), requestModel.getContext(), requestModel.getContext(), requestDTO.getAvailable(), requestDTO.getWrittenDate(), requestDTO.getView());
         else return new RequestDTO(requestDTO.getId(), null, requestModel.getUserId(), requestModel.getContext(), requestModel.getContext(), requestDTO.getAvailable(), requestDTO.getWrittenDate(), requestDTO.getView());
-    }
-    public static RequestModel builtToModelIsExisted(RequestDTO requestDTO){
-        return new RequestModel(requestDTO.getIntro(), requestDTO.getUserId(), requestDTO.getContext());
     }
 }

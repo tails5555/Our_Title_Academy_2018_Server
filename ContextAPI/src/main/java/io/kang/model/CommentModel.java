@@ -21,7 +21,4 @@ public class CommentModel {
     public static CommentDTO builtToDTO(CommentModel commentModel, RequestDTO requestDTO){
         return new CommentDTO(commentModel.getCommentId(), commentModel.getUserId(), requestDTO, commentModel.getContext(), LocalDateTime.now());
     }
-    public static CommentModel builtToModelIsExisted(CommentDTO commentDTO){
-        return new CommentModel(commentDTO.getId(), commentDTO.getUserId(), commentDTO.getRequest().getId(), commentDTO.getContext());
-    }
 }

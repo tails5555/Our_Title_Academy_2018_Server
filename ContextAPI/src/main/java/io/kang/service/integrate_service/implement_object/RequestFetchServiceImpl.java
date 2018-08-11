@@ -107,9 +107,16 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     @Transactional
-    public RequestDTO executeCreateRequest(RequestModel requestModel) {
-        RequestDTO requestDTO = requestService.create(RequestModel.builtToDTO(requestModel));
-        return requestDTO;
+    public RequestDTO executeSaveRequest(RequestModel requestModel) {
+        RequestDTO tmpRequestDTO;
+        if(requestModel.getRequestId() != 0L){
+            RequestDTO requestDTO = requestService.findById(requestModel.getRequestId());
+            RequestDTO updateRequestDTO = RequestModel.builtToDTOIsExisted(requestDTO, requestDTO.getCategory(), requestModel);
+            tmpRequestDTO = requestService.update(updateRequestDTO);
+        } else {
+            tmpRequestDTO = requestService.create(RequestModel.builtToDTO(requestModel));
+        }
+        return tmpRequestDTO;
     }
 
     @Override
@@ -127,6 +134,7 @@ public class RequestFetchServiceImpl implements RequestFetchService {
     }
 
     @Override
+    @Transactional
     public RequestDTO executeRequestBlocking(Long requestId) {
         RequestDTO requestDTO = requestService.findById(requestId);
         if(requestDTO != null){
@@ -135,6 +143,15 @@ public class RequestFetchServiceImpl implements RequestFetchService {
             return requestService.update(requestDTO);
         }
         else return null;
+    }
+
+    @Override
+    @Transactional
+    public boolean executeDeleteRequest(Long requestId) {
+        if(requestService.existsById(requestId)){
+            requestService.deleteById(requestId);
+            return true;
+        } else return false;
     }
 
     @Override
