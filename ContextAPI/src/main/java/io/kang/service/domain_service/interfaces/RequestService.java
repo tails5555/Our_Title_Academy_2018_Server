@@ -14,9 +14,9 @@ public interface RequestService {
     public List<RequestDTO> findAll(final PaginationModel paginationModel);
     public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(final Boolean available);
     public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(final Boolean available);
-    public List<RequestDTO> findByUserIdAndCategoryIsNullOrderByWrittenDateDesc(final String userId);
-    public List<RequestDTO> findByUserIdAndCategoryIsNotNullOrderByWrittenDateDesc(final String userId);
-    public List<RequestDTO> findByCategoryOrderByWrittenDateDesc(final CategoryDTO categoryDTO);
+    public List<RequestDTO> findByUserIdAndAvailableIsFalseOrderByWrittenDateDesc(final String userId);
+    public List<RequestDTO> findByUserIdAndCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(final String userId);
+    public List<RequestDTO> findByUserIdAndCategoryOrderByWrittenDateDesc(final String userId, final CategoryDTO categoryDTO);
     public List<RequestDTO> findByCategoryIsNullOrderByWrittenDateDesc();
     public List<RequestDTO> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc();
     public RequestDTO getOne(final Long id);

@@ -107,7 +107,7 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     @Transactional
-    public RequestDTO executeSaveRequest(RequestModel requestModel) {
+    public RequestDTO executeSaveRequest(final RequestModel requestModel) {
         RequestDTO tmpRequestDTO;
         if(requestModel.getRequestId() != 0L){
             RequestDTO requestDTO = requestService.findById(requestModel.getRequestId());
@@ -121,7 +121,7 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     @Transactional
-    public RequestDTO executeRequestAgree(AgreeModel agreeModel) {
+    public RequestDTO executeRequestAgree(final AgreeModel agreeModel) {
         RequestDTO requestDTO = requestService.findById(agreeModel.getRequestId());
         if(requestDTO != null){
             CategoryDTO categoryDTO = categoryService.findById(agreeModel.getCategoryId());
@@ -135,11 +135,10 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     @Transactional
-    public RequestDTO executeRequestBlocking(Long requestId) {
+    public RequestDTO executeRequestBlocking(final Long requestId) {
         RequestDTO requestDTO = requestService.findById(requestId);
         if(requestDTO != null){
             requestDTO.setAvailable(false);
-            requestDTO.setCategory(null);
             return requestService.update(requestDTO);
         }
         else return null;
@@ -147,7 +146,7 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     @Transactional
-    public boolean executeDeleteRequest(Long requestId) {
+    public boolean executeDeleteRequest(final Long requestId) {
         if(requestService.existsById(requestId)){
             requestService.deleteById(requestId);
             return true;
@@ -156,7 +155,7 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     @Transactional
-    public void viewPlus(Long requestId) {
+    public void viewPlus(final Long requestId) {
         RequestDTO requestDTO = requestService.findById(requestId);
         if(requestDTO != null){
             int view = requestDTO.getView();

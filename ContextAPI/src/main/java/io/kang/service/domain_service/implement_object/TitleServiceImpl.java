@@ -1,6 +1,7 @@
 package io.kang.service.domain_service.implement_object;
 
 import io.kang.domain.mysql.Title;
+import io.kang.dto.mysql.CategoryDTO;
 import io.kang.dto.mysql.RequestDTO;
 import io.kang.dto.mysql.TitleDTO;
 import io.kang.repository.mysql.TitleRepository;
@@ -42,6 +43,13 @@ public class TitleServiceImpl implements TitleService {
     @Override
     public List<TitleDTO> findByRequestOrderByWrittenDateDesc(final RequestDTO requestDTO) {
         return titleRepository.findByRequestOrderByWrittenDateDesc(RequestDTO.builtToDomain(requestDTO)).stream()
+                .map(title -> TitleDTO.builtToDTO(title))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TitleDTO> findByUserIdAndRequestCategory(final String userId, final CategoryDTO categoryDTO) {
+        return titleRepository.findByUserIdAndRequestCategory(userId, CategoryDTO.builtToDomain(categoryDTO)).stream()
                 .map(title -> TitleDTO.builtToDTO(title))
                 .collect(Collectors.toList());
     }

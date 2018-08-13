@@ -1,6 +1,6 @@
 package io.kang.service.domain_service.interfaces;
 
-import io.kang.domain.mysql.Request;
+import io.kang.dto.mysql.CategoryDTO;
 import io.kang.dto.mysql.RequestDTO;
 import io.kang.dto.mysql.TitleDTO;
 
@@ -11,6 +11,7 @@ public interface TitleService {
     public List<TitleDTO> findAllByOrderByWrittenDateDesc();
     public List<TitleDTO> findByUserIdOrderByWrittenDateDesc(final String userId);
     public List<TitleDTO> findByRequestOrderByWrittenDateDesc(final RequestDTO requestDTO);
+    public List<TitleDTO> findByUserIdAndRequestCategory(final String userId, final CategoryDTO categoryDTO);
     public TitleDTO getOne(final Long id);
     public TitleDTO findById(final Long id);
     public TitleDTO findTopByRequestIdOrderByLikeCountDesc(final Long requestId);

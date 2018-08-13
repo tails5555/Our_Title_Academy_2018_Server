@@ -56,22 +56,22 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestDTO> findByUserIdAndCategoryIsNullOrderByWrittenDateDesc(final String userId) {
-        return requestRepository.findByUserIdAndCategoryIsNullOrderByWrittenDateDesc(userId).stream()
+    public List<RequestDTO> findByUserIdAndAvailableIsFalseOrderByWrittenDateDesc(final String userId) {
+        return requestRepository.findByUserIdAndAvailableIsFalseOrderByWrittenDateDesc(userId).stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RequestDTO> findByUserIdAndCategoryIsNotNullOrderByWrittenDateDesc(final String userId) {
-        return requestRepository.findByUserIdAndCategoryIsNotNullOrderByWrittenDateDesc(userId).stream()
+    public List<RequestDTO> findByUserIdAndCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(final String userId) {
+        return requestRepository.findByUserIdAndCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(userId).stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RequestDTO> findByCategoryOrderByWrittenDateDesc(final CategoryDTO categoryDTO) {
-        return requestRepository.findByCategoryOrderByWrittenDateDesc(CategoryDTO.builtToDomain(categoryDTO)).stream()
+    public List<RequestDTO> findByUserIdAndCategoryOrderByWrittenDateDesc(final String userId, final CategoryDTO categoryDTO) {
+        return requestRepository.findByUserIdAndCategoryOrderByWrittenDateDesc(userId, CategoryDTO.builtToDomain(categoryDTO)).stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }
