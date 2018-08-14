@@ -90,6 +90,13 @@ public class TitleServiceImpl implements TitleService {
     }
 
     @Override
+    public List<TitleDTO> findByContextContains(String keyword) {
+        return titleRepository.findByContextContains(keyword).stream()
+                .map(title -> TitleDTO.builtToDTO(title))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public TitleDTO getRandomTitle(final RequestDTO requestDTO){
         Random random = new Random();
         TitleDTO randomTitleDTO = null;
@@ -121,11 +128,6 @@ public class TitleServiceImpl implements TitleService {
     @Override
     public boolean existsById(final Long id) {
         return titleRepository.existsById(id);
-    }
-
-    @Override
-    public boolean existsByUserIdAndRequest(String userId, RequestDTO requestDTO) {
-        return titleRepository.existsByUserIdAndRequest(userId, RequestDTO.builtToDomain(requestDTO));
     }
 
     @Override

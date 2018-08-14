@@ -91,6 +91,13 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public List<RequestDTO> findByIntroContainsOrContextContains(String keyword) {
+        return requestRepository.findByIntroContainsOrContextContains(keyword, keyword).stream()
+                .map(request -> RequestDTO.builtToDTO(request))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public RequestDTO getOne(final Long id) {
         Request request = requestRepository.getOne(id);
         if(request != null) return RequestDTO.builtToDTO(request);

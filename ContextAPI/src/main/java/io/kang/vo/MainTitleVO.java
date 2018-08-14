@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class MainTitleVO {
     private Long id;
+    private Long requestId;
     private String context;
     private String userId;
     private LocalDateTime writtenDate;
@@ -21,6 +22,6 @@ public class MainTitleVO {
     private Boolean hateChecked;
 
     public static MainTitleVO builtToVO(TitleDTO titleDTO, long likeCount, long hateCount, Boolean likeChecked, Boolean hateChecked){
-        return new MainTitleVO(titleDTO.getId(), titleDTO.getContext(), titleDTO.getUserId(), titleDTO.getWrittenDate(), likeCount, hateCount, likeChecked, hateChecked);
+        return new MainTitleVO(titleDTO.getId(), titleDTO.getRequest().getId(), titleDTO.getContext(), titleDTO.getUserId(), titleDTO.getWrittenDate(), likeCount, hateCount, likeChecked, hateChecked);
     }
 }
