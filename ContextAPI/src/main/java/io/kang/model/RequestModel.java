@@ -22,8 +22,8 @@ public class RequestModel {
         return new RequestDTO(requestModel.getRequestId(), null, requestModel.getUserId(), requestModel.getIntro(), requestModel.getContext(), false, LocalDateTime.now(), 0);
     }
     public static RequestDTO builtToDTOIsExisted(RequestDTO requestDTO, CategoryDTO categoryDTO, RequestModel requestModel){
-        if(categoryDTO == null)
-            return new RequestDTO(requestDTO.getId(), categoryDTO, requestModel.getUserId(), requestModel.getContext(), requestModel.getContext(), requestDTO.getAvailable(), requestDTO.getWrittenDate(), requestDTO.getView());
-        else return new RequestDTO(requestDTO.getId(), null, requestModel.getUserId(), requestModel.getContext(), requestModel.getContext(), requestDTO.getAvailable(), requestDTO.getWrittenDate(), requestDTO.getView());
+        if(categoryDTO != null)
+            return new RequestDTO(requestDTO.getId(), categoryDTO, requestModel.getUserId(), requestModel.getIntro(), requestModel.getContext(), requestDTO.getAvailable(), requestDTO.getWrittenDate(), requestDTO.getView());
+        else return new RequestDTO(requestDTO.getId(), null, requestModel.getUserId(), requestModel.getIntro(), requestModel.getContext(), requestDTO.getAvailable(), requestDTO.getWrittenDate(), requestDTO.getView());
     }
 }

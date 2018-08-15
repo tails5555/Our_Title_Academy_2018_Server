@@ -2,7 +2,9 @@
 
 짧은 몇 글자만으로 사람들에게 웃음을 유발할 수 있는 Web Application 제작.
 
-<h3>🙋 8/15 광복절에 제목 학원 알파 버전이 public으로 공개됩니다.</h3>
+<h3>🙋 오늘부터 제목 학원 알파 버전이 public 으로 공개됩니다.</h3>
+
+<h4>적극 반영하면 좋을 리뷰는 issue 에 남겨주시면 감사하겠습니다.</h4>
 
 ## Description
 
@@ -16,14 +18,20 @@
 
 3. Notice REST API - 공지사항, 관리자 FAQ
 
-4. Spring Cloud Zuul - API Gateway
-
 ## Using Technologies
+
+- 데이터베이스 : MySQL, Redis
 
 ## Author
 
 - 강인성([tails5555](http://github.com/tails5555))
 
-## Thanks
+## Project History
 
-- Spring Cloud Zuul + API Gateway 개념을 알려주신 **배다슬 형님**
+- 2018 / 08 / 15 : 최초 public 공개. Alpha Version.
+
+    - UserAPI, ContextAPI 까지 현재까지 진행한 내용들을 공개함.
+    
+- 2018 / 08 / 29 : Beta Version.
+
+    - NoticeAPI 까지 최종 완성을 목표로 공개함.

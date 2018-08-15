@@ -14,6 +14,7 @@ public class BriefFetchRequestVO {
     private Long id;
     private String userId;
     private Long categoryId;
+    private String categoryName;
     private String bestTitle;
     private String intro;
     private String context;
@@ -22,6 +23,6 @@ public class BriefFetchRequestVO {
     private LocalDateTime writtenDate;
 
     public static BriefFetchRequestVO builtToVO(RequestDTO requestDTO, String bestTitle, long commentCount, long likeCount){
-        return new BriefFetchRequestVO(requestDTO.getId(), requestDTO.getUserId(), (requestDTO.getCategory() != null) ? requestDTO.getCategory().getId() : -1L,  bestTitle, requestDTO.getIntro(), requestDTO.getContext(), commentCount, likeCount, requestDTO.getWrittenDate());
+        return new BriefFetchRequestVO(requestDTO.getId(), requestDTO.getUserId(), (requestDTO.getCategory() != null) ? requestDTO.getCategory().getId() : -1L, (requestDTO.getCategory() != null) ? requestDTO.getCategory().getName() : "",  bestTitle, requestDTO.getIntro(), requestDTO.getContext(), commentCount, likeCount, requestDTO.getWrittenDate());
     }
 }

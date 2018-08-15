@@ -15,7 +15,7 @@ public class SearchResultVO {
     private Long requestId;
     private String type;
     private Long categoryId;
-    private String categotyName;
+    private String categoryName;
     private String intro;
     private String context;
     private long likeCount;
@@ -32,7 +32,7 @@ public class SearchResultVO {
     public static SearchResultVO builtToVOWithRequestDTO(RequestDTO requestDTO, long likeCount, long hateCount){
         if(requestDTO.getAvailable() && requestDTO.getCategory() != null) {
             CategoryDTO categoryDTO = requestDTO.getCategory();
-            String tmpContext = requestDTO.getContext().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", " ");
+            String tmpContext = requestDTO.getContext().replaceAll("<(/)?([a-zA-Z0-9]*)(\\s[a-zA-Z0-9]*=[^>]*)?(\\s)*(/)?>", " ");
             return new SearchResultVO(requestDTO.getId(), Type.REQUEST, categoryDTO.getId(), categoryDTO.getName(), requestDTO.getIntro(), tmpContext, likeCount, hateCount);
         }
         else return null;
