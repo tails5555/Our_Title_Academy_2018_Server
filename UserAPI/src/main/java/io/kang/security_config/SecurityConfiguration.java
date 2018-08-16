@@ -23,8 +23,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    private static final String[] SWAGGER_URI = {
+        "/v2/api-docs",
+        "/swagger-resources",
+        "/swagger-resources/**",
+        "/configuration/ui",
+        "/configuration/security",
+        "/swagger-ui.html",
+        "/webjars/**"
+    };
+
     @Override
     public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(SWAGGER_URI);
         web.ignoring().antMatchers(HttpMethod.GET, "/UserAPI/auth/resource/**");
         web.ignoring().antMatchers(HttpMethod.GET, "/UserAPI/auth/guest/**");
         web.ignoring().antMatchers(HttpMethod.POST, "/UserAPI/auth/guest/**");
@@ -38,6 +49,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
+                .antMatchers(SWAGGER_URI).permitAll()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/UserAPI/auth/admin/**").hasRole("ADMIN")
                 .antMatchers("/UserAPI/auth/manager/**").hasRole("MANAGER")
                 .antMatchers("/UserAPI/auth/user/**").hasRole("USER")

@@ -60,7 +60,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     public List<Request> findByUserIdAndCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(String userId); // 사용자 별 요청 통계에서 유효한 요청을 낼 때 이용
     public List<Request> findByUserIdAndAvailableIsFalseOrderByWrittenDateDesc(String userId); // 사용자 별 요청 통계에서 유효하지 않은 요청을 낼 때 이용
     public List<Request> findByUserIdAndCategoryOrderByWrittenDateDesc(String userId, Category category); // 회원 별 요청 통계를 낼 때 이용한다. 제목 자체를 가져오는 이유가 공감 통계를 포함하기 위한 목적이 있다.
-    public List<Request> findByCategoryIsNotNullAndAvaliableIsTrue(); // 웹 소켓을 이용하여 오늘의 제목 배틀 기능 구현 시 이용한다.
+    public List<Request> findByCategoryIsNotNullAndAvailableIsTrue(); // 웹 소켓을 이용하여 오늘의 제목 배틀 기능 구현 시 이용한다.
     public List<Request> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc(); // 차단 당한 요청을 가져올 때 쓰는 함수
     public List<Request> findByCategoryIsNullAndAvailableIsFalseOrderByWrittenDateDesc(); // 새로 올린 요청을 가져올 때 쓰는 함수
     public List<Request> findByIntroContainsOrContextContains(String keyword1, String keyword2); // 통합 검색에서 제목이나 내용으로 탐색할 때 이용

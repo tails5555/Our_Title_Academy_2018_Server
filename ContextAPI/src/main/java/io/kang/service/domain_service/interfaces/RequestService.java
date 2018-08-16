@@ -17,7 +17,7 @@ public interface RequestService {
     public List<RequestDTO> findByUserIdAndAvailableIsFalseOrderByWrittenDateDesc(final String userId);
     public List<RequestDTO> findByUserIdAndCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(final String userId);
     public List<RequestDTO> findByUserIdAndCategoryOrderByWrittenDateDesc(final String userId, final CategoryDTO categoryDTO);
-    public List<RequestDTO> findByCategoryIsNotNullAndAvaliableIsTrue();
+    public List<RequestDTO> findByCategoryIsNotNullAndAvailableIsTrue();
     public List<RequestDTO> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc();
     public List<RequestDTO> findByCategoryIsNullAndAvailableIsFalseOrderByWrittenDateDesc();
     public List<RequestDTO> findByIntroContainsOrContextContains(final String keyword);

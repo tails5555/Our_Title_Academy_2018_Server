@@ -77,8 +77,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestDTO> findByCategoryIsNotNullAndAvaliableIsTrue() {
-        return requestRepository.findByCategoryIsNotNullAndAvaliableIsTrue().stream()
+    public List<RequestDTO> findByCategoryIsNotNullAndAvailableIsTrue() {
+        return requestRepository.findByCategoryIsNotNullAndAvailableIsTrue().stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }
