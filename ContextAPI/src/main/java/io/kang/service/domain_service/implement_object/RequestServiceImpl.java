@@ -42,15 +42,15 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(final Boolean available) {
-        return requestRepository.findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(available).stream()
+    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc() {
+        return requestRepository.findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc().stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(Boolean available) {
-        return requestRepository.findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(available).stream()
+    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByViewDesc() {
+        return requestRepository.findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByViewDesc().stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }
@@ -77,8 +77,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestDTO> findByCategoryIsNullOrderByWrittenDateDesc() {
-        return requestRepository.findByCategoryIsNullOrderByWrittenDateDesc().stream()
+    public List<RequestDTO> findByCategoryIsNotNullAndAvaliableIsTrue() {
+        return requestRepository.findByCategoryIsNotNullAndAvaliableIsTrue().stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }
@@ -86,6 +86,13 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<RequestDTO> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc() {
         return requestRepository.findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc().stream()
+                .map(request -> RequestDTO.builtToDTO(request))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RequestDTO> findByCategoryIsNullAndAvailableIsFalseOrderByWrittenDateDesc() {
+        return requestRepository.findByCategoryIsNullAndAvailableIsFalseOrderByWrittenDateDesc().stream()
                 .map(request -> RequestDTO.builtToDTO(request))
                 .collect(Collectors.toList());
     }

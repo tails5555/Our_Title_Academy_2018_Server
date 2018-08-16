@@ -50,18 +50,18 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
         return page.getContent();
     }
 
-    public Page<Request> findByCategoryIdAndAvailableIsTrue(Long categoryId, Pageable pageable);
-    public Page<Request> findByCategoryIdAndAvailableIsTrueAndIntroContains(Long categoryId, String intro, Pageable pageable);
-    public Page<Request> findByCategoryIdAndAvailableIsTrueAndContextContains(Long categoryId, String context, Pageable pageable);
-    public Page<Request> findByCategoryIdAndAvailableIsTrueAndUserId(Long categoryId, String userId, Pageable pageable);
+    public Page<Request> findByCategoryIdAndAvailableIsTrue(Long categoryId, Pageable pageable); // 페이징네이션의 전체 목록
+    public Page<Request> findByCategoryIdAndAvailableIsTrueAndIntroContains(Long categoryId, String intro, Pageable pageable); // 페이징네이션에서 요청 제목으로 탐색
+    public Page<Request> findByCategoryIdAndAvailableIsTrueAndContextContains(Long categoryId, String context, Pageable pageable); // 페이징네이션에서 요청 내용으로 탐색
+    public Page<Request> findByCategoryIdAndAvailableIsTrueAndUserId(Long categoryId, String userId, Pageable pageable); // 페이징네이션에서 사용자 ID로 탐색
 
-    public List<Request> findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(Boolean available);
-    public List<Request> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(Boolean available);
-
-    public List<Request> findByUserIdAndCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(String userId);
-    public List<Request> findByUserIdAndAvailableIsFalseOrderByWrittenDateDesc(String userId);
-    public List<Request> findByUserIdAndCategoryOrderByWrittenDateDesc(String userId, Category category);
-    public List<Request> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc();
-    public List<Request> findByCategoryIsNullOrderByWrittenDateDesc();
-    public List<Request> findByIntroContainsOrContextContains(String keyword1, String keyword2);
+    public List<Request> findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(); // Home Index 에서 보여줄 최신 목록 10개
+    public List<Request> findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByViewDesc(); // 랭킹을 매길 때 쓰는 목록 10개
+    public List<Request> findByUserIdAndCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(String userId); // 사용자 별 요청 통계에서 유효한 요청을 낼 때 이용
+    public List<Request> findByUserIdAndAvailableIsFalseOrderByWrittenDateDesc(String userId); // 사용자 별 요청 통계에서 유효하지 않은 요청을 낼 때 이용
+    public List<Request> findByUserIdAndCategoryOrderByWrittenDateDesc(String userId, Category category); // 회원 별 요청 통계를 낼 때 이용한다. 제목 자체를 가져오는 이유가 공감 통계를 포함하기 위한 목적이 있다.
+    public List<Request> findByCategoryIsNotNullAndAvaliableIsTrue(); // 웹 소켓을 이용하여 오늘의 제목 배틀 기능 구현 시 이용한다.
+    public List<Request> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc(); // 차단 당한 요청을 가져올 때 쓰는 함수
+    public List<Request> findByCategoryIsNullAndAvailableIsFalseOrderByWrittenDateDesc(); // 새로 올린 요청을 가져올 때 쓰는 함수
+    public List<Request> findByIntroContainsOrContextContains(String keyword1, String keyword2); // 통합 검색에서 제목이나 내용으로 탐색할 때 이용
 }

@@ -12,13 +12,14 @@ public interface RequestService {
     public List<OptionModel> getOrderByModel();
     public List<Integer> getSizeByModel();
     public List<RequestDTO> findAll(final PaginationModel paginationModel);
-    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(final Boolean available);
-    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(final Boolean available);
+    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc();
+    public List<RequestDTO> findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByViewDesc();
     public List<RequestDTO> findByUserIdAndAvailableIsFalseOrderByWrittenDateDesc(final String userId);
     public List<RequestDTO> findByUserIdAndCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc(final String userId);
     public List<RequestDTO> findByUserIdAndCategoryOrderByWrittenDateDesc(final String userId, final CategoryDTO categoryDTO);
-    public List<RequestDTO> findByCategoryIsNullOrderByWrittenDateDesc();
+    public List<RequestDTO> findByCategoryIsNotNullAndAvaliableIsTrue();
     public List<RequestDTO> findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc();
+    public List<RequestDTO> findByCategoryIsNullAndAvailableIsFalseOrderByWrittenDateDesc();
     public List<RequestDTO> findByIntroContainsOrContextContains(final String keyword);
     public RequestDTO getOne(final Long id);
     public RequestDTO findById(final Long id);

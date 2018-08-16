@@ -49,14 +49,14 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     public List<BriefFetchRequestVO> fetchHomeBriefFetchRequests(){
-        return requestService.findTop10ByCategoryIsNotNullAndAvailableOrderByWrittenDateDesc(true).stream()
+        return requestService.findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByWrittenDateDesc().stream()
                 .map((requestDTO) -> {
                     TitleDTO titleDTO = titleService.findTopByRequestIdOrderByLikeCountDesc(requestDTO.getId());
                     if(titleDTO != null)
-                        return BriefFetchRequestVO.builtToVO(requestDTO, titleDTO.getContext(), commentService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
+                        return BriefFetchRequestVO.builtToVO(requestDTO, titleDTO.getContext(), commentService.countByRequest(requestDTO), titleService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
                     else{
                         TitleDTO randomDTO = titleService.getRandomTitle(requestDTO);
-                        return BriefFetchRequestVO.builtToVO(requestDTO, (randomDTO != null) ? randomDTO.getContext() : "여러분이 제목을 올려주세요.", commentService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
+                        return BriefFetchRequestVO.builtToVO(requestDTO, (randomDTO != null) ? randomDTO.getContext() : "여러분이 제목을 올려주세요.", commentService.countByRequest(requestDTO), titleService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
                     }
                 })
                 .collect(Collectors.toList());
@@ -64,14 +64,14 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     public List<BriefFetchRequestVO> fetchPhotoAgreeBriefRequests(){
-        return Stream.concat(requestService.findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc().stream(), requestService.findByCategoryIsNullOrderByWrittenDateDesc().stream())
+        return Stream.concat(requestService.findByCategoryIsNotNullAndAvailableIsFalseOrderByWrittenDateDesc().stream(), requestService.findByCategoryIsNullAndAvailableIsFalseOrderByWrittenDateDesc().stream())
                 .map((requestDTO) -> {
                     TitleDTO titleDTO = titleService.findTopByRequestIdOrderByLikeCountDesc(requestDTO.getId());
                     if(titleDTO != null)
-                        return BriefFetchRequestVO.builtToVO(requestDTO, titleDTO.getContext(), commentService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
+                        return BriefFetchRequestVO.builtToVO(requestDTO, titleDTO.getContext(), commentService.countByRequest(requestDTO), titleService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
                     else {
                         TitleDTO randomDTO = titleService.getRandomTitle(requestDTO);
-                        return BriefFetchRequestVO.builtToVO(requestDTO, (randomDTO != null) ? randomDTO.getContext() : "여러분이 제목을 올려주세요.", commentService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
+                        return BriefFetchRequestVO.builtToVO(requestDTO, (randomDTO != null) ? randomDTO.getContext() : "여러분이 제목을 올려주세요.", commentService.countByRequest(requestDTO), titleService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
                     }
                 }).collect(Collectors.toList());
     }
@@ -95,10 +95,10 @@ public class RequestFetchServiceImpl implements RequestFetchService {
                 .map((requestDTO) -> {
                     TitleDTO titleDTO = titleService.findTopByRequestIdOrderByLikeCountDesc(requestDTO.getId());
                     if(titleDTO != null)
-                        return BriefFetchRequestVO.builtToVO(requestDTO, titleDTO.getContext(), commentService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
+                        return BriefFetchRequestVO.builtToVO(requestDTO, titleDTO.getContext(), commentService.countByRequest(requestDTO), titleService.countByRequest(requestDTO),  requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
                     else {
                         TitleDTO randomDTO = titleService.getRandomTitle(requestDTO);
-                        return BriefFetchRequestVO.builtToVO(requestDTO, (randomDTO != null) ? randomDTO.getContext() : "여러분이 제목을 올려주세요.", commentService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
+                        return BriefFetchRequestVO.builtToVO(requestDTO, (randomDTO != null) ? randomDTO.getContext() : "여러분이 제목을 올려주세요.", commentService.countByRequest(requestDTO), titleService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE));
                     }
                 })
                 .collect(Collectors.toList());

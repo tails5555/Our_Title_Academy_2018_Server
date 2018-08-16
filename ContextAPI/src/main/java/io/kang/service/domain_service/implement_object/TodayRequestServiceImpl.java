@@ -60,6 +60,11 @@ public class TodayRequestServiceImpl implements TodayRequestService {
     }
 
     @Override
+    public boolean existsByRequestId(final Long requestId) {
+        return existsByRequestId(requestId);
+    }
+
+    @Override
     public long count() {
         return todayRequestRepository.count();
     }

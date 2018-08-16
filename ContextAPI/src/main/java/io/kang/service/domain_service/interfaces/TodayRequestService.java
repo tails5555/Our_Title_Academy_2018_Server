@@ -12,5 +12,6 @@ public interface TodayRequestService {
     public void deleteById(final Long id);
     public void deleteAll();
     public boolean existsById(final Long id);
+    public boolean existsByRequestId(final Long requestId);
     public long count();
 }

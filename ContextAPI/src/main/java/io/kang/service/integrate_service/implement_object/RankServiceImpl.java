@@ -48,7 +48,7 @@ public class RankServiceImpl implements RankService {
     @Scheduled(cron = "0 0/30 0/1 * * *")
     private void rankCalculate(){
         PriorityQueue<RankCalculateVO> priorityQueue = new PriorityQueue<>();
-        List<RequestDTO> requestDTOs = requestService.findTop10ByCategoryIsNotNullAndAvailableOrderByViewDesc(true);
+        List<RequestDTO> requestDTOs = requestService.findTop10ByCategoryIsNotNullAndAvailableIsTrueOrderByViewDesc();
 
         for(RequestDTO requestDTO : requestDTOs){
             int views = requestDTO.getView();
