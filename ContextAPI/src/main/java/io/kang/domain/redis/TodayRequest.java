@@ -15,14 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-@RedisHash("todayRequest")
 public class TodayRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    private Long id;
-
-    @Indexed
     private Long requestId;
     private LocalDateTime selectDate;
 }

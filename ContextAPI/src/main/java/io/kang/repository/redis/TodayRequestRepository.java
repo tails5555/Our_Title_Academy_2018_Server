@@ -1,10 +1,15 @@
 package io.kang.repository.redis;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.kang.domain.redis.TodayRequest;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface TodayRequestRepository extends CrudRepository<TodayRequest, Long> {
-    public boolean existsByRequestId(Long requestId);
+import java.io.IOException;
+import java.util.List;
+
+public interface TodayRequestRepository {
+    public void create(TodayRequest todayRequest) throws JsonProcessingException;
+    public TodayRequest findByLast() throws IOException;
+    public List<TodayRequest> findAll();
+    public void deleteByFirst();
+    public long count();
 }
