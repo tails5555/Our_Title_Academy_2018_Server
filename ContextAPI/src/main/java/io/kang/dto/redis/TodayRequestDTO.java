@@ -14,6 +14,10 @@ public class TodayRequestDTO {
     private Long requestId;
     private LocalDateTime selectDate;
 
+    public static TodayRequestDTO builtToDTOProperty(Long requestId, LocalDateTime selectDate){
+        return new TodayRequestDTO(requestId, selectDate);
+    }
+
     public static TodayRequestDTO builtToDTO(TodayRequest todayRequest){
         return new TodayRequestDTO(todayRequest.getRequestId(), todayRequest.getSelectDate());
     }
