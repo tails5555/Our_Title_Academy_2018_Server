@@ -24,6 +24,6 @@ public class BriefFetchRequestVO {
     private LocalDateTime writtenDate;
 
     public static BriefFetchRequestVO builtToVO(RequestDTO requestDTO, String bestTitle, long commentCount, long titleCount, long likeCount){
-        return new BriefFetchRequestVO(requestDTO.getId(), requestDTO.getUserId(), (requestDTO.getCategory() != null) ? requestDTO.getCategory().getId() : -1L, (requestDTO.getCategory() != null) ? requestDTO.getCategory().getName() : "",  bestTitle, requestDTO.getIntro(), requestDTO.getContext(), commentCount, likeCount, titleCount, requestDTO.getWrittenDate());
+        return new BriefFetchRequestVO(requestDTO.getId(), requestDTO.getUserId(), (requestDTO.getCategory() != null) ? requestDTO.getCategory().getId() : -1L, (requestDTO.getCategory() != null) ? requestDTO.getCategory().getName() : "",  bestTitle, requestDTO.getIntro(), requestDTO.getContext(), commentCount, titleCount, likeCount, requestDTO.getWrittenDate());
     }
 }
