@@ -5,6 +5,7 @@ import io.kang.dto.mysql.RequestDTO;
 import io.kang.dto.mysql.RequestEmpathyDTO;
 import io.kang.dto.mysql.TitleDTO;
 import io.kang.dto.mysql.TitleEmpathyDTO;
+import io.kang.dto.redis.TodayRequestDTO;
 import io.kang.enumeration.Status;
 import io.kang.model.AgreeModel;
 import io.kang.model.PaginationModel;
@@ -14,6 +15,7 @@ import io.kang.service.domain_service.interfaces.CommentService;
 import io.kang.service.domain_service.interfaces.EmpathyService;
 import io.kang.service.domain_service.interfaces.RequestService;
 import io.kang.service.domain_service.interfaces.TitleService;
+import io.kang.service.domain_service.interfaces.TodayRequestService;
 import io.kang.service.integrate_service.interfaces.RequestFetchService;
 import io.kang.vo.BestTitleVO;
 import io.kang.vo.BriefFetchRequestVO;
@@ -23,12 +25,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 public class RequestFetchServiceImpl implements RequestFetchService {
+    @Autowired
+    private TodayRequestService todayRequestService;
+
     @Autowired
     private RequestService requestService;
 
@@ -46,6 +52,14 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Autowired
     private CategoryService categoryService;
+
+    private boolean isTodayRequest(Long requestId) throws IOException {
+        TodayRequestDTO todayRequestDTO = todayRequestService.findByLast();
+        if(todayRequestDTO == null) return false;
+        else {
+            return todayRequestDTO.getRequestId() == requestId;
+        }
+    }
 
     @Override
     public List<BriefFetchRequestVO> fetchHomeBriefFetchRequests(){
@@ -135,9 +149,9 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     @Transactional
-    public RequestDTO executeRequestBlocking(final Long requestId) {
+    public RequestDTO executeRequestBlocking(final Long requestId) throws IOException {
         RequestDTO requestDTO = requestService.findById(requestId);
-        if(requestDTO != null){
+        if(requestDTO != null && !this.isTodayRequest(requestId)){
             requestDTO.setAvailable(false);
             return requestService.update(requestDTO);
         }
@@ -146,8 +160,8 @@ public class RequestFetchServiceImpl implements RequestFetchService {
 
     @Override
     @Transactional
-    public boolean executeDeleteRequest(final Long requestId) {
-        if(requestService.existsById(requestId)){
+    public boolean executeDeleteRequest(final Long requestId) throws IOException {
+        if(requestService.existsById(requestId) && !this.isTodayRequest(requestId)){
             requestService.deleteById(requestId);
             return true;
         } else return false;

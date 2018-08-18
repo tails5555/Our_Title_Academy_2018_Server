@@ -53,6 +53,32 @@ public class BattleServiceImpl implements BattleService {
                 .collect(Collectors.toSet());
     }
 
+    @Scheduled(cron = "0 0/30 0/1 * * *")
+    private void validateTodayTitleList() throws IOException {
+        TodayRequestDTO currentRequestDTO = todayRequestService.findByLast();
+        if(currentRequestDTO == null) return;
+        List<Long> titleIds = battleTitleService.findAll();
+        boolean isValidateUpdate = false;
+
+        for(Long id : titleIds){
+            TitleDTO titleDTO = titleService.findById(id);
+            if(currentRequestDTO.getRequestId() != titleDTO.getRequest().getId()){
+                battleTitleService.deleteAll();
+                isValidateUpdate = true;
+                break;
+            }
+        }
+
+        if(isValidateUpdate){
+            RequestDTO requestDTO = requestService.findById(currentRequestDTO.getRequestId());
+            if(requestDTO == null) return;
+            List<TitleDTO> titleDTOs = titleService.findByRequestOrderByWrittenDateDesc(requestDTO);
+            for(TitleDTO title : titleDTOs){
+                battleTitleService.create(title.getId());
+            }
+        }
+    }
+
     @Scheduled(cron = "0 0 0 * * *")
     private void setTodayBattleRequest() throws JsonProcessingException {
         battleTitleService.deleteAll();
@@ -98,6 +124,9 @@ public class BattleServiceImpl implements BattleService {
 
     @Override
     public List<MainTitleVO> fetchCurrentTodayTitle(final String userId) throws IOException {
+        TodayRequestDTO todayRequestDTO = todayRequestService.findByLast();
+        if(todayRequestDTO == null) return null;
+
         return battleTitleService.findAll().stream()
                 .map(titleId -> {
                     TitleDTO titleDTO = titleService.findById(titleId);
@@ -106,5 +135,16 @@ public class BattleServiceImpl implements BattleService {
                             , !(userId.equals("ANONYMOUS_USER")) ? titleEmpathyService.existsByUserIdAndContextAndStatus(userId, titleDTO, Status.HATE) : null);
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Boolean fetchUserHasTodayRequestTitle(final String userId) throws IOException {
+        TodayRequestDTO currentRequestDTO = todayRequestService.findByLast();
+        if(currentRequestDTO == null || userId.equals("ANONYMOUS_USER")) return null;
+        RequestDTO requestDTO = requestService.findById(currentRequestDTO.getRequestId());
+        if(requestDTO != null) {
+            return titleService.findByUserIdAndRequest(userId, requestDTO) != null;
+        }
+        else return false;
     }
 }

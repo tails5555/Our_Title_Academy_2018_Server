@@ -9,4 +9,5 @@ import java.util.List;
 public interface BattleService {
     public BattleFetchRequestVO fetchCurrentTodayRequest(final String userId) throws IOException;
     public List<MainTitleVO> fetchCurrentTodayTitle(final String userId) throws IOException;
+    public Boolean fetchUserHasTodayRequestTitle(final String userId) throws IOException;
 }

@@ -31,7 +31,7 @@ public class BattleTitleRepositoryImpl implements BattleTitleRepository{
 
     @Override
     public void deleteAll() {
-        this.redisTemplate.opsForList().trim(BATTLE_TITLE_KEY, 0, -1);
+        this.redisTemplate.opsForList().getOperations().delete(BATTLE_TITLE_KEY);
     }
 
     @Override

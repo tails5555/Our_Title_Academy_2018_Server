@@ -8,6 +8,7 @@ import io.kang.vo.BriefFetchRequestVO;
 import io.kang.vo.MainFetchRequestVO;
 import io.kang.vo.PaginationVO;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface RequestFetchService {
@@ -17,7 +18,7 @@ public interface RequestFetchService {
     public PaginationVO fetchCategoryBriefFetchRequests(final Long categoryId, final PaginationModel paginationModel);
     public RequestDTO executeSaveRequest(final RequestModel requestModel);
     public RequestDTO executeRequestAgree(final AgreeModel agreeModel);
-    public RequestDTO executeRequestBlocking(final Long requestId);
-    public boolean executeDeleteRequest(final Long requestId);
+    public RequestDTO executeRequestBlocking(final Long requestId) throws IOException;
+    public boolean executeDeleteRequest(final Long requestId) throws IOException;
     public void viewPlus(final Long requestId);
 }
