@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -36,12 +37,12 @@ public class TitleRestController {
     }
 
     @PostMapping("execute_saving")
-    public ResponseEntity<Boolean> executeSavingTitle(@RequestBody TitleModel titleModel){
+    public ResponseEntity<Boolean> executeSavingTitle(@RequestBody TitleModel titleModel) throws IOException {
         return ResponseEntity.ok(titleFetchService.executeTitleSaving(titleModel));
     }
 
     @DeleteMapping("execute_delete/{titleId}")
-    public ResponseEntity<Boolean> executeDeleteTitle(@PathVariable Long titleId){
+    public ResponseEntity<Boolean> executeDeleteTitle(@PathVariable Long titleId) throws IOException {
         return ResponseEntity.ok(titleFetchService.executeTitleDeleting(titleId));
     }
 }

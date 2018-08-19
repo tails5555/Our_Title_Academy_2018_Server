@@ -6,8 +6,10 @@ import io.kang.model.OptionModel;
 import io.kang.model.PaginationModel;
 import io.kang.model.RequestModel;
 import io.kang.service.domain_service.interfaces.RequestService;
+import io.kang.service.integrate_service.interfaces.BattleService;
 import io.kang.service.integrate_service.interfaces.PhotoFetchService;
 import io.kang.service.integrate_service.interfaces.RequestFetchService;
+import io.kang.vo.BattleFetchRequestVO;
 import io.kang.vo.BriefFetchRequestVO;
 import io.kang.vo.MainFetchRequestVO;
 import io.kang.vo.PaginationVO;
@@ -41,6 +43,9 @@ public class RequestRestController {
 
     @Autowired
     private PhotoFetchService photoFetchService;
+
+    @Autowired
+    private BattleService battleService;
 
     @GetMapping("/fetch_option/search")
     public ResponseEntity<List<OptionModel>> fetchSearchBy(){
@@ -78,6 +83,13 @@ public class RequestRestController {
         return ResponseEntity.ok(requestFetchService.fetchViewMainFetchRequestVO(requestId, userId));
     }
 
+    @GetMapping("/fetch_today/{userId}")
+    public ResponseEntity<?> fetchTodayBattleRequest(@PathVariable String userId) throws IOException {
+        BattleFetchRequestVO battleFetchRequestVO = battleService.fetchCurrentTodayRequest(userId);
+        if(battleFetchRequestVO != null) return ResponseEntity.ok(battleFetchRequestVO);
+        else return ResponseEntity.noContent().build();
+    }
+
     @PostMapping(value="/execute_create", consumes = {"multipart/form-data"})
     public ResponseEntity<Boolean> executeCreateRequest(@RequestPart(value="requestModel") RequestModel requestModel, @RequestPart("file") MultipartFile multipartFile) throws IOException {
         RequestDTO requestDTO = requestFetchService.executeSaveRequest(requestModel);
@@ -108,7 +120,7 @@ public class RequestRestController {
     }
 
     @PutMapping("/block_request/{requestId}")
-    public ResponseEntity<Boolean> executeBlockRequest(@PathVariable Long requestId){
+    public ResponseEntity<Boolean> executeBlockRequest(@PathVariable Long requestId) throws IOException {
         RequestDTO requestDTO = requestFetchService.executeRequestBlocking(requestId);
         if(requestDTO != null)
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
@@ -117,7 +129,7 @@ public class RequestRestController {
     }
 
     @DeleteMapping("/delete_request/{requestId}")
-    public ResponseEntity<Boolean> executeRequestDelete(@PathVariable Long requestId){
+    public ResponseEntity<Boolean> executeRequestDelete(@PathVariable Long requestId) throws IOException {
         if(requestFetchService.executeDeleteRequest(requestId))
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         else return new ResponseEntity<Boolean>(false, HttpStatus.OK);
