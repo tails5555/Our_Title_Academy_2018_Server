@@ -138,13 +138,13 @@ public class BattleServiceImpl implements BattleService {
     }
 
     @Override
-    public Boolean fetchUserHasTodayRequestTitle(final String userId) throws IOException {
+    public TitleDTO fetchUserHasTodayRequestTitle(final String userId) throws IOException {
         TodayRequestDTO currentRequestDTO = todayRequestService.findByLast();
         if(currentRequestDTO == null || userId.equals("ANONYMOUS_USER")) return null;
         RequestDTO requestDTO = requestService.findById(currentRequestDTO.getRequestId());
         if(requestDTO != null) {
-            return titleService.findByUserIdAndRequest(userId, requestDTO) != null;
+            return titleService.findByUserIdAndRequest(userId, requestDTO);
         }
-        else return false;
+        else return null;
     }
 }

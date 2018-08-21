@@ -1,4 +1,4 @@
-# 우리들의 제목 학원<br/><small>Our Title Academy</small>
+# 우리들의 제목 학원 2018 Server Side<br/><small>Our Title Academy</small>
 
 달랑 사진 한 장에 짧은 몇 글자만으로 사람들에게 웃음을 제공할 수 있는 Web Application 제작.
 
@@ -20,6 +20,12 @@
 
 최근 제목학원 App 의 성향 문제에 따른 문제점을 해결하기 위해 이 App 을 관리하는 매니저가 회원이 올린 사진을 허가해야 제목을 올리도록 하여 선정성을 최소한으로 줄이는 Application 을 제작합니다.
 
+## Application Structure
+
+Application 의 간략한 구성은 다음과 같습니다. Web 측에도 기재하였으니 참고 바랍니다.
+
+![Our_Title_Academy_App_Structure](https://github.com/tails5555/Our_Title_Academy_2018_Server/blob/master/image/Our_Title_Academy_App_Structure.png)
+
 ## Server Structure
 
 1. User REST API - 사용자 계정, 프로필 관리 서버
@@ -34,6 +40,12 @@
 
     - [참고 문서로 이동](https://github.com/tails5555/Our_Title_Academy_2018_Server/tree/master/NoticeAPI)
 
+## Web References
+
+<h3>📰 React.js Web Application 은 아래에 접속하여 참고하시면 됩니다.</h3>
+
+[Web 참고하기](https://github.com/tails5555/Our_Title_Academy_2018_Web)
+
 ## Using Technologies
 
 - Relational Database : MySQL
@@ -47,6 +59,8 @@
 - Web Socket : SockJS, STOMP (in React.js Application)
 
 - RESTful API Documents : Swagger UI
+
+- Data : Spring Data JPA, Spring Data Redis
 
 ## Author
 

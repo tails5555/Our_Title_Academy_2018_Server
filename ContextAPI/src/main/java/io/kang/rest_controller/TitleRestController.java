@@ -29,6 +29,11 @@ public class TitleRestController {
         return ResponseEntity.ok(titleFetchService.fetchMainTitleList(requestId, userId));
     }
 
+    @GetMapping("fetch_all_titles")
+    public ResponseEntity<List<MainTitleVO>> fetchAllTitles(){
+        return ResponseEntity.ok(titleFetchService.fetchAllTitleList());
+    }
+
     @GetMapping("has_request_title/{requestId}/{userId}")
     public ResponseEntity<?> fetchHasRequestTitle(@PathVariable Long requestId, @PathVariable String userId){
         if(userId.equals("ANONYMOUS_USER"))
@@ -44,5 +49,10 @@ public class TitleRestController {
     @DeleteMapping("execute_delete/{titleId}")
     public ResponseEntity<Boolean> executeDeleteTitle(@PathVariable Long titleId) throws IOException {
         return ResponseEntity.ok(titleFetchService.executeTitleDeleting(titleId));
+    }
+
+    @DeleteMapping("execute_partition_delete")
+    public ResponseEntity<Boolean> executePartitionDelete(@RequestBody long[] titleIds) throws IOException{
+        return ResponseEntity.ok(titleFetchService.executeTitlePartitionDeleting(titleIds));
     }
 }

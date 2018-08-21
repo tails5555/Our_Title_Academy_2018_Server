@@ -80,6 +80,13 @@ public class TitleFetchServiceImpl implements TitleFetchService {
     }
 
     @Override
+    public List<MainTitleVO> fetchAllTitleList() {
+        return titleService.findAllByOrderByWrittenDateDesc().stream()
+                .map(titleDTO -> MainTitleVO.builtToVO(titleDTO, titleEmpathyService.countByContextAndStatus(titleDTO, Status.LIKE), titleEmpathyService.countByContextAndStatus(titleDTO, Status.HATE), null, null))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<MainTitleVO> fetchMainTitleList(final Long requestId, final String userId) {
         RequestDTO requestDTO = requestService.findById(requestId);
         if(requestDTO != null)
@@ -121,5 +128,16 @@ public class TitleFetchServiceImpl implements TitleFetchService {
                 this.titleCacheListener.onDeleteInTodayRequest(titleId);
             return true;
         } else return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean executeTitlePartitionDeleting(final long[] titleIds) {
+        for(long id : titleIds){
+            if(titleService.existsById(id)){
+                titleService.deleteById(id);
+            } else return false;
+        }
+        return true;
     }
 }
