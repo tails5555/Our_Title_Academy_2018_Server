@@ -132,9 +132,12 @@ public class TitleFetchServiceImpl implements TitleFetchService {
 
     @Override
     @Transactional
-    public boolean executeTitlePartitionDeleting(final long[] titleIds) {
+    public boolean executeTitlePartitionDeleting(final long[] titleIds) throws IOException {
         for(long id : titleIds){
+            TitleDTO titleDTO = titleService.findById(id);
             if(titleService.existsById(id)){
+                if(this.isBeTodayRequest(titleDTO.getRequest()))
+                    this.titleCacheListener.onDeleteInTodayRequest(id);
                 titleService.deleteById(id);
             } else return false;
         }

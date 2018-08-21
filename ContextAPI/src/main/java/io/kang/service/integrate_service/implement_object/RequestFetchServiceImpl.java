@@ -91,6 +91,17 @@ public class RequestFetchServiceImpl implements RequestFetchService {
     }
 
     @Override
+    public List<BriefFetchRequestVO> fetchAllValidRequest() {
+        return requestService.findByCategoryIsNotNullAndAvailableIsTrue().stream()
+                .map(requestDTO -> BriefFetchRequestVO.builtToVO(
+                        requestDTO, (requestDTO != null) ? requestDTO.getContext() : "여러분이 제목을 올려주세요.", commentService.countByRequest(requestDTO),
+                        titleService.countByRequest(requestDTO), requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE)
+                    )
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public MainFetchRequestVO fetchViewMainFetchRequestVO(final Long requestId, final String userId) {
         RequestDTO requestDTO = requestService.findById(requestId);
         return MainFetchRequestVO.builtToVO(requestDTO,
@@ -165,6 +176,17 @@ public class RequestFetchServiceImpl implements RequestFetchService {
             requestService.deleteById(requestId);
             return true;
         } else return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean executeRequestDeletePartition(final long[] requestIds) throws IOException {
+        for(long requestId : requestIds){
+            if(requestService.existsById(requestId) && !this.isTodayRequest(requestId)){
+                requestService.deleteById(requestId);
+            } else return false;
+        }
+        return true;
     }
 
     @Override

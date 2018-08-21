@@ -77,6 +77,11 @@ public class RequestRestController {
         return ResponseEntity.ok(requestFetchService.fetchPhotoAgreeBriefRequests());
     }
 
+    @GetMapping("/fetch_brief/all_valid")
+    public ResponseEntity<List<BriefFetchRequestVO>> fetchAllValidRequest(){
+        return ResponseEntity.ok(requestFetchService.fetchAllValidRequest());
+    }
+
     @GetMapping("/fetch_main/view/{requestId}/{userId}")
     public ResponseEntity<MainFetchRequestVO> fetchMainRequest(@PathVariable Long requestId, @PathVariable String userId){
         requestFetchService.viewPlus(requestId);
@@ -133,5 +138,10 @@ public class RequestRestController {
         if(requestFetchService.executeDeleteRequest(requestId))
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         else return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete_request_partition")
+    public ResponseEntity<Boolean> executeRequestDeletePartition(@RequestBody long[] requestIds) throws IOException {
+        return ResponseEntity.ok(requestFetchService.executeRequestDeletePartition(requestIds));
     }
 }
