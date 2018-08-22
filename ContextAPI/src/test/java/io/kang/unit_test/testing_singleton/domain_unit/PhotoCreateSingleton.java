@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 
 public enum PhotoCreateSingleton {
     INSTANCE;
-    private Photo photoDTO = new Photo(null, "PHOTO_USER_ID01", RequestUpdateSingleton.INSTANCE.getInstance(), "PHOTO_FILE_NAME01", 0, new byte[0], Suffix.PNG, LocalDateTime.MIN);
+    private Photo photo = new Photo(null, "PHOTO_USER_ID01", RequestUpdateSingleton.INSTANCE.getInstance(), "PHOTO_FILE_NAME01", 0, new byte[0], Suffix.PNG, LocalDateTime.MIN);
     public Photo getInstance(){
-        if(this.photoDTO == null)
+        if(this.photo == null)
             return new Photo(null, "PHOTO_USER_ID01", RequestUpdateSingleton.INSTANCE.getInstance(), "PHOTO_FILE_NAME01", 0, new byte[0], Suffix.PNG, LocalDateTime.MIN);
-        return this.photoDTO;
+        return this.photo;
     }
 }
