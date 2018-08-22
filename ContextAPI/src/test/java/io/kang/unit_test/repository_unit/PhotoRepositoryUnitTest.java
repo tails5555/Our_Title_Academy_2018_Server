@@ -3,7 +3,6 @@ package io.kang.unit_test.repository_unit;
 import io.kang.domain.mysql.Photo;
 import io.kang.domain.mysql.Request;
 import io.kang.repository.mysql.PhotoRepository;
-import io.kang.repository.mysql.PhotoRepository;
 import io.kang.repository.mysql.RequestRepository;
 import io.kang.test_config.JpaTestConfig;
 import io.kang.test_config.RedisTestConfig;

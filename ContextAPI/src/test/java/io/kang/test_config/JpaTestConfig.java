@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-@EntityScan("io.kang.domain")
-@EnableJpaRepositories("io.kang.repository")
+@EntityScan("io.kang.domain.mysql")
+@EnableJpaRepositories("io.kang.repository.mysql")
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class JpaTestConfig {

@@ -70,60 +70,67 @@
 
 ```
 <dependencies>
-    <!-- 1. Spring Cache -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-cache</artifactId>
-    </dependency>
-    <!-- 2. Spring Data JPA -->
+    <!-- 1. Spring Data JPA -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
-    <!-- 3. Spring Web MVC -->
+    <!-- 2. Spring Web MVC -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    <!-- 4. Spring WebSocket -->
+    <!-- 3. Spring WebSocket -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
-    <!-- 5. MySQL JDBC Driver -->
+    <!-- 4. MySQL JDBC Driver -->
     <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <scope>runtime</scope>
     </dependency>
-    <!-- 6. Lombok Project -->
+    <!-- 5. Lombok Project -->
     <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <optional>true</optional>
     </dependency>
-    <!-- 7. Spring Boot Tomcat -->
+    <!-- 6. Spring Boot Tomcat -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-tomcat</artifactId>
         <scope>provided</scope>
     </dependency>
-    <!-- 8. Spring Framework Test -->
+    <!-- 7. Spring Framework Test -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-test</artifactId>
         <scope>test</scope>
     </dependency>
-    <!-- 9. Spring Data Redis -->
+    <!-- 8. Spring Data Redis -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-redis</artifactId>
     </dependency>
-    <!-- 10. Redis Client Driver -->
+    <!-- 9. Redis Client Driver -->
     <dependency>
         <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
         <version>2.9.0</version>
+    </dependency>
+    <!-- 10. Swagger RESTFul Document Library -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.6.1</version>
+    </dependency>
+    <!-- 11. Swagger UI -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.6.1</version>
     </dependency>
 </dependencies>
 ```
@@ -131,6 +138,12 @@
 ## Relational Database Structure
 
 ![pj_composition_context](/ContextAPI/image/pj_composition_context.png)
+
+## Schedule
+
+스케쥴은 변경 사항이 있으면 갱신하겠습니다.
+
+![pj_composition_context](/ContextAPI/image/ContextAPI_Schedule.png)
 
 ## Author
 

@@ -16,7 +16,7 @@ import java.util.List;
 
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
-    public List<Integer> sizeBy = Arrays.asList(1, 4, 6, 8, 10, 12, 14, 16, 18, 20);
+    public List<Integer> sizeBy = Arrays.asList(4, 6, 8, 10, 12, 14, 16, 18, 20);
     public List<OptionModel> searchBy = Arrays.asList(new OptionModel(1L, "요청 제목 검색"), new OptionModel(2L, "요청 내용 검색"), new OptionModel(3L, "사용자 ID 검색"));
     public List<OptionModel> orderBy = Arrays.asList(new OptionModel(1L, "최신순"), new OptionModel(2L, "인기순"), new OptionModel(3L, "요청 제목순"), new OptionModel(4L, "작성자 ID 순"));
 

@@ -83,3 +83,5 @@ Application 의 간략한 구성은 다음과 같습니다. Web 측에도 기재
 <h3>🤷‍♀️ Thanks To 에 비공개를 원한다면 반영하겠습니다.</h3>
 
 - Redis 과 Scheduled Annotation 내용에 대해서 팁을 주신 조민국([MinGOODdev](http://github.com/MinGOODdev)) 형님.
+
+- JPA 의 참조에 따른 성능 비교를 도달하기 위해 팁을 준 ([shouwn](http://github.com/shouwn)) 형님.

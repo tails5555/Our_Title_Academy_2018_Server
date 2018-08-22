@@ -123,6 +123,18 @@
         <artifactId>spring-security-test</artifactId>
         <scope>test</scope>
     </dependency>
+    <!-- 10. Swagger RESTFul Document Library -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.6.1</version>
+    </dependency>
+    <!-- 11. Swagger UI -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.6.1</version>
+    </dependency>
 </dependencies>
 ```
 
