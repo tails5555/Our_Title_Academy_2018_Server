@@ -1,4 +1,4 @@
-# 우리들의 제목 학원 2018 Server Side<br/><small>Our Title Academy</small>
+# 우리들의 제목 학원 2018 Server Side<br/><small>Our Title Academy with Spring Boot</small>
 
 달랑 사진 한 장에 짧은 몇 글자만으로 사람들에게 웃음을 제공할 수 있는 Web Application 제작.
 
@@ -85,3 +85,5 @@ Application 의 간략한 구성은 다음과 같습니다. Web 측에도 기재
 - Redis 과 Scheduled Annotation 내용에 대해서 팁을 주신 조민국([MinGOODdev](http://github.com/MinGOODdev)) 형님.
 
 - JPA 에서 데이터베이스 구조에 따른 참조의 성능 비교를 도달하기 위해 팁을 준 서종현([shouwn](http://github.com/shouwn)).
+
+- File Upload 에 대한 로드 벨런싱의 아이디어를 제공해준 장승훈([wkdtndgns](https://github.com/wkdtndgns)).

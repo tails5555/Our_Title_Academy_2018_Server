@@ -37,8 +37,6 @@ import java.util.Random;
 public class TitleRepositoryUnitTest {
     static final Logger logger = LoggerFactory.getLogger(TitleRepository.class);
 
-    private static Random random = new Random();
-
     @Autowired
     private CategoryRepository categoryRepository;
 

@@ -130,10 +130,13 @@ public class BattleServiceImpl implements BattleService {
         return battleTitleService.findAll().stream()
                 .map(titleId -> {
                     TitleDTO titleDTO = titleService.findById(titleId);
-                    return MainTitleVO.builtToVO(titleDTO, titleEmpathyService.countByContextAndStatus(titleDTO, Status.LIKE), titleEmpathyService.countByContextAndStatus(titleDTO, Status.HATE)
+                    if(titleDTO != null)
+                        return MainTitleVO.builtToVO(titleDTO, titleEmpathyService.countByContextAndStatus(titleDTO, Status.LIKE), titleEmpathyService.countByContextAndStatus(titleDTO, Status.HATE)
                             , !(userId.equals("ANONYMOUS_USER")) ? titleEmpathyService.existsByUserIdAndContextAndStatus(userId, titleDTO, Status.LIKE) : null
                             , !(userId.equals("ANONYMOUS_USER")) ? titleEmpathyService.existsByUserIdAndContextAndStatus(userId, titleDTO, Status.HATE) : null);
+                    else return null;
                 })
+                .filter(out -> out != null)
                 .collect(Collectors.toList());
     }
 

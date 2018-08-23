@@ -6,11 +6,9 @@ import io.kang.enumeration.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public interface RequestEmpathyRepository extends EmpathyBaseRepository<RequestEmpathy>, JpaRepository<RequestEmpathy, Long> {
     public Optional<RequestEmpathy> findByUserIdAndRequest(String userId, Request request);
     public boolean existsByUserIdAndRequest(String userId, Request request);

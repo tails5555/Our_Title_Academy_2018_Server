@@ -35,8 +35,6 @@ import java.util.Random;
 public class CommentRepositoryUnitTest {
     static final Logger logger = LoggerFactory.getLogger(CategoryRepository.class);
 
-    private static Random random = new Random();
-
     @Autowired
     private CommentRepository commentRepository;
 

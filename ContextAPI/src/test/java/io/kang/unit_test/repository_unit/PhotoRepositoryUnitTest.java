@@ -35,8 +35,6 @@ import java.util.Random;
 public class PhotoRepositoryUnitTest {
     static final Logger logger = LoggerFactory.getLogger(PhotoRepository.class);
 
-    private static Random random = new Random();
-
     @Autowired
     private RequestRepository requestRepository;
 
