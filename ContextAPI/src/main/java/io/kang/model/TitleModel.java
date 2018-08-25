@@ -27,9 +27,4 @@ public class TitleModel {
             return new TitleDTO(id, request, titleModel.getUserId(), titleModel.getContext(), writtenDate);
         else return null;
     }
-    public static TitleModel builtToModelIsExisted(TitleDTO titleDTO){
-        RequestDTO requestDTO = titleDTO.getRequest();
-        if(requestDTO == null) return null;
-        else return new TitleModel(titleDTO.getUserId(), requestDTO.getId(), titleDTO.getContext());
-    }
 }
