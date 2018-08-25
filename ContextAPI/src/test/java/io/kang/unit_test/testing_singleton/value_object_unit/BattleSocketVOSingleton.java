@@ -1,9 +1,6 @@
 package io.kang.unit_test.testing_singleton.value_object_unit;
 
-import io.kang.unit_test.testing_singleton.dto_unit.TitleDTOUpdateSingleton;
 import io.kang.vo.BattleSocketVO;
-
-import java.util.Arrays;
 
 public enum BattleSocketVOSingleton {
     INSTANCE;
