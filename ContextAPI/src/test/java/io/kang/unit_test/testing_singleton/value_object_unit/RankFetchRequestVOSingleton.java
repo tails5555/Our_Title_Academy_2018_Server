@@ -6,10 +6,10 @@ import io.kang.vo.RankFetchRequestVO;
 
 public enum RankFetchRequestVOSingleton {
     INSTANCE;
-    private RankFetchRequestVO rankFetchRequestVO = new RankFetchRequestVO(1L, 0.0, RequestDTOUpdateSingleton.INSTANCE.getInstance().getId(), CategoryDTOUpdateSingleton.INSTANCE.getInstance().getId(), CategoryDTOUpdateSingleton.INSTANCE.getInstance().getName(), RequestDTOUpdateSingleton.INSTANCE.getInstance().getIntro(), "TITLE_CONTEXT_01", 0L, 0L);
+    private RankFetchRequestVO rankFetchRequestVO = new RankFetchRequestVO(1L, 1.0, RequestDTOUpdateSingleton.INSTANCE.getInstance().getId(), CategoryDTOUpdateSingleton.INSTANCE.getInstance().getId(), CategoryDTOUpdateSingleton.INSTANCE.getInstance().getName(), RequestDTOUpdateSingleton.INSTANCE.getInstance().getIntro(), "TITLE_CONTEXT_01", 0L, 0L);
     public RankFetchRequestVO getInstance(){
         if(this.rankFetchRequestVO == null)
-            return new RankFetchRequestVO(1L, 0.0, RequestDTOUpdateSingleton.INSTANCE.getInstance().getId(), CategoryDTOUpdateSingleton.INSTANCE.getInstance().getId(), CategoryDTOUpdateSingleton.INSTANCE.getInstance().getName(), RequestDTOUpdateSingleton.INSTANCE.getInstance().getIntro(), "TITLE_CONTEXT_01", 0L, 0L);
+            return new RankFetchRequestVO(1L, 1.0, RequestDTOUpdateSingleton.INSTANCE.getInstance().getId(), CategoryDTOUpdateSingleton.INSTANCE.getInstance().getId(), CategoryDTOUpdateSingleton.INSTANCE.getInstance().getName(), RequestDTOUpdateSingleton.INSTANCE.getInstance().getIntro(), "TITLE_CONTEXT_01", 0L, 0L);
         else return this.rankFetchRequestVO;
     }
 }

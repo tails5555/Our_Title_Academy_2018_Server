@@ -5,9 +5,9 @@ import io.kang.dto.mysql.CategoryDTO;
 public enum CategoryDTOCreateSingleton {
     INSTANCE;
     private CategoryDTO categoryDTO = new CategoryDTO(null, "CATEGORY_NAME01");
-    private CategoryDTO getInstance(){
+    public CategoryDTO getInstance(){
         if(this.categoryDTO == null)
             return new CategoryDTO(null, "CATEGORY_NAME01");
-        return this.categoryDTO;
+        else return this.categoryDTO;
     }
 }
