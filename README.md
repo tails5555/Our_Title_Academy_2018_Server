@@ -1,5 +1,7 @@
 # 우리들의 제목 학원 2018 Server Side<br/><small>Our Title Academy with Spring Boot</small>
 
+![ota_application_description](https://github.com/tails5555/Our_Title_Academy_2018_Server/blob/master/image/ota_application_description.png)
+
 달랑 사진 한 장에 짧은 몇 글자만으로 사람들에게 웃음을 제공할 수 있는 Web Application 제작.
 
 <h3>🐸 여러분들의 제목 센스와 드립을 <b>발휘해~</b> <i>주세요!!!</i></h3>
