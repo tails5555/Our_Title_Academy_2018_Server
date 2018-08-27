@@ -80,13 +80,13 @@ public class CommentServiceUnitTest {
     @Test
     public void comment_find_by_request_order_by_written_date_desc_test(){
         when(commentRepository.findByRequestOrderByWrittenDateDesc(RequestUpdateSingleton.INSTANCE.getInstance())).thenReturn(Arrays.asList(CommentUpdateSingleton.INSTANCE.getInstance()));
-        Assert.assertEquals(commentRepository.findByRequestOrderByWrittenDateDesc(RequestUpdateSingleton.INSTANCE.getInstance()), Arrays.asList(CommentDTOUpdateSingleton.INSTANCE.getInstance()));
+        Assert.assertEquals(commentService.findByRequestOrderByWrittenDateDesc(RequestDTOUpdateSingleton.INSTANCE.getInstance()), Arrays.asList(CommentDTOUpdateSingleton.INSTANCE.getInstance()));
     }
 
     @Test
     public void comment_find_by_user_id_order_by_written_date_desc_test(){
         when(commentRepository.findByUserIdOrderByWrittenDateDesc("COMMENT_USER_ID01")).thenReturn(Arrays.asList(CommentUpdateSingleton.INSTANCE.getInstance()));
-        Assert.assertEquals(commentRepository.findByUserIdOrderByWrittenDateDesc("COMMENT_USER_ID01"), Arrays.asList(CommentDTOUpdateSingleton.INSTANCE.getInstance()));
+        Assert.assertEquals(commentService.findByUserIdOrderByWrittenDateDesc("COMMENT_USER_ID01"), Arrays.asList(CommentDTOUpdateSingleton.INSTANCE.getInstance()));
     }
 
     @Test
