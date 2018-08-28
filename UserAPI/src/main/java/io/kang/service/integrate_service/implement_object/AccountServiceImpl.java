@@ -76,6 +76,7 @@ public class AccountServiceImpl implements AccountService {
             return null;
 
         UserDTO signUserDTO = SignModel.builtToUserDTO(signModel);
+        signUserDTO.setPassword(Encryption.encrypt(signModel.getMainPassword(), Encryption.MD5));
         UserDTO signAfterUserDTO = userService.create(signUserDTO);
 
         AgeDTO ageDTO = ageService.findById(signModel.getAgeId());
@@ -130,6 +131,7 @@ public class AccountServiceImpl implements AccountService {
         UserDTO beforeUserDTO = userService.findByLoginId(signModel.getLoginId());
         if(beforeUserDTO == null) return null;
         UserDTO afterUserDTO = SignModel.builtToUserDTOIsExisted(beforeUserDTO.getId(), signModel, beforeUserDTO.getUserType());
+        afterUserDTO.setPassword(Encryption.encrypt(signModel.getMainPassword(), Encryption.MD5));
         UserDTO signAfterUserDTO = userService.update(afterUserDTO);
 
         DetailDTO beforeDetailDTO = detailService.findByLoginId(signModel.getLoginId());

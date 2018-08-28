@@ -64,8 +64,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO create(final UserDTO userDTO) {
-        String password = userDTO.getPassword();
-        userDTO.setPassword(Encryption.encrypt(password, Encryption.MD5));
         User tmpUser = UserDTO.builtToDomain(userDTO);
         UserDTO createUser = UserDTO.builtToDTO(userRepository.save(tmpUser));
         if(createUser.getId() != null) return createUser;
@@ -74,8 +72,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO update(final UserDTO userDTO) {
-        String password = userDTO.getPassword();
-        userDTO.setPassword(Encryption.encrypt(password, Encryption.MD5));
         User tmpUser = UserDTO.builtToDomain(userDTO);
         UserDTO updateUser = UserDTO.builtToDTO(userRepository.save(tmpUser));
         return updateUser;
