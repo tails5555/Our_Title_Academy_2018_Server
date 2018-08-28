@@ -97,7 +97,6 @@ public class PhotoServiceUnitTest {
 
         PhotoDTO photoDTO = photoService.create(PhotoDTOCreateSingleton.INSTANCE.getInstance());
         Assert.assertTrue(photoDTO.getId() != null);
-
     }
 
     @Test

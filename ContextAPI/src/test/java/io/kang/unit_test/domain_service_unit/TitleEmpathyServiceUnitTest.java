@@ -100,7 +100,6 @@ public class TitleEmpathyServiceUnitTest {
 
         TitleEmpathyDTO titleEmpathyDTO = titleEmpathyService.create(TitleEmpathyDTOCreateSingleton.INSTANCE.getInstance());
         Assert.assertTrue(titleEmpathyDTO.getId() != null);
-
     }
 
     @Test

@@ -141,7 +141,6 @@ public class TitleServiceUnitTest {
 
         TitleDTO titleDTO = titleService.create(TitleDTOCreateSingleton.INSTANCE.getInstance());
         Assert.assertTrue(titleDTO.getId() != null);
-
     }
 
     @Test

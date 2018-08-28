@@ -100,7 +100,6 @@ public class RequestEmpathyServiceUnitTest {
 
         RequestEmpathyDTO requestEmpathyDTO = requestEmpathyService.create(RequestEmpathyDTOCreateSingleton.INSTANCE.getInstance());
         Assert.assertTrue(requestEmpathyDTO.getId() != null);
-
     }
 
     @Test

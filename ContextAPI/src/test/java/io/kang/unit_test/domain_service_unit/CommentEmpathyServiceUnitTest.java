@@ -1,7 +1,6 @@
 package io.kang.unit_test.domain_service_unit;
 
 import io.kang.domain.mysql.CommentEmpathy;
-import io.kang.dto.mysql.CommentEmpathyDTO;
 import io.kang.dto.mysql.CommentDTO;
 import io.kang.dto.mysql.CommentEmpathyDTO;
 import io.kang.enumeration.Status;
@@ -101,7 +100,6 @@ public class CommentEmpathyServiceUnitTest {
 
         CommentEmpathyDTO commentEmpathyDTO = commentEmpathyService.create(CommentEmpathyDTOCreateSingleton.INSTANCE.getInstance());
         Assert.assertTrue(commentEmpathyDTO.getId() != null);
-
     }
 
     @Test

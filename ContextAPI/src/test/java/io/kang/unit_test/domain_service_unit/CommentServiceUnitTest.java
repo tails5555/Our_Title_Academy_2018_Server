@@ -97,7 +97,6 @@ public class CommentServiceUnitTest {
 
         CommentDTO commentDTO = commentService.create(CommentDTOCreateSingleton.INSTANCE.getInstance());
         Assert.assertTrue(commentDTO.getId() != null);
-
     }
 
     @Test

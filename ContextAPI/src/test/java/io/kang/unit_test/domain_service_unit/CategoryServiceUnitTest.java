@@ -85,7 +85,6 @@ public class CategoryServiceUnitTest {
 
         CategoryDTO categoryDTO = categoryService.create(CategoryDTOCreateSingleton.INSTANCE.getInstance());
         Assert.assertTrue(categoryDTO.getId() != null);
-
     }
 
     @Test
