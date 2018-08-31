@@ -52,8 +52,8 @@ public class AdminRestController {
                 break;
         }
         UserDTO userDTO = accountService.executeAdminLevelChange(loginId, type);
-        if(userDTO == null) return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-        else return ResponseEntity.ok(userDTO);
+        if(userDTO == null) return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        else return ResponseEntity.ok(String.format("아이디가 %s인 회원의 등급이 %s(으)로 바뀌었습니다. 착오가 있으시면 관리자에게 연락하여 조치하시길 바랍니다.", loginId, type.name()));
     }
 
     @DeleteMapping("force_fired/{loginId}")

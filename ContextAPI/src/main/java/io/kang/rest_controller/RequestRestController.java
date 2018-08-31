@@ -88,6 +88,11 @@ public class RequestRestController {
         return ResponseEntity.ok(requestFetchService.fetchViewMainFetchRequestVO(requestId, userId));
     }
 
+    @GetMapping("/fetch_main/view/redirect/{requestId}/{userId}")
+    public ResponseEntity<MainFetchRequestVO> fetchMainRequestRedirect(@PathVariable Long requestId, @PathVariable String userId){
+        return ResponseEntity.ok(requestFetchService.fetchViewMainFetchRequestVO(requestId, userId));
+    }
+
     @GetMapping("/fetch_today/{userId}")
     public ResponseEntity<?> fetchTodayBattleRequest(@PathVariable String userId) throws IOException {
         BattleFetchRequestVO battleFetchRequestVO = battleService.fetchCurrentTodayRequest(userId);

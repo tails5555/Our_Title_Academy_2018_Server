@@ -74,7 +74,7 @@ Application 의 간략한 구성은 다음과 같습니다. Web 측에도 기재
 
     - UserAPI, ContextAPI 까지 현재까지 진행한 내용들을 공개함.
     
-- 2018 / 08 / 29 : Beta Version. (지연될 수 있음)
+- 2018 / 09 / 07 : Beta Version. (지연될 수 있음)
 
     - NoticeAPI 까지 최종 완성을 목표로 공개함.
 
