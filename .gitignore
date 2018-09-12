@@ -1,1 +1,6 @@
-.idea
+.idea/
+*.iml
+/APIGateway/src/main/resources/application.properties
+/NoticeAPI/src/main/resources/application.properties
+/UserAPI/src/main/resources/application.properties
+/ContextAPI/src/main/resources/application.properties
