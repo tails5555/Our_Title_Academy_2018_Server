@@ -18,32 +18,32 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/ContextAPI/category/")
+@RequestMapping("/ContextAPI")
 public class CategoryRestController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("list")
+    @GetMapping("categories")
     public ResponseEntity<List<CategoryDTO>> categoryList(){
         return ResponseEntity.ok(categoryService.findAll());
     }
 
-    @GetMapping("find/{id}")
+    @GetMapping("categories/{id}")
     public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
         return ResponseEntity.ok(categoryService.findById(id));
     }
 
-    @PostMapping("create")
+    @PostMapping("categories")
     public ResponseEntity<CategoryDTO> create(@RequestBody CategoryDTO categoryDTO){
         return ResponseEntity.ok(categoryService.create(categoryDTO));
     }
 
-    @PutMapping("update")
-    public ResponseEntity<CategoryDTO> update(@RequestBody CategoryDTO categoryDTO){
+    @PutMapping("categories/{id}")
+    public ResponseEntity<CategoryDTO> update(@RequestBody CategoryDTO categoryDTO, @PathVariable Long id){
         return ResponseEntity.ok(categoryService.update(categoryDTO));
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("categories/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id){
         categoryService.deleteById(id);
         return ResponseEntity.ok("카테고리가 삭제되었습니다. 초기화는 불가능합니다.");
