@@ -19,39 +19,39 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/ContextAPI/title/")
+@RequestMapping("/ContextAPI")
 public class TitleRestController {
     @Autowired
     private TitleFetchService titleFetchService;
 
-    @GetMapping("fetch_titles/{requestId}/{userId}")
+    @GetMapping("titles/main/{requestId}/{userId}")
     public ResponseEntity<List<MainTitleVO>> fetchRequestMainTitle(@PathVariable Long requestId, @PathVariable String userId){
         return ResponseEntity.ok(titleFetchService.fetchMainTitleList(requestId, userId));
     }
 
-    @GetMapping("fetch_all_titles")
+    @GetMapping("titles")
     public ResponseEntity<List<MainTitleVO>> fetchAllTitles(){
         return ResponseEntity.ok(titleFetchService.fetchAllTitleList());
     }
 
-    @GetMapping("has_request_title/{requestId}/{userId}")
+    @GetMapping("titles/user/{requestId}/{userId}")
     public ResponseEntity<?> fetchHasRequestTitle(@PathVariable Long requestId, @PathVariable String userId){
         if(userId.equals("ANONYMOUS_USER"))
             return ResponseEntity.ok(null);
         else return ResponseEntity.ok(titleFetchService.fetchUserRequestTitle(requestId, userId));
     }
 
-    @PostMapping("execute_saving")
+    @PostMapping("titles")
     public ResponseEntity<Boolean> executeSavingTitle(@RequestBody TitleModel titleModel) throws IOException {
         return ResponseEntity.ok(titleFetchService.executeTitleSaving(titleModel));
     }
 
-    @DeleteMapping("execute_delete/{titleId}")
+    @DeleteMapping("titles/{titleId}")
     public ResponseEntity<Boolean> executeDeleteTitle(@PathVariable Long titleId) throws IOException {
         return ResponseEntity.ok(titleFetchService.executeTitleDeleting(titleId));
     }
 
-    @DeleteMapping("execute_partition_delete")
+    @DeleteMapping("titles")
     public ResponseEntity<Boolean> executePartitionDelete(@RequestBody long[] titleIds) throws IOException{
         return ResponseEntity.ok(titleFetchService.executeTitlePartitionDeleting(titleIds));
     }

@@ -29,8 +29,11 @@ public class CategoryRestController {
     }
 
     @GetMapping("categories/{id}")
-    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
-        return ResponseEntity.ok(categoryService.findById(id));
+    public ResponseEntity<?> findById(@PathVariable Long id){
+        CategoryDTO categoryDTO = categoryService.findById(id);
+        if(categoryDTO != null)
+            return ResponseEntity.ok(categoryDTO);
+        else return ResponseEntity.notFound().build();
     }
 
     @PostMapping("categories")

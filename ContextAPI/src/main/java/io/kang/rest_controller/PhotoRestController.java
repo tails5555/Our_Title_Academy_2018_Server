@@ -34,6 +34,7 @@ public class PhotoRestController {
                 header.setContentType(MediaType.IMAGE_GIF);
                 break;
         }
+        header.setContentDispositionFormData("attachment", photoDTO.getFileName());
         return header;
     }
 

@@ -33,7 +33,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/ContextAPI/request/")
+@RequestMapping("/ContextAPI")
 public class RequestRestController {
     @Autowired
     private RequestService requestService;
@@ -47,48 +47,48 @@ public class RequestRestController {
     @Autowired
     private BattleService battleService;
 
-    @GetMapping("/fetch_option/search")
+    @GetMapping("requests/options/search")
     public ResponseEntity<List<OptionModel>> fetchSearchBy(){
         return ResponseEntity.ok(requestService.getSearchByModel());
     }
 
-    @GetMapping("/fetch_option/order")
+    @GetMapping("requests/options/order")
     public ResponseEntity<List<OptionModel>> fetchOrderBy(){
         return ResponseEntity.ok(requestService.getOrderByModel());
     }
 
-    @GetMapping("/fetch_option/size")
+    @GetMapping("requests/options/size")
     public ResponseEntity<List<Integer>> fetchSizeBy(){
         return ResponseEntity.ok(requestService.getSizeByModel());
     }
 
-    @GetMapping("/fetch_brief/home")
+    @GetMapping("requests")
+    public ResponseEntity<?> fetchCategoryRequest(PaginationModel paginationModel){
+        return ResponseEntity.ok(requestFetchService.fetchCategoryBriefFetchRequests(paginationModel));
+    }
+
+    @GetMapping("requests/home")
     public ResponseEntity<List<BriefFetchRequestVO>> fetchHomeRequest(){
         return ResponseEntity.ok(requestFetchService.fetchHomeBriefFetchRequests());
     }
 
-    @PostMapping("/fetch_brief/category/{categoryId}")
-    public ResponseEntity<PaginationVO> fetchCategoryRequest(@PathVariable Long categoryId, @RequestBody PaginationModel paginationModel){
-        return ResponseEntity.ok(requestFetchService.fetchCategoryBriefFetchRequests(categoryId, paginationModel));
-    }
-
-    @GetMapping("/fetch_brief/agree_list")
+    @GetMapping("requests/agree")
     public ResponseEntity<List<BriefFetchRequestVO>> fetchAgreeRequest(){
         return ResponseEntity.ok(requestFetchService.fetchPhotoAgreeBriefRequests());
     }
 
-    @GetMapping("/fetch_brief/all_valid")
+    @GetMapping("requests/valid")
     public ResponseEntity<List<BriefFetchRequestVO>> fetchAllValidRequest(){
         return ResponseEntity.ok(requestFetchService.fetchAllValidRequest());
     }
 
-    @GetMapping("/fetch_main/view/{requestId}/{userId}")
+    @GetMapping("requests/{requestId}/{userId}")
     public ResponseEntity<MainFetchRequestVO> fetchMainRequest(@PathVariable Long requestId, @PathVariable String userId){
         requestFetchService.viewPlus(requestId);
         return ResponseEntity.ok(requestFetchService.fetchViewMainFetchRequestVO(requestId, userId));
     }
 
-    @GetMapping("/fetch_main/view/redirect/{requestId}/{userId}")
+    @GetMapping("requests/_redirect/{requestId}/{userId}")
     public ResponseEntity<MainFetchRequestVO> fetchMainRequestRedirect(@PathVariable Long requestId, @PathVariable String userId){
         return ResponseEntity.ok(requestFetchService.fetchViewMainFetchRequestVO(requestId, userId));
     }
@@ -100,7 +100,7 @@ public class RequestRestController {
         else return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value="/execute_create", consumes = {"multipart/form-data"})
+    @PostMapping(value="requests", consumes = {"multipart/form-data"})
     public ResponseEntity<Boolean> executeCreateRequest(@RequestPart(value="requestModel") RequestModel requestModel, @RequestPart("file") MultipartFile multipartFile) throws IOException {
         RequestDTO requestDTO = requestFetchService.executeSaveRequest(requestModel);
         if(requestDTO != null) {
@@ -113,14 +113,14 @@ public class RequestRestController {
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
-    @PutMapping(value="/execute_update")
-    public ResponseEntity<Boolean> executeUpdateRequest(@RequestBody RequestModel requestModel){
+    @PutMapping(value="requests/{requestId}")
+    public ResponseEntity<Boolean> executeUpdateRequest(@RequestBody RequestModel requestModel, @PathVariable Long requestId){
         RequestDTO requestDTO = requestFetchService.executeSaveRequest(requestModel);
         if(requestDTO != null) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         else return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
     }
 
-    @PutMapping("/agree_request")
+    @PutMapping("requests/agree")
     public ResponseEntity<Boolean> executeAgreeRequest(@RequestBody AgreeModel agreeModel){
         RequestDTO requestDTO = requestFetchService.executeRequestAgree(agreeModel);
         if(requestDTO != null)
@@ -129,7 +129,7 @@ public class RequestRestController {
             return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
     }
 
-    @PutMapping("/block_request/{requestId}")
+    @PutMapping("requests/blocking/{requestId}")
     public ResponseEntity<Boolean> executeBlockRequest(@PathVariable Long requestId) throws IOException {
         RequestDTO requestDTO = requestFetchService.executeRequestBlocking(requestId);
         if(requestDTO != null)
@@ -138,14 +138,14 @@ public class RequestRestController {
             return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
     }
 
-    @DeleteMapping("/delete_request/{requestId}")
+    @DeleteMapping("requests/{requestId}")
     public ResponseEntity<Boolean> executeRequestDelete(@PathVariable Long requestId) throws IOException {
         if(requestFetchService.executeDeleteRequest(requestId))
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         else return new ResponseEntity<Boolean>(false, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete_request_partition")
+    @DeleteMapping("requests/multiple")
     public ResponseEntity<Boolean> executeRequestDeletePartition(@RequestBody long[] requestIds) throws IOException {
         return ResponseEntity.ok(requestFetchService.executeRequestDeletePartition(requestIds));
     }
