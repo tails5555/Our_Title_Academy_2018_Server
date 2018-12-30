@@ -19,7 +19,7 @@ public class TotalSearchRestController {
     @Autowired
     private TotalSearchService totalSearchService;
 
-    @GetMapping("fetch_keyword/{keyword}")
+    @GetMapping("{keyword}")
     public ResponseEntity<List<SearchResultVO>> fetchTotalSearchResult(@PathVariable String keyword){
         return ResponseEntity.ok(totalSearchService.fetchSearchResultList(keyword));
     }

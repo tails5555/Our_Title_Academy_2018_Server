@@ -11,10 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaginationVO {
-    private PaginationModel paginationModel;
-    private List<BriefFetchRequestVO> briefFetchRequestVOList;
+    private long count;
+    private List<BriefFetchRequestVO> results;
 
-    public static PaginationVO builtToVO(PaginationModel paginationModel, List<BriefFetchRequestVO> briefFetchRequestVOList){
-        return new PaginationVO(paginationModel, briefFetchRequestVOList);
+    public static PaginationVO builtToVO(long count, List<BriefFetchRequestVO> briefFetchRequestVOList){
+        return new PaginationVO(count, briefFetchRequestVOList);
     }
 }

@@ -93,7 +93,7 @@ public class RequestRestController {
         return ResponseEntity.ok(requestFetchService.fetchViewMainFetchRequestVO(requestId, userId));
     }
 
-    @GetMapping("/fetch_today/{userId}")
+    @GetMapping("/requests/today/{userId}")
     public ResponseEntity<?> fetchTodayBattleRequest(@PathVariable String userId) throws IOException {
         BattleFetchRequestVO battleFetchRequestVO = battleService.fetchCurrentTodayRequest(userId);
         if(battleFetchRequestVO != null) return ResponseEntity.ok(battleFetchRequestVO);
@@ -113,8 +113,8 @@ public class RequestRestController {
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
-    @PutMapping(value="requests/{requestId}")
-    public ResponseEntity<Boolean> executeUpdateRequest(@RequestBody RequestModel requestModel, @PathVariable Long requestId){
+    @PutMapping(value="requests")
+    public ResponseEntity<Boolean> executeUpdateRequest(@RequestBody RequestModel requestModel){
         RequestDTO requestDTO = requestFetchService.executeSaveRequest(requestModel);
         if(requestDTO != null) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
         else return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);

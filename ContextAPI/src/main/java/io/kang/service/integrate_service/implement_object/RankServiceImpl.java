@@ -87,7 +87,7 @@ public class RankServiceImpl implements RankService {
         return currentRanking.stream().map(
                 todayRankDTO -> {
                     RequestDTO requestDTO = requestService.findById(todayRankDTO.getRequestId());
-                    todayRankDTO.setDifference(Math.round(todayRankDTO.getDifference() - (sum / currentRanking.size()) * 10) * 1.0);
+                    todayRankDTO.setDifference(1.0 * Math.round((todayRankDTO.getDifference() - (sum / currentRanking.size())) * 10));
                     TitleDTO titleDTO = titleService.findTopByRequestIdOrderByLikeCountDesc(requestDTO.getId());
                     if(titleDTO != null)
                         return RankFetchRequestVO.builtToVO(requestDTO, todayRankDTO, titleDTO, requestEmpathyService.countByContextAndStatus(requestDTO, Status.LIKE), commentService.countByRequest(requestDTO));

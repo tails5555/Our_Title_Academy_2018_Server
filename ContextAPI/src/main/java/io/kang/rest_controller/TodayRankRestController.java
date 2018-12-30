@@ -19,12 +19,12 @@ public class TodayRankRestController {
     @Autowired
     private RankService rankService;
 
-    @GetMapping("fetch_current")
+    @GetMapping("brief/requests")
     public ResponseEntity<List<RankFetchRequestVO>> fetchCurrentRank(){
         return ResponseEntity.ok(rankService.fetchCurrentRanking());
     }
 
-    @GetMapping("fetch_main")
+    @GetMapping("main/requests")
     public ResponseEntity<List<MainFetchRequestVO>> fetchCurrentMainRank(){
         return ResponseEntity.ok(rankService.fetchMainCurrentRanking());
     }

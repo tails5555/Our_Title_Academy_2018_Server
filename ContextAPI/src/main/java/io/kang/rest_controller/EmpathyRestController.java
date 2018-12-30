@@ -13,24 +13,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/ContextAPI/empathy/")
+@RequestMapping("/ContextAPI/empathy")
 public class EmpathyRestController {
     @Autowired
     private IntegrateEmpathyService integrateEmpathyService;
 
-    @PostMapping("/checking/title_empathy/{titleId}/{method}/{userId}")
+    @PostMapping("/title/{titleId}/{method}/{userId}")
     public ResponseEntity<Void> executeTitleEmpathyChecking(@PathVariable Long titleId, @PathVariable String method, @PathVariable String userId){
         integrateEmpathyService.checkedTitleEmpathy(titleId, userId, Status.valueOf(method.toUpperCase()));
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/checking/request_empathy/{requestId}/{method}/{userId}")
+    @PostMapping("/request/{requestId}/{method}/{userId}")
     public ResponseEntity<Void> executeRequestEmpathyChecking(@PathVariable Long requestId, @PathVariable String method, @PathVariable String userId){
         integrateEmpathyService.checkedRequestEmpathy(requestId, userId, Status.valueOf(method.toUpperCase()));
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/checking/comment_empathy/{commentId}/{method}/{userId}")
+    @PostMapping("/comment/{commentId}/{method}/{userId}")
     public ResponseEntity<Void> executeCommentEmpathyChecking(@PathVariable Long commentId, @PathVariable String method, @PathVariable String userId){
         integrateEmpathyService.checkedCommentEmpathy(commentId, userId, Status.valueOf(method.toUpperCase()));
         return new ResponseEntity(HttpStatus.OK);

@@ -114,8 +114,7 @@ public class RequestFetchServiceImpl implements RequestFetchService {
     }
 
     @Override
-    public PaginationVO fetchCategoryBriefFetchRequests(final Long categoryId, final PaginationModel paginationModel) {
-        paginationModel.setId(categoryId);
+    public PaginationVO fetchCategoryBriefFetchRequests(final PaginationModel paginationModel) {
         List<BriefFetchRequestVO> briefFetchRequestVOList = requestService.findAll(paginationModel).stream()
                 .map((requestDTO) -> {
                     TitleDTO titleDTO = titleService.findTopByRequestIdOrderByLikeCountDesc(requestDTO.getId());
@@ -127,7 +126,7 @@ public class RequestFetchServiceImpl implements RequestFetchService {
                     }
                 })
                 .collect(Collectors.toList());
-        return PaginationVO.builtToVO(paginationModel, briefFetchRequestVOList);
+        return PaginationVO.builtToVO(paginationModel.getRequestCount(), briefFetchRequestVOList);
     }
 
     @Override

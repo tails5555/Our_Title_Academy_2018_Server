@@ -16,7 +16,7 @@ public interface RequestFetchService {
     public List<BriefFetchRequestVO> fetchPhotoAgreeBriefRequests();
     public List<BriefFetchRequestVO> fetchAllValidRequest();
     public MainFetchRequestVO fetchViewMainFetchRequestVO(final Long requestId, final String userId);
-    public PaginationVO fetchCategoryBriefFetchRequests(final Long categoryId, final PaginationModel paginationModel);
+    public PaginationVO fetchCategoryBriefFetchRequests(final PaginationModel paginationModel);
     public RequestDTO executeSaveRequest(final RequestModel requestModel);
     public RequestDTO executeRequestAgree(final AgreeModel agreeModel);
     public RequestDTO executeRequestBlocking(final Long requestId) throws IOException;

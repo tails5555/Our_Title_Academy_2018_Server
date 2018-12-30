@@ -18,22 +18,22 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/ContextAPI/comment/")
+@RequestMapping("/ContextAPI")
 public class CommentRestController {
     @Autowired
     private CommentFetchService commentFetchService;
 
-    @GetMapping("fetch_comments/{requestId}/{userId}")
+    @GetMapping("comments/{requestId}/{userId}")
     public ResponseEntity<List<MainCommentVO>> fetchRequestComments(@PathVariable Long requestId, @PathVariable String userId){
         return ResponseEntity.ok(commentFetchService.fetchMainCommentList(requestId, userId));
     }
 
-    @PostMapping("execute_saving")
+    @PostMapping("comments")
     public ResponseEntity<Boolean> executeSavingComment(@RequestBody CommentModel commentModel){
         return ResponseEntity.ok(commentFetchService.executeCommentSaving(commentModel));
     }
 
-    @DeleteMapping("execute_delete/{commentId}")
+    @DeleteMapping("comments/{commentId}")
     public ResponseEntity<Boolean> executeDeleteComment(@PathVariable Long commentId){
         return ResponseEntity.ok(commentFetchService.executeCommentDeleting(commentId));
     }
