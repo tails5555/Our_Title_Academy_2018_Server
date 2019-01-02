@@ -27,7 +27,12 @@ public class MainTitleVO {
 
     public static MainTitleVO builtToVO(TitleDTO titleDTO, long likeCount, long hateCount, Boolean likeChecked, Boolean hateChecked){
         RequestDTO requestDTO = titleDTO.getRequest();
-        CategoryDTO categoryDTO = requestDTO.getCategory();
-        return new MainTitleVO(titleDTO.getId(), requestDTO.getId(), categoryDTO.getId(), categoryDTO.getName(), titleDTO.getContext(), titleDTO.getUserId(), titleDTO.getWrittenDate(), likeCount, hateCount, likeChecked, hateChecked);
+        if(requestDTO != null) {
+            CategoryDTO categoryDTO = requestDTO.getCategory();
+            if(categoryDTO != null)
+                return new MainTitleVO(titleDTO.getId(), requestDTO.getId(), categoryDTO.getId(), categoryDTO.getName(), titleDTO.getContext(), titleDTO.getUserId(), titleDTO.getWrittenDate(), likeCount, hateCount, likeChecked, hateChecked);
+            else
+                return new MainTitleVO(titleDTO.getId(), requestDTO.getId(), 0L, "",  titleDTO.getContext(), titleDTO.getUserId(), titleDTO.getWrittenDate(), likeCount, hateCount, likeChecked, hateChecked);
+        } else return null;
     }
 }

@@ -109,6 +109,7 @@ public class MyContextServiceImpl implements MyContextService {
     @Override
     public List<MainTitleVO> fetchMyTitleList(final String userId){
         return titleService.findByUserIdOrderByWrittenDateDesc(userId).stream()
+                .filter(titleDTO -> titleDTO.getRequest().getCategory() != null)
                 .map(titleDTO -> MainTitleVO.builtToVO(titleDTO, titleEmpathyService.countByContextAndStatus(titleDTO, Status.LIKE), titleEmpathyService.countByContextAndStatus(titleDTO, Status.HATE), !(userId.equals("ANONYMOUS_USER")) ? titleEmpathyService.existsByUserIdAndContextAndStatus(userId, titleDTO, Status.LIKE) : null, !(userId.equals("ANONYMOUS_USER")) ? titleEmpathyService.existsByUserIdAndContextAndStatus(userId, titleDTO, Status.HATE) : null))
                 .collect(Collectors.toList());
     }
