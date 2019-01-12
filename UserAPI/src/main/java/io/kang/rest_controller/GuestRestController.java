@@ -54,7 +54,7 @@ public class GuestRestController {
         }
     }
 
-    @PostMapping("sign_up")
+    @PostMapping("sign")
     public ResponseEntity<?> signUp(@RequestBody SignModel signModel){
         DetailDTO detailDTO = accountService.executeSignUp(signModel);
         if(detailDTO != null)
@@ -62,23 +62,23 @@ public class GuestRestController {
         else return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("id_confirm/{loginId}")
+    @GetMapping("user/{loginId}")
     public ResponseEntity<Boolean> idConfirm(@PathVariable String loginId){
         UserDTO userDTO = userService.findByLoginId(loginId);
         return (userDTO == null) ? ResponseEntity.ok(true) : ResponseEntity.ok(false);
     }
 
-    @GetMapping("ageList")
+    @GetMapping("ages")
     public ResponseEntity<List<AgeDTO>> ageList(){
         return ResponseEntity.ok(ageService.findAll());
     }
 
-    @GetMapping("cityList")
+    @GetMapping("cities")
     public ResponseEntity<List<CityDTO>> cityList(){
         return ResponseEntity.ok(cityService.findAll());
     }
 
-    @GetMapping("fetch_nickname/{loginId}")
+    @GetMapping("nickname/{loginId}")
     public ResponseEntity<String> fetchNickname(@PathVariable String loginId){
         UserDTO userDTO = userService.findByLoginId(loginId);
         if(userDTO != null){
@@ -86,7 +86,7 @@ public class GuestRestController {
         } else return ResponseEntity.ok("ANONYMOUS");
     }
     
-    @PostMapping("find_loginId")
+    @PostMapping("user/model")
     public ResponseEntity<?> findLoginId(@RequestBody FindModel findModel){
         String loginId = accountService.fetchLoginId(findModel);
         return (loginId != null) ? ResponseEntity.ok(loginId) : new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
